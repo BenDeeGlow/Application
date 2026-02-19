@@ -100,7 +100,7 @@
             z-index: 10;
         }
 
-        /* ─── "Warum nicht auch meine" ──────────────── */
+        /* ─── "Warum nicht auch meine" — subtle grey ── */
         .scratch-text {
             position: fixed;
             z-index: 13;
@@ -113,69 +113,68 @@
             transition: opacity 0.8s ease;
         }
         .scratch-text .line1 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(1.6rem, 3.2vw, 2.9rem);
-            font-weight: 700;
+            font-family: 'DM Sans', sans-serif;
+            font-size: clamp(1.1rem, 2.2vw, 1.9rem);
+            font-weight: 300;
             font-style: italic;
-            color: rgba(255, 255, 255, 0.92);
-            text-shadow: 
-                0 2px 20px rgba(0,0,0,0.9), 
-                0 0 60px rgba(0,0,0,0.7),
-                0 1px 4px rgba(0,0,0,0.95);
+            /* subtle grey — less than before but slightly more than original */
+            color: rgba(200, 210, 215, 0.52);
+            text-shadow: 0 1px 12px rgba(0,0,0,0.5);
             display: block;
-            letter-spacing: 0.5px;
+            letter-spacing: 2px;
         }
         .scratch-text.hidden { opacity: 0; }
 
-        /* ─── CORNER SCRATCH HINTS ──────────────────── */
+        /* ─── SCRATCH HINTS — horizontal tilt, bigger, left-shifted ── */
         .scratch-hint {
             position: fixed;
             z-index: 12;
             pointer-events: none;
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(0.85rem, 1.8vw, 1.4rem);
-            font-weight: 900;
-            color: rgba(8, 8, 8, 0.85);
-            text-shadow: 0 1px 6px rgba(255,255,255,0.12);
-            letter-spacing: 3px;
+            font-family: 'DM Sans', sans-serif;
+            /* bigger than before */
+            font-size: clamp(1.1rem, 2.4vw, 2rem);
+            font-weight: 700;
+            color: rgba(8, 8, 8, 0.82);
+            text-shadow: 0 1px 6px rgba(255,255,255,0.1);
+            letter-spacing: 4px;
             text-transform: uppercase;
             white-space: nowrap;
             text-align: center;
-            line-height: 1.4;
+            line-height: 1.3;
             transition: opacity 0.5s ease;
         }
 
-        /* Top-left quadrant center: 25% from top, 25% from left */
+        /* left hint: shifted further left, shallower tilt (~20deg) */
         .scratch-hint-left {
             top: 25%;
-            left: 25%;
-            transform: translate(-50%, -50%) rotate(-45deg);
+            left: 18%;  /* further left than 25% */
+            transform: translate(-50%, -50%) rotate(-20deg);
             animation: hintPulseLeft 2.4s ease-in-out infinite;
         }
 
-        /* Top-right quadrant center: 25% from top, 75% from left */
+        /* right hint: matching position on right side */
         .scratch-hint-right {
             top: 25%;
-            left: 75%;
-            transform: translate(-50%, -50%) rotate(45deg);
+            left: 72%;
+            transform: translate(-50%, -50%) rotate(20deg);
             animation: hintPulseRight 2.4s ease-in-out infinite 0.35s;
         }
 
         .scratch-hint.hidden { opacity: 0 !important; animation: none; }
 
         @keyframes hintPulseLeft {
-            0%, 100% { opacity: 0.85; transform: translate(-50%,-50%) rotate(-45deg) scale(1); }
-            50%       { opacity: 1;    transform: translate(-50%,-50%) rotate(-45deg) scale(1.08); }
+            0%, 100% { opacity: 0.82; transform: translate(-50%,-50%) rotate(-20deg) scale(1); }
+            50%       { opacity: 1;   transform: translate(-50%,-50%) rotate(-20deg) scale(1.07); }
         }
         @keyframes hintPulseRight {
-            0%, 100% { opacity: 0.85; transform: translate(-50%,-50%) rotate(45deg) scale(1); }
-            50%       { opacity: 1;    transform: translate(-50%,-50%) rotate(45deg) scale(1.08); }
+            0%, 100% { opacity: 0.82; transform: translate(-50%,-50%) rotate(20deg) scale(1); }
+            50%       { opacity: 1;   transform: translate(-50%,-50%) rotate(20deg) scale(1.07); }
         }
 
         @media (max-width: 640px) {
             .reveal-content h1 { font-size: 2rem; }
-            .scratch-hint { font-size: 0.75rem; letter-spacing: 1.5px; }
-            .scratch-text .line1 { font-size: 1.35rem; }
+            .scratch-hint { font-size: 0.9rem; letter-spacing: 2px; }
+            .scratch-text .line1 { font-size: 1rem; }
         }
     </style>
 </head>
@@ -208,20 +207,10 @@
         const scratchText = document.getElementById('scratchText');
         const revealEls   = ['revealLogo','revealH1','revealP','revealBtn'].map(id => document.getElementById(id));
 
-        // Yellow glow overlay (drawn on top for visual scratch feedback)
-        const glowCanvas = document.createElement('canvas');
-        glowCanvas.style.cssText = 'position:fixed;inset:0;z-index:11;pointer-events:none;';
-        document.body.appendChild(glowCanvas);
-        const gCtx = glowCanvas.getContext('2d');
-        let glowFadeTimer;
+        canvas.width  = window.innerWidth;
+        canvas.height = window.innerHeight;
 
-        function resizeCanvases() {
-            glowCanvas.width  = canvas.width  = window.innerWidth;
-            glowCanvas.height = canvas.height = window.innerHeight;
-        }
-        resizeCanvases();
-
-        // Load scratch image
+        // Load scratch image fullscreen
         const img = new Image();
         img.onerror = () => {
             const g = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
@@ -256,7 +245,7 @@
             if (!isScratching) return;
             const { x, y } = getPos(e);
 
-            // Erase scratch layer
+            // Clean erase — no glow, no colour, just reveal
             ctx.globalCompositeOperation = 'destination-out';
             ctx.lineCap = 'round';
             ctx.lineJoin = 'round';
@@ -266,29 +255,16 @@
             ctx.lineTo(x, y);
             ctx.stroke();
 
-            const r = ctx.createRadialGradient(x, y, 0, x, y, BRUSH);
-            r.addColorStop(0, 'rgba(0,0,0,1)');
-            r.addColorStop(0.6, 'rgba(0,0,0,0.8)');
-            r.addColorStop(1, 'rgba(0,0,0,0)');
-            ctx.fillStyle = r;
+            // Soft feathered circle for smooth edges
+            const grad = ctx.createRadialGradient(x, y, 0, x, y, BRUSH);
+            grad.addColorStop(0,   'rgba(0,0,0,1)');
+            grad.addColorStop(0.7, 'rgba(0,0,0,0.85)');
+            grad.addColorStop(1,   'rgba(0,0,0,0)');
+            ctx.fillStyle = grad;
             ctx.beginPath();
             ctx.arc(x, y, BRUSH, 0, Math.PI * 2);
             ctx.fill();
             ctx.globalCompositeOperation = 'source-over';
-
-            // Yellow glow on top
-            gCtx.clearRect(x - BRUSH * 1.2, y - BRUSH * 1.2, BRUSH * 2.4, BRUSH * 2.4);
-            const glow = gCtx.createRadialGradient(x, y, 0, x, y, BRUSH * 0.7);
-            glow.addColorStop(0, 'rgba(252,210,2,0.6)');
-            glow.addColorStop(0.45, 'rgba(252,210,2,0.22)');
-            glow.addColorStop(1, 'rgba(252,210,2,0)');
-            gCtx.fillStyle = glow;
-            gCtx.beginPath();
-            gCtx.arc(x, y, BRUSH * 0.7, 0, Math.PI * 2);
-            gCtx.fill();
-
-            clearTimeout(glowFadeTimer);
-            glowFadeTimer = setTimeout(() => gCtx.clearRect(0, 0, glowCanvas.width, glowCanvas.height), 140);
 
             lastX = x; lastY = y;
 
@@ -303,9 +279,8 @@
             revealed = true;
             scratchText.classList.add('hidden');
             canvas.style.transition = 'opacity 1.3s ease';
-            glowCanvas.style.transition = 'opacity 0.6s ease';
-            canvas.style.opacity = glowCanvas.style.opacity = '0';
-            setTimeout(() => { canvas.style.display = glowCanvas.style.display = 'none'; }, 1400);
+            canvas.style.opacity = '0';
+            setTimeout(() => canvas.style.display = 'none', 1400);
             setTimeout(() => revealEls.forEach(el => el && el.classList.add('show')), 300);
         }
 
@@ -326,7 +301,8 @@
         window.addEventListener('resize', () => {
             if (revealed) return;
             const saved = canvas.toDataURL();
-            resizeCanvases();
+            canvas.width  = window.innerWidth;
+            canvas.height = window.innerHeight;
             const tmp = new Image();
             tmp.onload = () => ctx.drawImage(tmp, 0, 0);
             tmp.src = saved;
