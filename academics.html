@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academics – Your Name</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="cursor"><img src="logo.png" alt=""></div>
+    <header>
+        <div class="logo">
+            <img src="logo.png" alt="Commerzbank Logo">
+            <span class="logo-text">Commerzbank</span>
+        </div>
+        <button class="menu-btn" onclick="toggleMenu()">Menu</button>
+    </header>
+    <div class="menu-overlay" id="menuOverlay">
+        <button class="menu-close" onclick="toggleMenu()">✕</button>
+        <ul class="menu-nav">
+            <li><a href="motivation.html" onclick="toggleMenu()"><span class="number">01</span> Motivation</a></li>
+            <li><a href="academics.html" onclick="toggleMenu()"><span class="number">02</span> Academics</a></li>
+            <li><a href="experience.html" onclick="toggleMenu()"><span class="number">03</span> Work Experience</a></li>
+            <li><a href="data.html" onclick="toggleMenu()"><span class="number">04</span> Data</a></li>
+            <li><a href="contact.html" onclick="toggleMenu()"><span class="number">05</span> Contact</a></li>
+        </ul>
+    </div>
+
+    <section class="split-section">
+        <div class="video-container">
+            <video class="section-video" autoplay muted loop playsinline>
+                <source src="https://assets.mixkit.co/videos/preview/mixkit-student-writing-notes-in-a-library-4907-large.mp4" type="video/mp4">
+            </video>
+        </div>
+        <div class="content-container">
+            <div class="section-content">
+                <h2 class="section-title">Academic Background</h2>
+                <p class="section-text">
+                    My academic journey has provided me with a strong foundation in finance, economics,
+                    and business administration. Through rigorous coursework and practical applications,
+                    I've developed the analytical and strategic thinking skills essential for success in
+                    the banking industry.
+                </p>
+                <div class="academic-item">
+                    <h3>Master of Science in Finance</h3>
+                    <p><strong>University Name</strong> | 2018 – 2020</p>
+                    <p>Specialized in Corporate Finance and Investment Banking. Thesis on risk management
+                    strategies in European banking institutions. Graduated with distinction.</p>
+                </div>
+                <div class="academic-item">
+                    <h3>Bachelor of Business Administration</h3>
+                    <p><strong>University Name</strong> | 2014 – 2018</p>
+                    <p>Major in Finance with a minor in Economics. Exchange semester at a top European
+                    business school. Dean's List for academic excellence.</p>
+                </div>
+                <div class="academic-item">
+                    <h3>Professional Certifications</h3>
+                    <p><strong>Various Institutions</strong> | 2018 – Present</p>
+                    <p>CFA Level II Candidate, Series 7 &amp; 63 Licenses, Bloomberg Market Concepts (BMC),
+                    Advanced Risk Management Certification.</p>
+                </div>
+                <div class="academic-item">
+                    <h3>Continuous Education</h3>
+                    <p><strong>Industry Programs</strong></p>
+                    <p>Regular participation in industry seminars, workshops on fintech innovations,
+                    and executive education programs focusing on digital banking transformation.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── YouTube Duo Layout ─────────────────────────────── -->
+    <section class="youtube-section">
+        <div class="yt-embed">
+            <!-- 
+                REPLACE "VIDEO_ID" below with your actual YouTube video ID
+                e.g. if your video URL is https://www.youtube.com/watch?v=dQw4w9WgXcQ
+                then VIDEO_ID = dQw4w9WgXcQ
+            -->
+            <div class="yt-frame-wrap">
+                <iframe
+                    src="https://www.youtube.com/embed/VIDEO_ID?rel=0&modestbranding=1"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+                </iframe>
+            </div>
+            <p class="yt-caption">Watch while you scroll</p>
+        </div>
+        <div class="yt-content">
+            <h2 class="section-title">A Word From Me</h2>
+            <p class="section-text">
+                Watch this short video to get a personal impression — who I am, 
+                what drives me, and why I believe I'd be a great fit for Commerzbank.
+            </p>
+            <p class="section-text">
+                Feel free to keep scrolling through the rest of the page while the video plays.
+            </p>
+        </div>
+    </section>
+    <script src="script.js"></script>
+</body>
+</html>

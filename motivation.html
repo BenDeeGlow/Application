@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motivation – Your Name</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="cursor"><img src="logo.png" alt=""></div>
+    <header>
+        <div class="logo">
+            <img src="logo.png" alt="Commerzbank Logo">
+            <span class="logo-text">Commerzbank</span>
+        </div>
+        <button class="menu-btn" onclick="toggleMenu()">Menu</button>
+    </header>
+    <div class="menu-overlay" id="menuOverlay">
+        <button class="menu-close" onclick="toggleMenu()">✕</button>
+        <ul class="menu-nav">
+            <li><a href="motivation.html" onclick="toggleMenu()"><span class="number">01</span> Motivation</a></li>
+            <li><a href="academics.html" onclick="toggleMenu()"><span class="number">02</span> Academics</a></li>
+            <li><a href="experience.html" onclick="toggleMenu()"><span class="number">03</span> Work Experience</a></li>
+            <li><a href="data.html" onclick="toggleMenu()"><span class="number">04</span> Data</a></li>
+            <li><a href="contact.html" onclick="toggleMenu()"><span class="number">05</span> Contact</a></li>
+        </ul>
+    </div>
+
+    <!-- Hero -->
+    <section class="hero">
+        <video class="hero-video" autoplay muted loop playsinline>
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-business-people-working-in-an-office-4-28808-large.mp4" type="video/mp4">
+        </video>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Your <span>Name</span></h1>
+            <p class="hero-subtitle">Banking Professional&nbsp;&nbsp;·&nbsp;&nbsp;Financial Expert</p>
+            <a href="contact.html" class="hero-cta">Get in Touch</a>
+        </div>
+        <div class="scroll-indicator">
+            <span>Scroll</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <section class="split-section">
+        <div class="video-container">
+            <video class="section-video" autoplay muted loop playsinline>
+                <source src="https://assets.mixkit.co/videos/preview/mixkit-hands-of-a-person-analyzing-financial-data-4-28804-large.mp4" type="video/mp4">
+            </video>
+        </div>
+        <div class="content-container">
+            <div class="section-content">
+                <h2 class="section-title">Meine Motivation</h2>
+                <p class="section-text">
+                    Die Commerzbank steht für mich nicht nur für eine der führenden Finanzinstitutionen 
+                    Deutschlands – sie steht für die Verbindung von unternehmerischem Denken, nachhaltiger 
+                    Transformation und echtem Mehrwert für Kunden und Gesellschaft.
+                </p>
+                <div class="experience-item">
+                    <h3>Warum Commerzbank?</h3>
+                    <p><strong>Leidenschaft für Corporate Banking</strong></p>
+                    <p>Die Möglichkeit, mittelständische und große Unternehmen in strategischen 
+                    Finanzierungsfragen zu begleiten, begeistert mich. Die Commerzbank bietet genau 
+                    dieses Umfeld – mit Tiefe, Innovationsgeist und internationalem Netzwerk.</p>
+                </div>
+                <div class="experience-item">
+                    <h3>Warum jetzt?</h3>
+                    <p><strong>Transformation als Chance</strong></p>
+                    <p>Der digitale Wandel im Banking eröffnet enorme Chancen. Ich möchte aktiv dazu 
+                    beitragen, diese Transformation mitzugestalten – mit analytischem Denken, 
+                    Kundenfokus und dem Antrieb, Lösungen zu entwickeln, die wirklich einen 
+                    Unterschied machen.</p>
+                </div>
+                <div class="experience-item">
+                    <h3>Was ich einbringe</h3>
+                    <p><strong>Persönlichkeit & Kompetenz</strong></p>
+                    <p>Ich bringe fundiertes Finanzwissen, strukturiertes Denken und eine ausgeprägte 
+                    Kundenorientierung mit. Erfolgreiche Bankbeziehungen entstehen durch Vertrauen, 
+                    Verlässlichkeit und den Willen, mehr zu leisten als erwartet.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── YouTube Duo Layout ─────────────────────────────── -->
+    <section class="youtube-section">
+        <div class="yt-embed">
+            <!-- 
+                REPLACE "VIDEO_ID" below with your actual YouTube video ID
+                e.g. if your video URL is https://www.youtube.com/watch?v=dQw4w9WgXcQ
+                then VIDEO_ID = dQw4w9WgXcQ
+            -->
+            <div class="yt-frame-wrap">
+                <iframe
+                    src="https://www.youtube.com/embed/VIDEO_ID?rel=0&modestbranding=1"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+                </iframe>
+            </div>
+            <p class="yt-caption">Watch while you scroll</p>
+        </div>
+        <div class="yt-content">
+            <h2 class="section-title">A Word From Me</h2>
+            <p class="section-text">
+                Watch this short video to get a personal impression — who I am, 
+                what drives me, and why I believe I'd be a great fit for Commerzbank.
+            </p>
+            <p class="section-text">
+                Feel free to keep scrolling through the rest of the page while the video plays.
+            </p>
+        </div>
+    </section>
+    <script src="script.js"></script>
+</body>
+</html>

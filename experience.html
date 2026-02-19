@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Work Experience – Your Name</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="cursor"><img src="logo.png" alt=""></div>
+    <header>
+        <div class="logo">
+            <img src="logo.png" alt="Commerzbank Logo">
+            <span class="logo-text">Commerzbank</span>
+        </div>
+        <button class="menu-btn" onclick="toggleMenu()">Menu</button>
+    </header>
+    <div class="menu-overlay" id="menuOverlay">
+        <button class="menu-close" onclick="toggleMenu()">✕</button>
+        <ul class="menu-nav">
+            <li><a href="motivation.html" onclick="toggleMenu()"><span class="number">01</span> Motivation</a></li>
+            <li><a href="academics.html" onclick="toggleMenu()"><span class="number">02</span> Academics</a></li>
+            <li><a href="experience.html" onclick="toggleMenu()"><span class="number">03</span> Work Experience</a></li>
+            <li><a href="data.html" onclick="toggleMenu()"><span class="number">04</span> Data</a></li>
+            <li><a href="contact.html" onclick="toggleMenu()"><span class="number">05</span> Contact</a></li>
+        </ul>
+    </div>
+
+    <section class="split-section">
+        <div class="video-container">
+            <video class="section-video" autoplay muted loop playsinline>
+                <source src="https://assets.mixkit.co/videos/preview/mixkit-business-meeting-in-an-office-4895-large.mp4" type="video/mp4">
+            </video>
+        </div>
+        <div class="content-container">
+            <div class="section-content">
+                <h2 class="section-title">Professional Experience</h2>
+                <p class="section-text">
+                    Throughout my career, I've consistently delivered exceptional results in challenging
+                    environments. My experience spans corporate banking, relationship management, and
+                    strategic financial advisory across diverse industries.
+                </p>
+                <div class="experience-item">
+                    <h3>Senior Corporate Banking Manager</h3>
+                    <p><strong>Major Financial Institution</strong> | 2021 – Present</p>
+                    <p>Lead a portfolio of €500M+ in corporate clients across manufacturing and technology
+                    sectors. Developed innovative financing solutions that increased client satisfaction
+                    scores by 35%. Mentor junior team members and drive strategic initiatives for the
+                    corporate banking division.</p>
+                </div>
+                <div class="experience-item">
+                    <h3>Relationship Manager – SME Banking</h3>
+                    <p><strong>Regional Bank</strong> | 2019 – 2021</p>
+                    <p>Managed relationships with 80+ SME clients, achieving 125% of annual revenue targets.
+                    Structured complex trade finance and working capital solutions. Recognised as
+                    "Rising Star" for exceptional performance and client retention.</p>
+                </div>
+                <div class="experience-item">
+                    <h3>Credit Analyst</h3>
+                    <p><strong>International Bank</strong> | 2017 – 2019</p>
+                    <p>Conducted comprehensive credit analyses for corporate and mid-market clients.
+                    Developed financial models and risk assessments that improved approval accuracy
+                    by 20%. Collaborated with relationship managers to structure optimal credit facilities.</p>
+                </div>
+                <div class="experience-item">
+                    <h3>Banking Intern</h3>
+                    <p><strong>Investment Bank</strong> | Summer 2016</p>
+                    <p>Supported M&amp;A advisory team in deal execution and financial modelling. Conducted
+                    industry research and prepared client presentations. Received return offer based
+                    on outstanding performance.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── YouTube Duo Layout ─────────────────────────────── -->
+    <section class="youtube-section">
+        <div class="yt-embed">
+            <!-- 
+                REPLACE "VIDEO_ID" below with your actual YouTube video ID
+                e.g. if your video URL is https://www.youtube.com/watch?v=dQw4w9WgXcQ
+                then VIDEO_ID = dQw4w9WgXcQ
+            -->
+            <div class="yt-frame-wrap">
+                <iframe
+                    src="https://www.youtube.com/embed/VIDEO_ID?rel=0&modestbranding=1"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+                </iframe>
+            </div>
+            <p class="yt-caption">Watch while you scroll</p>
+        </div>
+        <div class="yt-content">
+            <h2 class="section-title">A Word From Me</h2>
+            <p class="section-text">
+                Watch this short video to get a personal impression — who I am, 
+                what drives me, and why I believe I'd be a great fit for Commerzbank.
+            </p>
+            <p class="section-text">
+                Feel free to keep scrolling through the rest of the page while the video plays.
+            </p>
+        </div>
+    </section>
+    <script src="script.js"></script>
+</body>
+</html>

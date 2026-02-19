@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome – Professional Portfolio</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            background: #001f2b;
+        }
+
+        /* ─── REVEALED CONTENT ──────────────────────── */
+        .reveal-content {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+            background: linear-gradient(145deg, #001f2b 0%, #002e3d 60%, #003a4d 100%);
+        }
+
+        .reveal-logo {
+            width: 175px;
+            height: 175px;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: scale(0.85);
+            transition: all 1s cubic-bezier(0.16,1,0.3,1);
+            object-fit: contain;
+            filter: drop-shadow(0 4px 24px rgba(252,210,2,0.4)) brightness(1.2);
+        }
+        .reveal-logo.show { opacity: 1; transform: scale(1); }
+
+        .reveal-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            color: #fcd202;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease 0.25s;
+            text-align: center;
+            letter-spacing: -1px;
+        }
+        .reveal-content h1.show { opacity: 1; transform: translateY(0); }
+
+        .reveal-content p {
+            font-size: 0.82rem;
+            color: rgba(255,255,255,0.4);
+            margin-bottom: 2.5rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 1s ease 0.4s;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            font-weight: 400;
+        }
+        .reveal-content p.show { opacity: 1; transform: translateY(0); }
+
+        .enter-btn {
+            padding: 1.2rem 3rem;
+            background: #fcd202;
+            color: #002e3d;
+            border: none;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease 0.6s, transform 1s ease 0.6s,
+                        background 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .enter-btn.show { opacity: 1; transform: translateY(0); }
+        .enter-btn:hover {
+            background: #e8c800;
+            box-shadow: 0 6px 20px rgba(252,210,2,0.2);
+        }
+
+        /* ─── SCRATCH CANVAS ────────────────────────── */
+        #scratch-canvas {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            cursor: crosshair;
+            z-index: 10;
+        }
+
+        /* ─── "Warum nicht auch meine" ──────────────── */
+        .scratch-text {
+            position: fixed;
+            z-index: 13;
+            pointer-events: none;
+            bottom: 13%;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            width: 80%;
+            transition: opacity 0.8s ease;
+        }
+        .scratch-text .line1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.6rem, 3.2vw, 2.9rem);
+            font-weight: 700;
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.92);
+            text-shadow: 
+                0 2px 20px rgba(0,0,0,0.9), 
+                0 0 60px rgba(0,0,0,0.7),
+                0 1px 4px rgba(0,0,0,0.95);
+            display: block;
+            letter-spacing: 0.5px;
+        }
+        .scratch-text.hidden { opacity: 0; }
+
+        /* ─── CORNER SCRATCH HINTS ──────────────────── */
+        .scratch-hint {
+            position: fixed;
+            z-index: 12;
+            pointer-events: none;
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(0.85rem, 1.8vw, 1.4rem);
+            font-weight: 900;
+            color: rgba(8, 8, 8, 0.85);
+            text-shadow: 0 1px 6px rgba(255,255,255,0.12);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            white-space: nowrap;
+            text-align: center;
+            line-height: 1.4;
+            transition: opacity 0.5s ease;
+        }
+
+        /* Top-left quadrant center: 25% from top, 25% from left */
+        .scratch-hint-left {
+            top: 25%;
+            left: 25%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            animation: hintPulseLeft 2.4s ease-in-out infinite;
+        }
+
+        /* Top-right quadrant center: 25% from top, 75% from left */
+        .scratch-hint-right {
+            top: 25%;
+            left: 75%;
+            transform: translate(-50%, -50%) rotate(45deg);
+            animation: hintPulseRight 2.4s ease-in-out infinite 0.35s;
+        }
+
+        .scratch-hint.hidden { opacity: 0 !important; animation: none; }
+
+        @keyframes hintPulseLeft {
+            0%, 100% { opacity: 0.85; transform: translate(-50%,-50%) rotate(-45deg) scale(1); }
+            50%       { opacity: 1;    transform: translate(-50%,-50%) rotate(-45deg) scale(1.08); }
+        }
+        @keyframes hintPulseRight {
+            0%, 100% { opacity: 0.85; transform: translate(-50%,-50%) rotate(45deg) scale(1); }
+            50%       { opacity: 1;    transform: translate(-50%,-50%) rotate(45deg) scale(1.08); }
+        }
+
+        @media (max-width: 640px) {
+            .reveal-content h1 { font-size: 2rem; }
+            .scratch-hint { font-size: 0.75rem; letter-spacing: 1.5px; }
+            .scratch-text .line1 { font-size: 1.35rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navy revealed content -->
+    <div class="reveal-content">
+        <img src="logo.png" alt="Logo" class="reveal-logo" id="revealLogo">
+        <h1 id="revealH1">Welcome</h1>
+        <p id="revealP">Professional Portfolio</p>
+        <a href="motivation.html" class="enter-btn" id="revealBtn">Enter Site</a>
+    </div>
+
+    <!-- Scratch hints: dark, rotated 45° inward, pulsating -->
+    <div class="scratch-hint scratch-hint-left"  id="hintLeft">Scratch<br>to Reveal</div>
+    <div class="scratch-hint scratch-hint-right" id="hintRight">Scratch<br>to Reveal</div>
+
+    <!-- "Warum nicht auch meine" — high contrast, no Erfolgsgeschichten -->
+    <div class="scratch-text" id="scratchText">
+        <span class="line1">Warum nicht auch meine</span>
+    </div>
+
+    <canvas id="scratch-canvas"></canvas>
+
+    <script>
+        const canvas = document.getElementById('scratch-canvas');
+        const ctx    = canvas.getContext('2d');
+        const hintL  = document.getElementById('hintLeft');
+        const hintR  = document.getElementById('hintRight');
+        const scratchText = document.getElementById('scratchText');
+        const revealEls   = ['revealLogo','revealH1','revealP','revealBtn'].map(id => document.getElementById(id));
+
+        // Yellow glow overlay (drawn on top for visual scratch feedback)
+        const glowCanvas = document.createElement('canvas');
+        glowCanvas.style.cssText = 'position:fixed;inset:0;z-index:11;pointer-events:none;';
+        document.body.appendChild(glowCanvas);
+        const gCtx = glowCanvas.getContext('2d');
+        let glowFadeTimer;
+
+        function resizeCanvases() {
+            glowCanvas.width  = canvas.width  = window.innerWidth;
+            glowCanvas.height = canvas.height = window.innerHeight;
+        }
+        resizeCanvases();
+
+        // Load scratch image
+        const img = new Image();
+        img.onerror = () => {
+            const g = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+            g.addColorStop(0, '#1c2a35'); g.addColorStop(1, '#0a1520');
+            ctx.fillStyle = g;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        };
+        img.onload = () => ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        img.src = 'Scratch.png';
+
+        let isScratching = false, revealed = false;
+        let lastX = 0, lastY = 0;
+        const BRUSH = 88;
+
+        const getPos = e => {
+            const r = canvas.getBoundingClientRect();
+            return e.touches
+                ? { x: e.touches[0].clientX - r.left, y: e.touches[0].clientY - r.top }
+                : { x: e.clientX - r.left, y: e.clientY - r.top };
+        };
+
+        function startScratch(e) {
+            isScratching = true;
+            const p = getPos(e);
+            lastX = p.x; lastY = p.y;
+            doScratch(e);
+            hintL.classList.add('hidden');
+            hintR.classList.add('hidden');
+        }
+
+        function doScratch(e) {
+            if (!isScratching) return;
+            const { x, y } = getPos(e);
+
+            // Erase scratch layer
+            ctx.globalCompositeOperation = 'destination-out';
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            ctx.lineWidth = BRUSH * 2;
+            ctx.beginPath();
+            ctx.moveTo(lastX, lastY);
+            ctx.lineTo(x, y);
+            ctx.stroke();
+
+            const r = ctx.createRadialGradient(x, y, 0, x, y, BRUSH);
+            r.addColorStop(0, 'rgba(0,0,0,1)');
+            r.addColorStop(0.6, 'rgba(0,0,0,0.8)');
+            r.addColorStop(1, 'rgba(0,0,0,0)');
+            ctx.fillStyle = r;
+            ctx.beginPath();
+            ctx.arc(x, y, BRUSH, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.globalCompositeOperation = 'source-over';
+
+            // Yellow glow on top
+            gCtx.clearRect(x - BRUSH * 1.2, y - BRUSH * 1.2, BRUSH * 2.4, BRUSH * 2.4);
+            const glow = gCtx.createRadialGradient(x, y, 0, x, y, BRUSH * 0.7);
+            glow.addColorStop(0, 'rgba(252,210,2,0.6)');
+            glow.addColorStop(0.45, 'rgba(252,210,2,0.22)');
+            glow.addColorStop(1, 'rgba(252,210,2,0)');
+            gCtx.fillStyle = glow;
+            gCtx.beginPath();
+            gCtx.arc(x, y, BRUSH * 0.7, 0, Math.PI * 2);
+            gCtx.fill();
+
+            clearTimeout(glowFadeTimer);
+            glowFadeTimer = setTimeout(() => gCtx.clearRect(0, 0, glowCanvas.width, glowCanvas.height), 140);
+
+            lastX = x; lastY = y;
+
+            // Check 25% threshold
+            const d = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+            let t = 0;
+            for (let i = 3; i < d.length; i += 4) if (d[i] === 0) t++;
+            if ((t / (d.length / 4)) * 100 > 25 && !revealed) doReveal();
+        }
+
+        function doReveal() {
+            revealed = true;
+            scratchText.classList.add('hidden');
+            canvas.style.transition = 'opacity 1.3s ease';
+            glowCanvas.style.transition = 'opacity 0.6s ease';
+            canvas.style.opacity = glowCanvas.style.opacity = '0';
+            setTimeout(() => { canvas.style.display = glowCanvas.style.display = 'none'; }, 1400);
+            setTimeout(() => revealEls.forEach(el => el && el.classList.add('show')), 300);
+        }
+
+        canvas.addEventListener('mousedown',  startScratch);
+        canvas.addEventListener('mousemove',  doScratch);
+        canvas.addEventListener('mouseup',    () => isScratching = false);
+        canvas.addEventListener('mouseleave', () => isScratching = false);
+        canvas.addEventListener('touchstart', e => { e.preventDefault(); startScratch(e); }, { passive:false });
+        canvas.addEventListener('touchmove',  e => { e.preventDefault(); doScratch(e); },   { passive:false });
+        canvas.addEventListener('touchend',   () => isScratching = false);
+
+        let clicks = 0;
+        canvas.addEventListener('click', () => {
+            if (++clicks >= 3) doReveal();
+            setTimeout(() => clicks = 0, 900);
+        });
+
+        window.addEventListener('resize', () => {
+            if (revealed) return;
+            const saved = canvas.toDataURL();
+            resizeCanvases();
+            const tmp = new Image();
+            tmp.onload = () => ctx.drawImage(tmp, 0, 0);
+            tmp.src = saved;
+        });
+    </script>
+</body>
+</html>
