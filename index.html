@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome – Professional Portfolio</title>
+    <title>Welcome &#x2013; Professional Portfolio</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap');
 
@@ -13,34 +13,46 @@
             font-family: 'DM Sans', sans-serif;
             overflow: hidden;
             height: 100vh;
-            /* Navy blue — shown after scratch completes */
-            background: linear-gradient(145deg, #001f2b 0%, #002e3d 60%, #003a4d 100%);
+            /* Pure navy — what shows after reveal */
+            background: #001f2b;
         }
 
-        /* ── Background photo: fullscreen, left-aligned ── */
+        /* ── Background photo ─────────────────────────────────
+           left top with vertical shift: background-position y=25%
+           moves the image UP so the embedded text sits centre-screen  */
         .bg-image {
             position: fixed;
             inset: 0;
             background-image: url('Scratch.png');
             background-size: cover;
-            background-position: left top;
+            background-position: left 25%;
             z-index: 0;
+            transition: opacity 1.2s ease;
+        }
+        /* Fade out the background photo when reveal happens */
+        .bg-image.hidden { opacity: 0; pointer-events: none; }
+
+        /* ── Top-right placeholder text ── */
+        .top-right-text {
+            position: fixed;
+            top: 2rem;
+            right: 2.5rem;
+            z-index: 12;
+            text-align: right;
+            pointer-events: none;
+            max-width: 260px;
+        }
+        .top-right-text p {
+            font-size: 0.82rem;
+            font-weight: 400;
+            font-style: italic;
+            color: rgba(255, 255, 255, 0.55);
+            line-height: 1.7;
+            letter-spacing: 0.3px;
+            text-shadow: 0 1px 8px rgba(0,0,0,0.6);
         }
 
-        /* Subtle gradient overlay — does NOT mask text, just adds depth */
-        .bg-image::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(
-                to bottom,
-                rgba(0,0,0,0.08) 0%,
-                transparent 40%,
-                rgba(0,0,0,0.15) 100%
-            );
-        }
-
-        /* ── Revealed content (navy bg, shown after scratch) ── */
+        /* ── Revealed content — pure navy, no photo ── */
         .reveal-content {
             position: fixed;
             inset: 0;
@@ -50,19 +62,26 @@
             justify-content: center;
             z-index: 5;
             pointer-events: none;
+            /* navy background so no photo shows through */
+            background: #001f2b;
+            opacity: 0;
+            transition: opacity 0.6s ease 0.4s;
+        }
+        .reveal-content.show {
+            opacity: 1;
+            pointer-events: auto;
         }
 
         .reveal-logo {
-            width: 175px;
-            height: 175px;
+            width: 175px; height: 175px;
             margin-bottom: 1.8rem;
             opacity: 0;
             transform: scale(0.85);
-            transition: all 1s cubic-bezier(0.16,1,0.3,1);
+            transition: all 1s cubic-bezier(0.16,1,0.3,1) 0.5s;
             object-fit: contain;
             filter: brightness(1.6) saturate(0.7) drop-shadow(0 2px 12px rgba(0,0,0,0.4));
         }
-        .reveal-logo.show { opacity: 1; transform: scale(1); }
+        .reveal-content.show .reveal-logo { opacity: 1; transform: scale(1); }
 
         .reveal-welcome {
             font-size: clamp(2.8rem, 6vw, 5rem);
@@ -70,25 +89,24 @@
             color: #fcd202;
             letter-spacing: -1px;
             opacity: 0;
-            transform: translateY(28px);
-            transition: all 1s ease 0.2s;
+            transform: translateY(24px);
+            transition: all 1s ease 0.65s;
             text-align: center;
         }
-        .reveal-welcome.show { opacity: 1; transform: translateY(0); }
+        .reveal-content.show .reveal-welcome { opacity: 1; transform: translateY(0); }
 
         .reveal-subtitle {
             font-size: 0.82rem;
             color: rgba(255,255,255,0.4);
-            margin-top: 0.6rem;
-            margin-bottom: 0;
+            margin-top: 0.5rem;
             font-weight: 400;
             letter-spacing: 4px;
             text-transform: uppercase;
             opacity: 0;
-            transform: translateY(18px);
-            transition: all 1s ease 0.35s;
+            transform: translateY(16px);
+            transition: all 1s ease 0.8s;
         }
-        .reveal-subtitle.show { opacity: 1; transform: translateY(0); }
+        .reveal-content.show .reveal-subtitle { opacity: 1; transform: translateY(0); }
 
         .enter-btn {
             margin-top: 2.5rem;
@@ -104,15 +122,18 @@
             text-decoration: none;
             display: inline-block;
             opacity: 0;
-            transform: translateY(18px);
+            transform: translateY(16px);
             transition: background 0.3s, color 0.3s,
-                        opacity 1s ease 0.55s, transform 1s ease 0.55s;
+                        opacity 1s ease 0.95s, transform 1s ease 0.95s;
             pointer-events: none;
         }
-        .enter-btn.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+        .reveal-content.show .enter-btn {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
         .enter-btn:hover { background: #e8c800; color: #002e3d; }
 
-        /* "Warum nicht auch meine" — subtle grey, below button, same as V1 */
         .warum-text {
             margin-top: 1.6rem;
             font-size: clamp(0.95rem, 1.8vw, 1.45rem);
@@ -120,14 +141,12 @@
             font-style: italic;
             color: rgba(200, 210, 215, 0.52);
             letter-spacing: 2px;
-            text-shadow: 0 1px 10px rgba(0,0,0,0.4);
             opacity: 0;
-            transform: translateY(14px);
-            transition: opacity 1s ease 0.75s, transform 1s ease 0.75s;
-            pointer-events: none;
+            transform: translateY(12px);
+            transition: opacity 1s ease 1.1s, transform 1s ease 1.1s;
             text-align: center;
         }
-        .warum-text.show { opacity: 1; transform: translateY(0); }
+        .reveal-content.show .warum-text { opacity: 1; transform: translateY(0); }
 
         /* ── Scratch canvas ── */
         #scratch-canvas {
@@ -139,7 +158,7 @@
             z-index: 10;
         }
 
-        /* ── "Scratch to Reveal" hints ── */
+        /* ── Scratch hints ── */
         .scratch-hint {
             position: fixed;
             z-index: 12;
@@ -148,7 +167,6 @@
             font-size: clamp(1.4rem, 3vw, 2.4rem);
             font-weight: 700;
             color: rgba(8, 8, 8, 0.82);
-            text-shadow: 0 1px 6px rgba(255,255,255,0.1);
             letter-spacing: 4px;
             text-transform: uppercase;
             white-space: nowrap;
@@ -159,42 +177,48 @@
         .scratch-hint-left {
             top: 25%; left: 18%;
             transform: translate(-50%,-50%) rotate(-20deg);
-            animation: hintPulseLeft 2.4s ease-in-out infinite;
+            animation: hintPulseL 2.4s ease-in-out infinite;
         }
         .scratch-hint-right {
             top: 25%; left: 72%;
             transform: translate(-50%,-50%) rotate(20deg);
-            animation: hintPulseRight 2.4s ease-in-out infinite 0.35s;
+            animation: hintPulseR 2.4s ease-in-out infinite 0.35s;
         }
         .scratch-hint.hidden { opacity: 0 !important; animation: none; }
 
-        @keyframes hintPulseLeft {
-            0%,100% { opacity:.82; transform:translate(-50%,-50%) rotate(-20deg) scale(1); }
-            50%      { opacity:1;   transform:translate(-50%,-50%) rotate(-20deg) scale(1.07); }
+        @keyframes hintPulseL {
+            0%,100%{ opacity:.82; transform:translate(-50%,-50%) rotate(-20deg) scale(1); }
+            50%    { opacity:1;   transform:translate(-50%,-50%) rotate(-20deg) scale(1.07); }
         }
-        @keyframes hintPulseRight {
-            0%,100% { opacity:.82; transform:translate(-50%,-50%) rotate(20deg) scale(1); }
-            50%      { opacity:1;   transform:translate(-50%,-50%) rotate(20deg) scale(1.07); }
+        @keyframes hintPulseR {
+            0%,100%{ opacity:.82; transform:translate(-50%,-50%) rotate(20deg) scale(1); }
+            50%    { opacity:1;   transform:translate(-50%,-50%) rotate(20deg) scale(1.07); }
         }
 
         @media (max-width: 768px) {
-            .reveal-logo  { width: 110px; height: 110px; }
+            .reveal-logo { width: 110px; height: 110px; }
             .scratch-hint { font-size: 1rem; letter-spacing: 2px; }
+            .top-right-text { display: none; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Fullscreen background photo, left-aligned -->
-    <div class="bg-image"></div>
+    <!-- Background photo — hidden when reveal triggers -->
+    <div class="bg-image" id="bgImage"></div>
 
-    <!-- Revealed: navy bg + logo + Welcome + warum (NO Erfolgsgeschichten) -->
-    <div class="reveal-content">
-        <img src="logo.png" alt="Logo" class="reveal-logo"    id="rvLogo">
-        <span class="reveal-welcome"                           id="rvWelcome">Welcome</span>
-        <span class="reveal-subtitle"                          id="rvSub">Professional Portfolio</span>
-        <a href="motivation.html" class="enter-btn"            id="rvBtn">Enter Site</a>
-        <p class="warum-text"                                  id="rvWarum">Warum nicht auch meine</p>
+    <!-- Top-right placeholder -->
+    <div class="top-right-text">
+        <p>[ Your text here — a short tagline, quote, or note to the reviewer ]</p>
+    </div>
+
+    <!-- Reveal: pure navy, no photo -->
+    <div class="reveal-content" id="revealContent">
+        <img src="logo.png" alt="Logo" class="reveal-logo">
+        <span class="reveal-welcome">Welcome</span>
+        <span class="reveal-subtitle">Professional Portfolio</span>
+        <a href="motivation.html" class="enter-btn">Enter Site</a>
+        <p class="warum-text">Warum nicht auch meine</p>
     </div>
 
     <!-- Scratch hints -->
@@ -206,28 +230,32 @@
     <script>
         const canvas  = document.getElementById('scratch-canvas');
         const ctx     = canvas.getContext('2d');
+        const bgImage = document.getElementById('bgImage');
+        const revealContent = document.getElementById('revealContent');
         const hintL   = document.getElementById('hintLeft');
         const hintR   = document.getElementById('hintRight');
-        const reveals = ['rvLogo','rvWelcome','rvSub','rvBtn','rvWarum'].map(id => document.getElementById(id));
 
         canvas.width  = window.innerWidth;
         canvas.height = window.innerHeight;
 
-        /* Draw Scratch.png — fullscreen cover, left-aligned (same as bg-image) */
+        /* Draw Scratch.png — cover, left-aligned with same y-shift as bg-image (25%) */
         const scratchImg = new Image();
         scratchImg.onerror = () => {
-            ctx.fillStyle = '#111';
+            ctx.fillStyle = '#1a2530';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
         };
         scratchImg.onload = drawCover;
         scratchImg.src = 'Scratch.png';
 
         function drawCover() {
-            const scale = Math.max(canvas.width / scratchImg.width, canvas.height / scratchImg.height);
-            const sw = scratchImg.width  * scale;
-            const sh = scratchImg.height * scale;
-            /* left-aligned: x starts at 0 */
-            ctx.drawImage(scratchImg, 0, 0, sw, sh);
+            const cw = canvas.width, ch = canvas.height;
+            const iw = scratchImg.width, ih = scratchImg.height;
+            const scale = Math.max(cw / iw, ch / ih);
+            const sw = iw * scale, sh = ih * scale;
+            /* x: left-aligned at 0
+               y: shift up by 25% — moves image up so embedded text centres on screen */
+            const sy = -(sh - ch) * 0.25;
+            ctx.drawImage(scratchImg, 0, sy, sw, sh);
         }
 
         let isScratching = false, revealed = false;
@@ -254,47 +282,30 @@
             if (!isScratching) return;
             const { x, y } = getPos(e);
 
-            /* ── Yellow circle that STAYS (source-over, not destination-out for colour) ──
-               Step 1: draw yellow on a temp off-screen canvas concept —
-               Actually: erase image, then fill erased area with yellow, then the navy
-               body shows through. We do this by:
-               1) destination-out to erase the image
-               2) Then draw a yellow filled circle in normal mode on top (stays visible)
-            */
-
-            // Step 1 — erase scratch layer
+            /* Step 1 — erase the image layer */
             ctx.globalCompositeOperation = 'destination-out';
-            ctx.lineCap = 'round';
+            ctx.lineCap  = 'round';
             ctx.lineJoin = 'round';
             ctx.lineWidth = BRUSH * 2;
             ctx.beginPath();
             ctx.moveTo(lastX, lastY);
             ctx.lineTo(x, y);
             ctx.stroke();
-
-            const erase = ctx.createRadialGradient(x, y, 0, x, y, BRUSH);
-            erase.addColorStop(0,   'rgba(0,0,0,1)');
-            erase.addColorStop(0.75,'rgba(0,0,0,0.9)');
-            erase.addColorStop(1,   'rgba(0,0,0,0)');
-            ctx.fillStyle = erase;
+            /* Hard-edge circle erase */
             ctx.beginPath();
             ctx.arc(x, y, BRUSH, 0, Math.PI * 2);
             ctx.fill();
             ctx.globalCompositeOperation = 'source-over';
 
-            // Step 2 — paint persistent yellow circle on top
-            const yellow = ctx.createRadialGradient(x, y, 0, x, y, BRUSH * 0.6);
-            yellow.addColorStop(0,   'rgba(252,210,2,0.75)');
-            yellow.addColorStop(0.55,'rgba(252,210,2,0.35)');
-            yellow.addColorStop(1,   'rgba(252,210,2,0)');
-            ctx.fillStyle = yellow;
+            /* Step 2 — FULL solid yellow circle (no gradient, no transparency) */
+            ctx.fillStyle = '#fcd202';
             ctx.beginPath();
-            ctx.arc(x, y, BRUSH * 0.6, 0, Math.PI * 2);
+            ctx.arc(x, y, BRUSH * 0.7, 0, Math.PI * 2);
             ctx.fill();
 
             lastX = x; lastY = y;
 
-            // 25% threshold → reveal navy page
+            /* 25% scratched → reveal */
             const d = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
             let t = 0;
             for (let i = 3; i < d.length; i += 4) if (d[i] === 0) t++;
@@ -303,10 +314,13 @@
 
         function doReveal() {
             revealed = true;
-            canvas.style.transition = 'opacity 1.2s ease';
-            canvas.style.opacity = '0';
+            /* Fade out canvas and background photo together */
+            canvas.style.transition  = 'opacity 1.2s ease';
+            canvas.style.opacity     = '0';
+            bgImage.classList.add('hidden');   /* fades out the photo — pure navy shows */
             setTimeout(() => canvas.style.display = 'none', 1300);
-            setTimeout(() => reveals.forEach(el => el && el.classList.add('show')), 350);
+            /* Show reveal panel */
+            setTimeout(() => revealContent.classList.add('show'), 200);
         }
 
         canvas.addEventListener('mousedown',  startScratch);
@@ -326,7 +340,7 @@
         window.addEventListener('resize', () => {
             if (revealed) return;
             const saved = canvas.toDataURL();
-            canvas.width = window.innerWidth;
+            canvas.width  = window.innerWidth;
             canvas.height = window.innerHeight;
             const tmp = new Image();
             tmp.onload = () => ctx.drawImage(tmp, 0, 0);

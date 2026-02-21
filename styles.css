@@ -362,6 +362,7 @@ header.scrolled {
     display: flex; align-items: stretch;
     min-height: 100vh;
     background: var(--navy-deep);
+    padding-top: 82px; /* header height */
 }
 .yt-embed {
     flex: 1; position: sticky; top: 82px;
@@ -369,6 +370,7 @@ header.scrolled {
     display: flex; flex-direction: column; justify-content: center;
     padding: 3rem;
     background: var(--navy-deep);
+    align-self: flex-start;
 }
 .yt-frame-wrap {
     position: relative; padding-bottom: 56.25%;
@@ -496,7 +498,7 @@ header.scrolled {
     border-top: 1px solid rgba(252,210,2,0.12);
     padding: 4rem;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 3rem;
     align-items: start;
 }
