@@ -116,13 +116,7 @@ header.scrolled {
 }
 
 .logo-text {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 1rem;
-    font-weight: 600;
-    /* White text on navy header */
-    color: var(--white);
-    text-transform: uppercase;
-    letter-spacing: 3px;
+    display: none; /* removed "Commerzbank" label from header */
 }
 
 .menu-btn {
@@ -840,6 +834,56 @@ header.scrolled {
 @keyframes fadeInUp {
     from { opacity: 0; transform: translateY(8px); }
     to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── FOOTER CONTACT STRIP ──────────────────────────────── */
+.footer-contact {
+    background: var(--navy-deep);
+    border-top: 1px solid rgba(252,210,2,0.12);
+    padding: 1.2rem 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.footer-contact .footer-label {
+    font-size: var(--size-sm);
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+}
+
+.footer-contact .footer-links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.footer-contact a {
+    font-size: var(--size-sm);
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    letter-spacing: 0.5px;
+    transition: color 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.footer-contact a:hover { color: var(--yellow); }
+
+@media (max-width: 768px) {
+    .footer-contact {
+        padding: 1rem 1.5rem;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.8rem;
+    }
+    .footer-contact .footer-links { gap: 1rem; }
 }
 
 /* ─── RESPONSIVE ────────────────────────────────────────── */
