@@ -3,66 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data – Your Name</title>
+    <title>Data &#x2013; Your Name</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        .data-actions { display: flex; gap: 0.5rem; align-items: center; }
-        .btn-delete {
-            background: none;
-            border: 1px solid rgba(255,255,255,0.15);
-            color: rgba(255,255,255,0.45);
-            font-size: 0.8rem;
-            padding: 0.4rem 0.7rem;
-            border-radius: 3px;
-            transition: all 0.2s;
-        }
-        .btn-delete:hover { border-color: #e74c3c; color: #e74c3c; background: rgba(231,76,60,0.08); }
-        .loading-ring {
-            display: block;
-            width: 22px; height: 22px;
-            border: 2px solid rgba(0,46,61,0.12);
-            border-top-color: #fcd202;
-            border-radius: 50%;
-            animation: spin 0.7s linear infinite;
-            margin: 1.5rem auto;
-        }
-        @keyframes spin { to { transform: rotate(360deg); } }
-        .info-banner {
-            background: rgba(252,210,2,0.07);
-            border: 1px solid rgba(252,210,2,0.18);
-            border-radius: 6px;
-            padding: 0.9rem 1.1rem;
-            margin-bottom: 1.4rem;
-            font-size: 0.8rem;
-            color: var(--text-mid);
-            line-height: 1.6;
-        }
-        .info-banner strong { color: var(--navy); }
+        .data-actions { display:flex; gap:.5rem; align-items:center; }
+        .btn-delete { background:none; border:1px solid rgba(255,255,255,.15); color:rgba(255,255,255,.45); font-size:.8rem; padding:.4rem .7rem; border-radius:3px; transition:all .2s; }
+        .btn-delete:hover { border-color:#e74c3c; color:#e74c3c; }
+        .loading-ring { display:block; width:22px; height:22px; border:2px solid rgba(0,46,61,.12); border-top-color:#fcd202; border-radius:50%; animation:spin .7s linear infinite; margin:1.5rem auto; }
+        @keyframes spin { to { transform:rotate(360deg); } }
+        .info-banner { background:rgba(252,210,2,.07); border:1px solid rgba(252,210,2,.18); border-radius:6px; padding:.9rem 1.1rem; margin-bottom:1.4rem; font-size:.8rem; color:var(--text-mid); line-height:1.6; }
+        .info-banner strong { color:var(--navy); }
     </style>
 </head>
 <body>
     <div class="cursor"><img src="logo.png" alt=""></div>
     <header>
-        <div class="logo">
-            <img src="logo.png" alt="Commerzbank Logo">
-            <span class="logo-text">Commerzbank</span>
-        </div>
+        <div class="logo"><img src="logo.png" alt="Logo"></div>
         <button class="menu-btn" onclick="toggleMenu()">Menu</button>
     </header>
     <div class="menu-overlay" id="menuOverlay">
-        <button class="menu-close" onclick="toggleMenu()">✕</button>
+        <button class="menu-close" onclick="toggleMenu()">&#x2715;</button>
         <ul class="menu-nav">
             <li><a href="motivation.html" onclick="toggleMenu()"><span class="number">01</span> Motivation</a></li>
-            <li><a href="academics.html" onclick="toggleMenu()"><span class="number">02</span> Academics</a></li>
+            <li><a href="academics.html"  onclick="toggleMenu()"><span class="number">02</span> Academics</a></li>
             <li><a href="experience.html" onclick="toggleMenu()"><span class="number">03</span> Work Experience</a></li>
-            <li><a href="data.html" onclick="toggleMenu()"><span class="number">04</span> Data</a></li>
-            <li><a href="contact.html" onclick="toggleMenu()"><span class="number">05</span> Contact</a></li>
+            <li><a href="data.html"       onclick="toggleMenu()"><span class="number">04</span> Data</a></li>
+            <li><a href="website.html"    onclick="toggleMenu()"><span class="number">05</span> Website</a></li>
         </ul>
     </div>
 
     <main id="data-page">
         <div class="data-header">
-            <h2 class="section-title">Documents & Data</h2>
+            <h2 class="section-title">Documents &amp; Data</h2>
             <p class="section-text">Upload your CV, certificates and application documents. Files are stored on the server and can be downloaded by anyone reviewing your application.</p>
         </div>
         <div class="data-grid">
@@ -72,9 +44,9 @@
                 <div class="info-banner"><strong>Persistent storage.</strong> Files stay on the server until you delete them.</div>
                 <div class="upload-zone" id="uploadZone">
                     <input type="file" id="fileInput" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.png,.jpg,.jpeg,.txt,.zip">
-                    <div class="upload-icon">⬆</div>
-                    <p><span>Click to upload</span> or drag & drop</p>
-                    <p class="file-types">PDF · DOC · DOCX · XLSX · PPTX · PNG · JPG · ZIP</p>
+                    <div class="upload-icon">&#x2B06;</div>
+                    <p><span>Click to upload</span> or drag &amp; drop</p>
+                    <p class="file-types">PDF &#xB7; DOC &#xB7; DOCX &#xB7; XLSX &#xB7; PPTX &#xB7; PNG &#xB7; JPG &#xB7; ZIP</p>
                 </div>
                 <div class="upload-progress" id="uploadProgress"><div class="upload-progress-bar" id="progressBar"></div></div>
                 <div class="upload-status" id="uploadStatus"></div>
@@ -87,96 +59,48 @@
         </div>
     </main>
 
-
-    <footer class="footer-contact">
-        <span class="footer-label">Contact</span>
-        <div class="footer-links">
-            <a href="mailto:your.email@example.com">✉ your.email@example.com</a>
-            <a href="tel:+49123456789">✆ +49 (123) 456-789</a>
-            <a href="contact.html">→ Full Contact Page</a>
+    <footer class="site-footer">
+        <div class="footer-col">
+            <h4>Contact</h4>
+            <a class="footer-link-row" href="mailto:your.email@example.com"><span class="flr-icon">&#x2709;</span> your.email@example.com</a>
+            <a class="footer-link-row" href="tel:+49123456789"><span class="flr-icon">&#x260E;</span> +49 (123) 456-789</a>
+            <a class="footer-link-row" href="https://linkedin.com/in/yourprofile" target="_blank"><span class="flr-icon">in</span> linkedin.com/in/yourprofile</a>
+            <a class="footer-link-row" href="#"><span class="flr-icon">&#x1F4CD;</span> Frankfurt am Main, Germany</a>
+        </div>
+        <div class="footer-col">
+            <h4>Navigation</h4>
+            <a class="footer-link-row" href="motivation.html"><span class="flr-icon">&#x2192;</span> Motivation</a>
+            <a class="footer-link-row" href="academics.html"><span class="flr-icon">&#x2192;</span> Academics</a>
+            <a class="footer-link-row" href="experience.html"><span class="flr-icon">&#x2192;</span> Work Experience</a>
+            <a class="footer-link-row" href="data.html"><span class="flr-icon">&#x2192;</span> Data</a>
+            <a class="footer-link-row" href="website.html"><span class="flr-icon">&#x2192;</span> Website</a>
+        </div>
+        <div class="footer-col">
+            <h4>About This Application</h4>
+            <p>This portfolio was purpose-built for my application to Commerzbank &#x2014; designed to demonstrate not just professional experience, but also initiative, attention to detail, and technical curiosity.</p>
         </div>
     </footer>
+    <div class="footer-bottom">
+        <span>Your Name &#xB7; Application Portfolio</span>
+        <span>Frankfurt am Main &#xB7; 2025</span>
+    </div>
+
     <script src="script.js"></script>
     <script>
-        const fileInput    = document.getElementById('fileInput');
-        const uploadZone   = document.getElementById('uploadZone');
-        const downloadList = document.getElementById('downloadList');
-        const progressWrap = document.getElementById('uploadProgress');
-        const progressBar  = document.getElementById('progressBar');
-        const statusEl     = document.getElementById('uploadStatus');
-
-        const fmt  = b => b < 1024 ? b+' B' : b < 1048576 ? (b/1024).toFixed(1)+' KB' : (b/1048576).toFixed(1)+' MB';
-        const ico  = n => { const e=n.split('.').pop().toLowerCase(); return {pdf:'📄',doc:'📝',docx:'📝',png:'🖼',jpg:'🖼',jpeg:'🖼',xls:'📊',xlsx:'📊',ppt:'📑',pptx:'📑',zip:'🗜'}[e]||'📎'; };
-        const setStatus = (m,t='') => { statusEl.textContent=m; statusEl.className='upload-status '+t; };
-
-        async function loadFiles() {
-            try {
-                const r = await fetch('list_files.php');
-                const d = await r.json();
-                renderDownloads(d.files||[]);
-            } catch {
-                downloadList.innerHTML = '<div class="empty-state">Could not connect to server. PHP required.</div>';
-            }
-        }
-
-        function renderDownloads(files) {
-            if (!files.length) { downloadList.innerHTML='<div class="empty-state">No documents uploaded yet.</div>'; return; }
-            downloadList.innerHTML = files.map(f=>`
-                <div class="download-entry">
-                    <div class="dl-name"><span class="dl-icon">${ico(f.filename)}</span><span title="${f.filename}">${f.filename.length>30?f.filename.slice(0,28)+'…':f.filename}</span></div>
-                    <div class="data-actions">
-                        <a href="download.php?file=${encodeURIComponent(f.filename)}" class="btn-download">↓ Download</a>
-                        <button class="btn-delete" onclick="deleteFile('${f.filename.replace(/'/g,"\\'")}')">✕</button>
-                    </div>
-                </div>`).join('');
-        }
-
-        function uploadFile(file) {
-            return new Promise(resolve => {
-                const fd = new FormData();
-                fd.append('file', file);
-                const xhr = new XMLHttpRequest();
-                xhr.open('POST','upload.php');
-                xhr.upload.onprogress = e => { if(e.lengthComputable){ progressWrap.style.display='block'; progressBar.style.width=(e.loaded/e.total*100)+'%'; }};
-                xhr.onload  = () => { try{ resolve(JSON.parse(xhr.responseText)); }catch{ resolve({success:false,error:'Server error'}); }};
-                xhr.onerror = () => resolve({success:false,error:'Network error'});
-                xhr.send(fd);
-            });
-        }
-
-        async function handleFiles(files) {
-            for(const file of files){
-                setStatus('Uploading '+file.name+'…');
-                progressWrap.style.display='block'; progressBar.style.width='0%';
-                const r = await uploadFile(file);
-                if(r.success){
-                    setStatus('✓ '+r.filename+' uploaded','success');
-                    progressBar.style.width='100%';
-                    setTimeout(()=>{ progressWrap.style.display='none'; progressBar.style.width='0%'; setStatus(''); },800);
-                    await loadFiles();
-                } else {
-                    setStatus('✗ '+(r.error||'Upload failed'),'error');
-                    progressWrap.style.display='none';
-                }
-            }
-        }
-
-        async function deleteFile(filename) {
-            if(!confirm('Delete "'+filename+'"?')) return;
-            try{
-                const r = await fetch('delete.php',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({file:filename})});
-                const d = await r.json();
-                if(d.success){ setStatus('✓ Deleted','success'); setTimeout(()=>setStatus(''),2000); loadFiles(); }
-                else alert('Error: '+(d.error||'Could not delete'));
-            } catch { alert('Network error'); }
-        }
-
-        fileInput.addEventListener('change', e => { handleFiles([...e.target.files]); fileInput.value=''; });
-        uploadZone.addEventListener('dragover',  e => { e.preventDefault(); uploadZone.classList.add('dragover'); });
-        uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('dragover'));
-        uploadZone.addEventListener('drop', e => { e.preventDefault(); uploadZone.classList.remove('dragover'); handleFiles([...e.dataTransfer.files]); });
-
-        setTimeout(() => document.querySelectorAll('.data-panel').forEach(el => el.classList.add('visible')), 100);
+        const fileInput=document.getElementById('fileInput'),uploadZone=document.getElementById('uploadZone'),downloadList=document.getElementById('downloadList'),progressWrap=document.getElementById('uploadProgress'),progressBar=document.getElementById('progressBar'),statusEl=document.getElementById('uploadStatus');
+        const fmt=b=>b<1024?b+' B':b<1048576?(b/1024).toFixed(1)+' KB':(b/1048576).toFixed(1)+' MB';
+        const ico=n=>({pdf:'&#x1F4C4;',doc:'&#x1F4DD;',docx:'&#x1F4DD;',png:'&#x1F5BC;',jpg:'&#x1F5BC;',jpeg:'&#x1F5BC;',xls:'&#x1F4CA;',xlsx:'&#x1F4CA;',ppt:'&#x1F4D1;',pptx:'&#x1F4D1;',zip:'&#x1F5DC;'})[n.split('.').pop().toLowerCase()]||'&#x1F4CE;';
+        const setStatus=(m,t='')=>{statusEl.textContent=m;statusEl.className='upload-status '+t;};
+        async function loadFiles(){try{const r=await fetch('list_files.php');const d=await r.json();renderDownloads(d.files||[]);}catch{downloadList.innerHTML='<div class="empty-state">No files yet — or PHP not enabled on this server.</div>';}}
+        function renderDownloads(files){if(!files.length){downloadList.innerHTML='<div class="empty-state">No documents uploaded yet.</div>';return;}downloadList.innerHTML=files.map(f=>`<div class="download-entry"><div class="dl-name"><span>${ico(f.filename)}</span><span title="${f.filename}">${f.filename.length>30?f.filename.slice(0,28)+'&#x2026;':f.filename}</span></div><div class="data-actions"><a href="download.php?file=${encodeURIComponent(f.filename)}" class="btn-download">&#x2193; Download</a><button class="btn-delete" onclick="deleteFile('${f.filename.replace(/'/g,"\\'")}')">&#x2715;</button></div></div>`).join('');}
+        function uploadFile(file){return new Promise(resolve=>{const fd=new FormData();fd.append('file',file);const xhr=new XMLHttpRequest();xhr.open('POST','upload.php');xhr.upload.onprogress=e=>{if(e.lengthComputable){progressWrap.style.display='block';progressBar.style.width=(e.loaded/e.total*100)+'%';}};xhr.onload=()=>{try{resolve(JSON.parse(xhr.responseText));}catch{resolve({success:false,error:'Server error'});}};xhr.onerror=()=>resolve({success:false,error:'Network error'});xhr.send(fd);});}
+        async function handleFiles(files){for(const file of files){setStatus('Uploading '+file.name+'...');progressWrap.style.display='block';progressBar.style.width='0%';const r=await uploadFile(file);if(r.success){setStatus('&#x2713; '+r.filename+' uploaded','success');progressBar.style.width='100%';setTimeout(()=>{progressWrap.style.display='none';progressBar.style.width='0%';setStatus('');},800);await loadFiles();}else{setStatus('&#x2717; '+(r.error||'Upload failed'),'error');progressWrap.style.display='none';}}}
+        async function deleteFile(filename){if(!confirm('Delete "'+filename+'"?'))return;try{const r=await fetch('delete.php',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({file:filename})});const d=await r.json();if(d.success){setStatus('&#x2713; Deleted','success');setTimeout(()=>setStatus(''),2000);loadFiles();}else alert('Error: '+(d.error||'Could not delete'));}catch{alert('Network error');}}
+        fileInput.addEventListener('change',e=>{handleFiles([...e.target.files]);fileInput.value='';});
+        uploadZone.addEventListener('dragover',e=>{e.preventDefault();uploadZone.classList.add('dragover');});
+        uploadZone.addEventListener('dragleave',()=>uploadZone.classList.remove('dragover'));
+        uploadZone.addEventListener('drop',e=>{e.preventDefault();uploadZone.classList.remove('dragover');handleFiles([...e.dataTransfer.files]);});
+        setTimeout(()=>document.querySelectorAll('.data-panel').forEach(el=>el.classList.add('visible')),100);
         loadFiles();
     </script>
 </body>
