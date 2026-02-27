@@ -399,6 +399,55 @@ header.scrolled {
 .yt-content::-webkit-scrollbar { width: 3px; }
 .yt-content::-webkit-scrollbar-thumb { background: rgba(252,210,2,.25); border-radius: 3px; }
 
+/* ── Timestamp placeholders ── */
+.yt-timestamps {
+    margin-top: 1.4rem;
+    border-top: 1px solid rgba(252,210,2,.1);
+    padding-top: 1rem;
+}
+.ts-label {
+    font-size: var(--size-sm);
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.2);
+    margin-bottom: .6rem;
+}
+.ts-item {
+    display: flex;
+    gap: .8rem;
+    padding: .3rem 0;
+    border-bottom: 1px solid rgba(255,255,255,.04);
+    align-items: center;
+}
+.ts-item:last-child { border-bottom: none; }
+.ts-time {
+    font-size: var(--size-sm);
+    color: var(--yellow);
+    font-weight: 600;
+    min-width: 36px;
+    opacity: .7;
+}
+.ts-title {
+    font-size: var(--size-sm);
+    color: rgba(255,255,255,.35);
+    font-style: italic;
+}
+
+/* ── Header placeholder text (top-left beside logo) ── */
+.header-tagline {
+    font-size: var(--size-sm);
+    font-weight: 400;
+    color: rgba(255,255,255,.4);
+    letter-spacing: 1px;
+    font-style: italic;
+    margin-left: 1.2rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 280px;
+}
+
 /* ─── CONTACT PAGE ───────────────────────────────────────── */
 #contact {
     min-height: 100vh;
