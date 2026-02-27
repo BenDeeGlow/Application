@@ -8,7 +8,6 @@
     <style>
         #website-page { padding-top: 82px; background: var(--off-white); }
 
-        /* ── Hero ── */
         .process-hero {
             background: var(--navy);
             padding: 6rem 4rem 5rem;
@@ -22,340 +21,103 @@
             border: 60px solid rgba(252,210,2,.05);
             border-radius: 50%; pointer-events: none;
         }
-        .process-hero h1 {
-            font-size: var(--size-lg); font-weight: 700;
-            color: var(--yellow); margin-bottom: 1rem; letter-spacing: -.5px;
-        }
-        .process-hero p {
-            font-size: var(--size-md); color: rgba(255,255,255,.58);
-            max-width: 640px; line-height: 1.9; font-weight: 300;
-        }
+        .process-hero h1 { font-size: var(--size-lg); font-weight: 700; color: var(--yellow); margin-bottom: 1rem; letter-spacing: -.5px; }
+        .process-hero p  { font-size: var(--size-md); color: rgba(255,255,255,.58); max-width: 640px; line-height: 1.9; font-weight: 300; }
 
-        /* ── Timeline ── */
-        .process-steps {
-            padding: 5rem 4rem; max-width: 900px; margin: 0 auto;
-        }
-        .process-steps h2 {
-            font-size: var(--size-lg); font-weight: 700; color: var(--navy);
-            margin-bottom: 3rem; position: relative; padding-bottom: 1rem;
-        }
-        .process-steps h2::after {
-            content: ''; position: absolute; bottom: 0; left: 0;
-            width: 60px; height: 3px; background: var(--yellow);
-        }
+        .process-steps { padding: 5rem 4rem; max-width: 900px; margin: 0 auto; }
+        .process-steps h2 { font-size: var(--size-lg); font-weight: 700; color: var(--navy); margin-bottom: 3rem; position: relative; padding-bottom: 1rem; }
+        .process-steps h2::after { content: ''; position: absolute; bottom: 0; left: 0; width: 60px; height: 3px; background: var(--yellow); }
+
         .timeline { position: relative; padding-left: 2rem; }
-        .timeline::before {
-            content: ''; position: absolute;
-            left: 0; top: 8px; bottom: 0; width: 2px;
-            background: linear-gradient(to bottom, var(--yellow), rgba(252,210,2,.1));
-        }
+        .timeline::before { content: ''; position: absolute; left: 0; top: 8px; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--yellow), rgba(252,210,2,.1)); }
         .timeline-item { position: relative; padding: 0 0 3rem 2rem; }
-        .timeline-item::before {
-            content: ''; position: absolute;
-            left: -5px; top: 8px;
-            width: 12px; height: 12px;
-            background: var(--yellow); border-radius: 50%;
-            border: 2px solid var(--off-white);
-        }
-        .tl-label {
-            font-size: var(--size-sm); font-weight: 700;
-            letter-spacing: 2px; text-transform: uppercase;
-            color: var(--yellow); margin-bottom: .4rem;
-        }
-        .timeline-item h3 {
-            font-size: var(--size-md); font-weight: 700;
-            color: var(--navy); margin-bottom: .5rem;
-        }
-        .timeline-item p {
-            font-size: var(--size-md); color: var(--text-mid);
-            line-height: 1.8; font-weight: 300;
-        }
+        .timeline-item::before { content: ''; position: absolute; left: -5px; top: 8px; width: 12px; height: 12px; background: var(--yellow); border-radius: 50%; border: 2px solid var(--off-white); }
+        .tl-label { font-size: var(--size-sm); font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--yellow); margin-bottom: .4rem; }
+        .timeline-item h3 { font-size: var(--size-md); font-weight: 700; color: var(--navy); margin-bottom: .5rem; }
+        .timeline-item p  { font-size: var(--size-md); color: var(--text-mid); line-height: 1.8; font-weight: 300; }
 
-        /* ── Tech pills ── */
         .tech-stack { padding: 0 4rem 5rem; max-width: 900px; margin: 0 auto; }
-        .tech-stack h2 {
-            font-size: var(--size-lg); font-weight: 700;
-            color: var(--navy); margin-bottom: 2rem;
-        }
+        .tech-stack h2 { font-size: var(--size-lg); font-weight: 700; color: var(--navy); margin-bottom: 2rem; }
         .pill-row { display: flex; flex-wrap: wrap; gap: .7rem; }
-        .pill {
-            background: var(--white); border: 1px solid rgba(0,46,61,.1);
-            color: var(--navy); padding: .5rem 1.1rem;
-            font-size: var(--size-sm); font-weight: 600; letter-spacing: 1px;
-            border-radius: 2px; transition: background .2s, border-color .2s;
-        }
+        .pill { background: var(--white); border: 1px solid rgba(0,46,61,.1); color: var(--navy); padding: .5rem 1.1rem; font-size: var(--size-sm); font-weight: 600; letter-spacing: 1px; border-radius: 2px; transition: background .2s, border-color .2s; }
         .pill:hover { background: var(--yellow); border-color: var(--yellow); }
 
-        /* ── Q&A Fold/Unfold ── */
-        .qa-section {
-            background: var(--navy-deep);
-            padding: 5rem 4rem;
-        }
-        .qa-section > h2 {
-            font-size: var(--size-lg); font-weight: 700;
-            color: var(--white); margin-bottom: .5rem;
-        }
-        .qa-sub {
-            font-size: var(--size-sm); color: rgba(255,255,255,.28);
-            margin-bottom: 3rem; letter-spacing: 1px;
-        }
-
+        /* ── Q&A ── */
+        .qa-section { background: var(--navy-deep); padding: 5rem 4rem; }
+        .qa-section > h2 { font-size: var(--size-lg); font-weight: 700; color: var(--white); margin-bottom: .5rem; }
+        .qa-sub { font-size: var(--size-sm); color: rgba(255,255,255,.28); margin-bottom: 3rem; letter-spacing: 1px; }
         .qa-board { max-width: 760px; margin: 0 auto; }
 
-        /* ── Leave a question toggle ── */
+        /* Ask toggle */
         .qa-ask-toggle {
-            width: 100%;
-            background: transparent;
-            border: 1px solid rgba(252,210,2,.2);
-            color: rgba(255,255,255,.6);
-            padding: 1.1rem 1.5rem;
-            font-family: 'DM Sans', sans-serif;
-            font-size: var(--size-md);
-            font-weight: 600;
-            letter-spacing: .5px;
-            text-align: left;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            cursor: pointer;
-            transition: border-color .25s, color .25s, background .25s;
-            margin-bottom: 0;
+            width: 100%; background: transparent;
+            border: 1px solid rgba(252,210,2,.2); color: rgba(255,255,255,.6);
+            padding: 1.1rem 1.5rem; font-family: 'DM Sans', sans-serif;
+            font-size: var(--size-md); font-weight: 600; letter-spacing: .5px;
+            text-align: left; display: flex; align-items: center; justify-content: space-between;
+            cursor: pointer; transition: border-color .25s, color .25s, background .25s;
         }
-        .qa-ask-toggle:hover,
-        .qa-ask-toggle.open {
-            border-color: rgba(252,210,2,.5);
-            color: var(--yellow);
-            background: rgba(252,210,2,.04);
-        }
-        .qa-toggle-arrow {
-            font-size: 1.1rem;
-            transition: transform .3s ease;
-        }
+        .qa-ask-toggle:hover, .qa-ask-toggle.open { border-color: rgba(252,210,2,.5); color: var(--yellow); background: rgba(252,210,2,.04); }
+        .qa-toggle-arrow { font-size: 1.1rem; transition: transform .3s ease; display: inline-block; }
         .qa-ask-toggle.open .qa-toggle-arrow { transform: rotate(180deg); }
 
-        /* ── Folding form panel ── */
-        .qa-form-panel {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height .45s cubic-bezier(.4,0,.2,1), padding .3s ease;
-            background: rgba(255,255,255,.03);
-            border: 1px solid rgba(252,210,2,.1);
-            border-top: none;
-            border-radius: 0 0 4px 4px;
-        }
-        .qa-form-panel.open {
-            max-height: 400px;
-            padding: 1.5rem;
-        }
-        .qa-form-panel textarea {
-            width: 100%;
-            background: rgba(255,255,255,.05);
-            border: 1px solid rgba(252,210,2,.12);
-            border-radius: 3px;
-            padding: .9rem 1rem;
-            font-family: 'DM Sans', sans-serif;
-            font-size: var(--size-md);
-            color: var(--white);
-            resize: vertical;
-            min-height: 100px;
-            outline: none;
-            font-weight: 300;
-            line-height: 1.6;
-        }
+        /* Folding form */
+        .qa-form-panel { max-height: 0; overflow: hidden; transition: max-height .45s cubic-bezier(.4,0,.2,1); background: rgba(255,255,255,.03); border: 1px solid rgba(252,210,2,.1); border-top: none; border-radius: 0 0 4px 4px; }
+        .qa-form-panel.open { max-height: 400px; padding: 1.5rem; }
+        .qa-form-panel textarea { width: 100%; background: rgba(255,255,255,.05); border: 1px solid rgba(252,210,2,.12); border-radius: 3px; padding: .9rem 1rem; font-family: 'DM Sans', sans-serif; font-size: var(--size-md); color: var(--white); resize: vertical; min-height: 100px; outline: none; font-weight: 300; line-height: 1.6; }
         .qa-form-panel textarea::placeholder { color: rgba(255,255,255,.2); }
-        .qa-form-footer {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-top: .8rem;
-            gap: 1rem;
-        }
-        .qa-name-input {
-            flex: 1;
-            background: rgba(255,255,255,.05);
-            border: 1px solid rgba(252,210,2,.12);
-            border-radius: 3px;
-            padding: .65rem 1rem;
-            font-family: 'DM Sans', sans-serif;
-            font-size: var(--size-sm);
-            color: var(--white);
-            outline: none;
-        }
+        .qa-form-footer { display: flex; align-items: center; justify-content: space-between; margin-top: .8rem; gap: 1rem; }
+        .qa-name-input { flex: 1; background: rgba(255,255,255,.05); border: 1px solid rgba(252,210,2,.12); border-radius: 3px; padding: .65rem 1rem; font-family: 'DM Sans', sans-serif; font-size: var(--size-sm); color: var(--white); outline: none; }
         .qa-name-input::placeholder { color: rgba(255,255,255,.2); }
-        .qa-submit-btn {
-            background: var(--yellow);
-            color: var(--navy);
-            border: none;
-            padding: .7rem 1.8rem;
-            font-family: 'DM Sans', sans-serif;
-            font-size: var(--size-sm);
-            font-weight: 700;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: background .2s;
-            border-radius: 2px;
-            white-space: nowrap;
-        }
+        .qa-submit-btn { background: var(--yellow); color: var(--navy); border: none; padding: .7rem 1.8rem; font-family: 'DM Sans', sans-serif; font-size: var(--size-sm); font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; transition: background .2s; border-radius: 2px; white-space: nowrap; }
         .qa-submit-btn:hover { background: var(--yellow-muted); }
-        .qa-sent-msg {
-            display: none;
-            color: rgba(255,255,255,.45);
-            font-size: var(--size-sm);
-            font-style: italic;
-            padding: 1rem 0 .5rem;
-            text-align: center;
-        }
+        .qa-sent-msg { display: none; color: rgba(255,255,255,.45); font-size: var(--size-sm); font-style: italic; padding: .8rem 0 .3rem; text-align: center; }
 
-        /* ── Submitted questions list ── */
+        /* Question list */
         .qa-list { margin-top: 2rem; display: flex; flex-direction: column; gap: .8rem; }
+        .qa-loading { text-align: center; color: rgba(255,255,255,.2); font-style: italic; font-size: var(--size-sm); padding: 2rem; }
 
-        .qa-item {
-            border: 1px solid rgba(252,210,2,.08);
-            border-radius: 4px;
-            overflow: hidden;
-        }
-        .qa-item-header {
-            width: 100%;
-            background: rgba(255,255,255,.04);
-            border: none;
-            padding: 1rem 1.2rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 1rem;
-            cursor: pointer;
-            text-align: left;
-            transition: background .2s;
-        }
+        .qa-item { border: 1px solid rgba(252,210,2,.08); border-radius: 4px; overflow: hidden; }
+        .qa-item-header { width: 100%; background: rgba(255,255,255,.04); border: none; padding: 1rem 1.2rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; cursor: pointer; text-align: left; transition: background .2s; }
         .qa-item-header:hover { background: rgba(255,255,255,.07); }
-        .qa-item-q {
-            font-size: var(--size-md);
-            color: rgba(255,255,255,.75);
-            font-weight: 500;
-            flex: 1;
-        }
-        .qa-item-meta {
-            font-size: var(--size-sm);
-            color: rgba(255,255,255,.2);
-            white-space: nowrap;
-            display: flex; align-items: center; gap: .8rem;
-        }
-        .qa-item-arrow {
-            color: rgba(252,210,2,.5);
-            font-size: .9rem;
-            transition: transform .3s;
-        }
+        .qa-item-q { font-size: var(--size-md); color: rgba(255,255,255,.75); font-weight: 500; flex: 1; }
+        .qa-item-meta { font-size: var(--size-sm); color: rgba(255,255,255,.2); white-space: nowrap; display: flex; align-items: center; gap: .8rem; }
+        .qa-item-arrow { color: rgba(252,210,2,.5); font-size: .9rem; transition: transform .3s; display: inline-block; }
         .qa-item.open .qa-item-arrow { transform: rotate(180deg); }
+        .qa-item-answer { max-height: 0; overflow: hidden; transition: max-height .4s cubic-bezier(.4,0,.2,1); background: rgba(0,0,0,.15); }
+        .qa-item.open .qa-item-answer { max-height: 500px; }
+        .qa-item-answer-inner { padding: 1rem 1.2rem 1.2rem; font-size: var(--size-md); color: rgba(255,255,255,.5); font-weight: 300; line-height: 1.7; border-top: 1px solid rgba(252,210,2,.06); }
+        .qa-item-answer-inner.pending { color: rgba(255,255,255,.22); font-style: italic; }
 
-        .qa-item-answer {
-            max-height: 0; overflow: hidden;
-            transition: max-height .4s cubic-bezier(.4,0,.2,1);
-            background: rgba(0,0,0,.15);
-        }
-        .qa-item.open .qa-item-answer { max-height: 400px; }
-        .qa-item-answer-inner {
-            padding: 1rem 1.2rem 1.2rem;
-            font-size: var(--size-md);
-            color: rgba(255,255,255,.5);
-            font-weight: 300;
-            line-height: 1.7;
-            border-top: 1px solid rgba(252,210,2,.06);
-        }
-        .qa-item-answer-inner.pending {
-            color: rgba(255,255,255,.22);
-            font-style: italic;
-        }
-
-        /* ── Owner unlock ── */
-        .qa-owner-section {
-            margin-top: 2.5rem;
-            border-top: 1px solid rgba(255,255,255,.05);
-            padding-top: 1.5rem;
-        }
-        .qa-owner-toggle {
-            background: none; border: none;
-            font-family: 'DM Sans', sans-serif;
-            font-size: var(--size-sm);
-            color: rgba(255,255,255,.18);
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: color .2s;
-            text-decoration: underline;
-            text-underline-offset: 3px;
-        }
+        /* Owner panel */
+        .qa-owner-section { margin-top: 2.5rem; border-top: 1px solid rgba(255,255,255,.05); padding-top: 1.5rem; }
+        .qa-owner-toggle { background: none; border: none; font-family: 'DM Sans', sans-serif; font-size: var(--size-sm); color: rgba(255,255,255,.18); letter-spacing: 1px; cursor: pointer; transition: color .2s; text-decoration: underline; text-underline-offset: 3px; }
         .qa-owner-toggle:hover { color: rgba(255,255,255,.4); }
-
-        .qa-owner-panel {
-            max-height: 0; overflow: hidden;
-            transition: max-height .35s ease;
-        }
-        .qa-owner-panel.open { max-height: 200px; }
-        .qa-owner-form {
-            display: flex; gap: .7rem; align-items: center;
-            padding-top: 1rem; flex-wrap: wrap;
-        }
-        .qa-owner-form input {
-            background: rgba(255,255,255,.05);
-            border: 1px solid rgba(252,210,2,.1);
-            border-radius: 3px;
-            padding: .55rem .8rem;
-            font-family: 'DM Sans', sans-serif;
-            font-size: var(--size-sm); color: var(--white);
-            outline: none; width: 180px;
-        }
+        .qa-owner-panel { max-height: 0; overflow: hidden; transition: max-height .35s ease; }
+        .qa-owner-panel.open { max-height: 120px; }
+        .qa-owner-form { display: flex; gap: .7rem; align-items: center; padding-top: 1rem; flex-wrap: wrap; }
+        .qa-owner-form input { background: rgba(255,255,255,.05); border: 1px solid rgba(252,210,2,.1); border-radius: 3px; padding: .55rem .8rem; font-family: 'DM Sans', sans-serif; font-size: var(--size-sm); color: var(--white); outline: none; width: 180px; }
         .qa-owner-form input::placeholder { color: rgba(255,255,255,.18); }
-        .qa-owner-unlock-btn {
-            background: transparent;
-            border: 1px solid rgba(252,210,2,.2);
-            color: rgba(255,255,255,.35);
-            padding: .55rem 1.1rem;
-            font-family: 'DM Sans', sans-serif;
-            font-size: var(--size-sm); font-weight: 600;
-            letter-spacing: 1px; text-transform: uppercase;
-            cursor: pointer; transition: all .2s;
-        }
-        .qa-owner-unlock-btn:hover { border-color: var(--yellow); color: var(--yellow); }
+        .qa-unlock-btn { background: transparent; border: 1px solid rgba(252,210,2,.2); color: rgba(255,255,255,.35); padding: .55rem 1.1rem; font-family: 'DM Sans', sans-serif; font-size: var(--size-sm); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; transition: all .2s; }
+        .qa-unlock-btn:hover { border-color: var(--yellow); color: var(--yellow); }
         .qa-owner-status { font-size: var(--size-sm); color: rgba(255,255,255,.25); }
 
-        /* Reply textarea that appears per-question when owner unlocked */
-        .qa-reply-area {
-            padding: .8rem 1.2rem 1rem;
-            background: rgba(0,0,0,.1);
-            border-top: 1px dashed rgba(252,210,2,.1);
-            display: none;
-        }
+        /* Reply area per question (visible when owner unlocked) */
+        .qa-reply-area { padding: .8rem 1.2rem 1rem; background: rgba(0,0,0,.1); border-top: 1px dashed rgba(252,210,2,.1); display: none; }
         .qa-reply-area.visible { display: block; }
-        .qa-reply-area textarea {
-            width: 100%;
-            background: rgba(255,255,255,.04);
-            border: 1px solid rgba(252,210,2,.1);
-            border-radius: 3px;
-            padding: .7rem .9rem;
-            font-family: 'DM Sans', sans-serif;
-            font-size: var(--size-md); color: var(--white);
-            resize: vertical; min-height: 70px;
-            outline: none; font-weight: 300;
-        }
+        .qa-reply-area textarea { width: 100%; background: rgba(255,255,255,.04); border: 1px solid rgba(252,210,2,.1); border-radius: 3px; padding: .7rem .9rem; font-family: 'DM Sans', sans-serif; font-size: var(--size-md); color: var(--white); resize: vertical; min-height: 70px; outline: none; font-weight: 300; }
         .qa-reply-area textarea::placeholder { color: rgba(255,255,255,.18); }
-        .qa-reply-post {
-            margin-top: .5rem;
-            background: rgba(252,210,2,.12);
-            border: 1px solid rgba(252,210,2,.25);
-            color: var(--yellow);
-            padding: .45rem 1.1rem;
-            font-family: 'DM Sans', sans-serif;
-            font-size: var(--size-sm); font-weight: 700;
-            letter-spacing: 1px; text-transform: uppercase;
-            cursor: pointer; transition: all .2s;
-        }
+        .qa-reply-row { display: flex; gap: .5rem; margin-top: .5rem; align-items: center; }
+        .qa-reply-post { background: rgba(252,210,2,.12); border: 1px solid rgba(252,210,2,.25); color: var(--yellow); padding: .45rem 1.1rem; font-family: 'DM Sans', sans-serif; font-size: var(--size-sm); font-weight: 700; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; transition: all .2s; }
         .qa-reply-post:hover { background: var(--yellow); color: var(--navy); }
+        .qa-delete-btn { background: none; border: 1px solid rgba(255,80,80,.2); color: rgba(255,80,80,.4); padding: .45rem .8rem; font-family: 'DM Sans', sans-serif; font-size: var(--size-sm); cursor: pointer; transition: all .2s; }
+        .qa-delete-btn:hover { border-color: rgba(255,80,80,.6); color: rgba(255,80,80,.8); }
+
+        .qa-notice { margin-top: 1rem; font-size: var(--size-sm); color: rgba(255,255,255,.15); font-style: italic; text-align: center; }
 
         @media (max-width: 768px) {
-            .process-hero, .process-steps, .tech-stack, .qa-section {
-                padding-left: 1.5rem; padding-right: 1.5rem;
-            }
-            .process-steps, .tech-stack { padding-left: 1.5rem; padding-right: 1.5rem; }
+            .process-hero, .process-steps, .tech-stack, .qa-section { padding-left: 1.5rem; padding-right: 1.5rem; }
+            .process-steps, .tech-stack { padding-left: 1.5rem; }
         }
     </style>
 </head>
@@ -369,15 +131,14 @@
         <button class="menu-close" onclick="toggleMenu()">&#x2715;</button>
         <ul class="menu-nav">
             <li><a href="motivation.html" onclick="toggleMenu()"><span class="number">01</span> Motivation</a></li>
-            <li><a href="academics.html"  onclick="toggleMenu()"><span class="number">02</span> Academics</a></li>
-            <li><a href="experience.html" onclick="toggleMenu()"><span class="number">03</span> Work Experience</a></li>
-            <li><a href="data.html"       onclick="toggleMenu()"><span class="number">04</span> Data</a></li>
-            <li><a href="website.html"    onclick="toggleMenu()"><span class="number">05</span> Website</a></li>
+            <li><a href="experience.html" onclick="toggleMenu()"><span class="number">02</span> Work</a></li>
+            <li><a href="academics.html"  onclick="toggleMenu()"><span class="number">03</span> Academics</a></li>
+            <li><a href="website.html"    onclick="toggleMenu()"><span class="number">04</span> Website</a></li>
+            <li><a href="data.html"       onclick="toggleMenu()"><span class="number">05</span> Data</a></li>
         </ul>
     </div>
 
     <main id="website-page">
-
         <div class="process-hero">
             <h1>Behind the Website</h1>
             <p>This portfolio wasn't bought off a template shelf. Every line of code, every design decision, every interaction was built from scratch &#x2014; entirely through conversation with an AI. Here's how it happened.</p>
@@ -399,12 +160,12 @@
                 <div class="timeline-item">
                     <p class="tl-label">Step 03</p>
                     <h3>The Scratch-to-Reveal Landing</h3>
-                    <p>The index page uses an HTML5 canvas scratch-card mechanic. Scratching erases the photo layer with a solid yellow brush, revealing the pure navy welcome screen underneath. 25% coverage triggers the full reveal.</p>
+                    <p>The index page uses a two-layer HTML5 canvas. A solid yellow canvas sits beneath; the photo canvas sits on top and gets erased by scratching &#x2014; immediately revealing solid yellow below. 25% coverage triggers the navy welcome screen.</p>
                 </div>
                 <div class="timeline-item">
                     <p class="tl-label">Step 04</p>
                     <h3>Sticky Split Layout &amp; YouTube</h3>
-                    <p>Each content page has a sticky YouTube embed on the left while the right side scrolls. The video panel text mirrors the content on the page &#x2014; so visitors can watch and read simultaneously.</p>
+                    <p>Each content page has a sticky YouTube embed on the left while the right side scrolls. The video panel text mirrors the page content &#x2014; so visitors can watch and read simultaneously.</p>
                 </div>
                 <div class="timeline-item">
                     <p class="tl-label">Step 05</p>
@@ -414,7 +175,7 @@
                 <div class="timeline-item">
                     <p class="tl-label">Step 06</p>
                     <h3>This Page</h3>
-                    <p>Questions below are stored in localStorage &#x2014; they persist across sessions in the same browser. I reply using a passphrase. On Ionos this can be backed by a simple PHP/JSON file for true cross-device persistence.</p>
+                    <p>Questions below are stored permanently on the server via a PHP backend &#x2014; not in the browser. Anyone who submits a question will see it here on every visit, from any device, forever.</p>
                 </div>
             </div>
         </div>
@@ -431,53 +192,51 @@
                 <span class="pill">GitHub Pages</span>
                 <span class="pill">Ionos Hosting</span>
                 <span class="pill">Git / VS Code</span>
-                <span class="pill">localStorage</span>
+                <span class="pill">JSON file storage</span>
                 <span class="pill">IntersectionObserver</span>
                 <span class="pill">CSS Custom Properties</span>
             </div>
         </div>
 
-        <!-- ── Q&A: fold/unfold ── -->
+        <!-- ── Q&A ── -->
         <div class="qa-section">
             <h2>Questions</h2>
-            <p class="qa-sub">Leave a question &#x2014; it stays here. I'll reply directly on this page.</p>
+            <p class="qa-sub">Leave a question &#x2014; it's saved on the server. I'll reply directly here, visible to everyone.</p>
 
             <div class="qa-board">
-
-                <!-- Ask toggle button -->
-                <button class="qa-ask-toggle" id="askToggle" onclick="toggleAskForm()">
+                <!-- Ask toggle -->
+                <button class="qa-ask-toggle" id="askToggle" onclick="toggleAsk()">
                     <span>Leave a question</span>
-                    <span class="qa-toggle-arrow">&#x2335;</span>
+                    <span class="qa-toggle-arrow">&#x25BE;</span>
                 </button>
-
-                <!-- Folding form -->
                 <div class="qa-form-panel" id="askPanel">
-                    <textarea id="qaText" placeholder="Your question or message..." maxlength="500"></textarea>
+                    <textarea id="qaText" placeholder="Your question or message&#x2026;" maxlength="500"></textarea>
                     <div class="qa-form-footer">
                         <input class="qa-name-input" id="qaName" type="text" placeholder="Your name (optional)" maxlength="60" autocomplete="off">
-                        <button class="qa-submit-btn" onclick="submitQuestion()">Submit</button>
+                        <button class="qa-submit-btn" onclick="submitQ()">Submit</button>
                     </div>
-                    <p class="qa-sent-msg" id="qaSentMsg">&#x2713; Submitted &#x2014; thank you.</p>
+                    <p class="qa-sent-msg" id="sentMsg">&#x2713; Submitted &#x2014; thank you.</p>
                 </div>
 
                 <!-- Questions list -->
-                <div class="qa-list" id="qaList"></div>
+                <div class="qa-list" id="qaList">
+                    <div class="qa-loading">Loading questions&#x2026;</div>
+                </div>
 
-                <!-- Owner section -->
+                <!-- Owner access -->
                 <div class="qa-owner-section">
-                    <button class="qa-owner-toggle" onclick="toggleOwnerPanel()">Owner access</button>
+                    <button class="qa-owner-toggle" onclick="toggleOwner()">Owner access</button>
                     <div class="qa-owner-panel" id="ownerPanel">
                         <div class="qa-owner-form">
                             <input type="password" id="ownerKey" placeholder="Passphrase" autocomplete="off">
-                            <button class="qa-owner-unlock-btn" onclick="unlockOwner()">Unlock</button>
+                            <button class="qa-unlock-btn" onclick="unlock()">Unlock</button>
                             <span class="qa-owner-status" id="ownerStatus"></span>
                         </div>
                     </div>
                 </div>
-
+                <p class="qa-notice">Questions are stored permanently on the server &#x2014; visible to all visitors from any device.</p>
             </div>
         </div>
-
     </main>
 
     <footer class="site-footer">
@@ -491,10 +250,10 @@
         <div class="footer-col">
             <h4>Navigation</h4>
             <a class="footer-link-row" href="motivation.html"><span class="flr-icon">&#x2192;</span> Motivation</a>
+            <a class="footer-link-row" href="experience.html"><span class="flr-icon">&#x2192;</span> Work</a>
             <a class="footer-link-row" href="academics.html"><span class="flr-icon">&#x2192;</span> Academics</a>
-            <a class="footer-link-row" href="experience.html"><span class="flr-icon">&#x2192;</span> Work Experience</a>
-            <a class="footer-link-row" href="data.html"><span class="flr-icon">&#x2192;</span> Data</a>
             <a class="footer-link-row" href="website.html"><span class="flr-icon">&#x2192;</span> Website</a>
+            <a class="footer-link-row" href="data.html"><span class="flr-icon">&#x2192;</span> Data</a>
         </div>
     </footer>
     <div class="footer-bottom">
@@ -504,127 +263,163 @@
 
     <script src="script.js"></script>
     <script>
-    // ── Q&A — localStorage ─────────────────────────────────────
-    const STORE   = 'portfolio_qa_v2';
-    const PASS    = 'commerzbank2025'; // ← change this
-    let isOwner   = false;
+    // ── Config ─────────────────────────────────────────────────
+    const API = 'qa.php';  // same directory
+
+    // ── State ──────────────────────────────────────────────────
+    let isOwner = false;
     let questions = [];
 
-    function load() {
-        try { questions = JSON.parse(localStorage.getItem(STORE)) || []; }
-        catch { questions = []; }
-        render();
+    // ── Load on page open ──────────────────────────────────────
+    async function loadQ() {
+        try {
+            const r = await fetch(`${API}?action=list`);
+            const d = await r.json();
+            if (d.ok) { questions = d.questions; render(); }
+            else throw new Error();
+        } catch {
+            document.getElementById('qaList').innerHTML =
+                '<div class="qa-loading">Could not load questions.<br><small>On GitHub Pages, questions require Ionos hosting with PHP.</small></div>';
+        }
     }
-    function save() { localStorage.setItem(STORE, JSON.stringify(questions)); }
 
-    function ts() {
-        return new Date().toLocaleString('de-DE', {
-            day:'2-digit', month:'2-digit', year:'numeric',
-            hour:'2-digit', minute:'2-digit'
-        });
-    }
-
+    // ── Render list ────────────────────────────────────────────
     function render() {
         const list = document.getElementById('qaList');
+        if (!questions.length) {
+            list.innerHTML = '<div class="qa-loading">No questions yet &#x2014; be the first.</div>';
+            return;
+        }
         list.innerHTML = '';
-        if (!questions.length) return;
         questions.forEach((q, i) => {
-            const item = document.createElement('div');
-            item.className = 'qa-item';
-            item.id = 'qai-' + i;
-            item.innerHTML = `
-                <button class="qa-item-header" onclick="toggleItem(${i})">
-                    <span class="qa-item-q">${esc(q.text)}</span>
+            const div = document.createElement('div');
+            div.className = 'qa-item';
+            div.id = 'qi-' + i;
+            div.innerHTML = `
+                <button class="qa-item-header" onclick="toggle(${i})">
+                    <span class="qa-item-q">${q.text}</span>
                     <span class="qa-item-meta">
-                        ${q.name ? esc(q.name) + ' &middot; ' : ''}${q.time}
-                        <span class="qa-item-arrow">&#x2335;</span>
+                        ${q.name ? q.name + ' &middot; ' : ''}${q.time}
+                        <span class="qa-item-arrow">&#x25BE;</span>
                     </span>
                 </button>
                 <div class="qa-item-answer">
                     <div class="qa-item-answer-inner ${q.reply ? '' : 'pending'}">
-                        ${q.reply ? esc(q.reply) : 'No reply yet.'}
+                        ${q.reply || 'No reply yet.'}
                     </div>
                     ${isOwner ? `
-                    <div class="qa-reply-area visible" id="ra-${i}">
-                        <textarea id="rt-${i}" placeholder="Write reply...">${q.reply||''}</textarea>
-                        <button class="qa-reply-post" onclick="postReply(${i})">Save Reply</button>
+                    <div class="qa-reply-area visible">
+                        <textarea id="rt-${i}" placeholder="Write reply&#x2026;">${q.reply||''}</textarea>
+                        <div class="qa-reply-row">
+                            <button class="qa-reply-post" onclick="postReply('${q.id}',${i})">Save Reply</button>
+                            <button class="qa-delete-btn" onclick="deleteQ('${q.id}')">Delete</button>
+                        </div>
                     </div>` : ''}
                 </div>`;
-            list.appendChild(item);
+            list.appendChild(div);
         });
     }
 
-    function esc(s) {
-        return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    function toggle(i) {
+        document.getElementById('qi-' + i)?.classList.toggle('open');
     }
 
-    function toggleItem(i) {
-        const el = document.getElementById('qai-' + i);
-        el.classList.toggle('open');
+    // ── Toggle ask form ────────────────────────────────────────
+    function toggleAsk() {
+        document.getElementById('askToggle').classList.toggle('open');
+        document.getElementById('askPanel').classList.toggle('open');
     }
 
-    function toggleAskForm() {
-        const btn   = document.getElementById('askToggle');
-        const panel = document.getElementById('askPanel');
-        btn.classList.toggle('open');
-        panel.classList.toggle('open');
-    }
-
-    function submitQuestion() {
+    // ── Submit question ────────────────────────────────────────
+    async function submitQ() {
         const text = document.getElementById('qaText').value.trim();
         if (!text) return;
         const name = document.getElementById('qaName').value.trim();
-        questions.unshift({ text, name, time: ts(), reply: '' });
-        save(); render();
-        document.getElementById('qaText').value = '';
-        document.getElementById('qaName').value = '';
-        const sent = document.getElementById('qaSentMsg');
-        sent.style.display = 'block';
-        setTimeout(() => {
-            sent.style.display = 'none';
-            // close panel
-            document.getElementById('askToggle').classList.remove('open');
-            document.getElementById('askPanel').classList.remove('open');
-        }, 2000);
+        try {
+            const r = await fetch(`${API}?action=submit`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ text, name })
+            });
+            const d = await r.json();
+            if (d.ok) {
+                document.getElementById('qaText').value = '';
+                document.getElementById('qaName').value = '';
+                const msg = document.getElementById('sentMsg');
+                msg.style.display = 'block';
+                setTimeout(() => {
+                    msg.style.display = 'none';
+                    document.getElementById('askToggle').classList.remove('open');
+                    document.getElementById('askPanel').classList.remove('open');
+                }, 2000);
+                await loadQ();
+            }
+        } catch { alert('Could not submit. Check server connection.'); }
     }
 
-    function toggleOwnerPanel() {
+    // ── Owner unlock ───────────────────────────────────────────
+    function toggleOwner() {
         document.getElementById('ownerPanel').classList.toggle('open');
     }
 
-    function unlockOwner() {
+    function unlock() {
         const key    = document.getElementById('ownerKey').value;
         const status = document.getElementById('ownerStatus');
-        if (key === PASS) {
+        // Client-side pre-check (real auth is server-side on reply/delete)
+        if (key === 'commerzbank2025') {
             isOwner = true;
-            status.textContent = '&#x2713; Unlocked';
+            status.textContent = '✓ Unlocked';
             status.style.color = '#fcd202';
             render();
         } else {
-            status.textContent = '&#x2717; Wrong passphrase';
+            status.textContent = '✗ Wrong passphrase';
             status.style.color = '#e74c3c';
         }
     }
 
-    function postReply(i) {
-        const text = document.getElementById('rt-' + i).value.trim();
-        questions[i].reply = text;
-        save(); render();
-        // reopen the item so owner sees result
-        setTimeout(() => {
-            const el = document.getElementById('qai-' + i);
-            if (el) el.classList.add('open');
-        }, 50);
+    // ── Post reply ─────────────────────────────────────────────
+    async function postReply(id, i) {
+        const reply = document.getElementById('rt-' + i)?.value.trim();
+        const pass  = document.getElementById('ownerKey').value;
+        try {
+            const r = await fetch(`${API}?action=reply`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id, reply, pass })
+            });
+            const d = await r.json();
+            if (d.ok) {
+                await loadQ();
+                setTimeout(() => document.getElementById('qi-' + i)?.classList.add('open'), 50);
+            } else { alert('Error: ' + (d.error || 'Could not save')); }
+        } catch { alert('Network error.'); }
     }
 
+    // ── Delete question ────────────────────────────────────────
+    async function deleteQ(id) {
+        if (!confirm('Delete this question?')) return;
+        const pass = document.getElementById('ownerKey').value;
+        try {
+            const r = await fetch(`${API}?action=delete`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id, pass })
+            });
+            const d = await r.json();
+            if (d.ok) await loadQ();
+            else alert('Error: ' + (d.error || 'Could not delete'));
+        } catch { alert('Network error.'); }
+    }
+
+    // Keyboard shortcuts
     document.getElementById('qaText').addEventListener('keydown', e => {
-        if (e.key === 'Enter' && e.ctrlKey) submitQuestion();
+        if (e.key === 'Enter' && e.ctrlKey) submitQ();
     });
     document.getElementById('ownerKey').addEventListener('keydown', e => {
-        if (e.key === 'Enter') unlockOwner();
+        if (e.key === 'Enter') unlock();
     });
 
-    load();
+    loadQ();
     </script>
 </body>
 </html>
