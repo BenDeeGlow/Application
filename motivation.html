@@ -129,7 +129,13 @@
         .sb-row { display: flex; align-items: center; gap: 1rem; }
         .sb-label { font-size: var(--size-sm); font-weight: 600; color: rgba(255,255,255,.5); width: 120px; flex-shrink: 0; text-align: right; }
         .sb-track { flex: 1; background: rgba(255,255,255,.07); border-radius: 3px; overflow: hidden; height: 22px; }
-        .sb-fill { height: 100%; border-radius: 3px; transition: width 1s cubic-bezier(.4,0,.2,1); width: 0%; }
+        .sb-fill { height: 100%; border-radius: 3px; transition: width 1.2s cubic-bezier(.4,0,.2,1), box-shadow 1.2s ease; width: 0%; }
+        .sb-fill.animated { box-shadow: 0 0 12px var(--glow, transparent), 0 0 24px var(--glow, transparent); }
+        .sb-track { position: relative; }
+        .sb-track::after { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(180deg, rgba(255,255,255,.08) 0%, transparent 60%); border-radius: 3px; pointer-events: none; }
+        .sb-row { align-items: center; }
+        .sb-label { font-size: var(--size-sm); font-weight: 700; color: rgba(255,255,255,.6); width: 90px; flex-shrink: 0; text-align: right; letter-spacing: .5px; }
+        .sb-pct { font-size: var(--size-sm); font-weight: 800; color: rgba(255,255,255,.7); width: 40px; }
         .sb-pct { font-size: var(--size-sm); font-weight: 700; color: rgba(255,255,255,.5); width: 36px; }
 
         /* Q&A */
@@ -183,6 +189,32 @@
         .qa-unlock-btn:hover { border-color: var(--yellow); color: var(--yellow); }
         .qa-owner-status { font-size: var(--size-sm); color: rgba(255,255,255,.25); }
         .qa-notice { margin-top: 1rem; font-size: var(--size-sm); color: rgba(255,255,255,.15); font-style: italic; text-align: center; }
+
+        /* download card */
+        .download-card {
+            display: flex; align-items: center; gap: 1.5rem;
+            background: var(--white); border: 1px solid rgba(0,46,61,.1);
+            border-left: 5px solid var(--yellow);
+            padding: 1.5rem 2rem; border-radius: 4px;
+            box-shadow: 0 4px 20px rgba(0,46,61,.06);
+            max-width: 560px;
+            transition: box-shadow .25s, transform .25s;
+        }
+        .download-card:hover { box-shadow: 0 8px 32px rgba(0,46,61,.12); transform: translateY(-2px); }
+        .dl-card-icon { font-size: 2.5rem; flex-shrink: 0; }
+        .dl-card-info { flex: 1; }
+        .dl-card-name { font-size: var(--size-md); font-weight: 700; color: var(--navy); margin-bottom: .2rem; }
+        .dl-card-sub  { font-size: var(--size-sm); color: var(--text-mid); letter-spacing: .5px; }
+        .dl-card-btn  {
+            background: var(--navy); color: var(--yellow);
+            padding: .75rem 1.6rem; font-family: 'DM Sans',sans-serif;
+            font-size: var(--size-sm); font-weight: 700; letter-spacing: 1.5px;
+            text-transform: uppercase; text-decoration: none; border-radius: 3px;
+            white-space: nowrap; transition: background .2s, transform .2s;
+            flex-shrink: 0;
+        }
+        .dl-card-btn:hover { background: var(--yellow); color: var(--navy); transform: scale(1.03); }
+        .dl-extra { margin-top: 1.5rem; display: flex; flex-direction: column; gap: .6rem; max-width: 560px; }
 
         /* data */
         .data-actions { display: flex; gap: .5rem; align-items: center; }
@@ -316,14 +348,6 @@
                     <h3>Abitur</h3>
                     <p><strong>K&auml;the-Kollwitz-Gymnasium Berlin &middot; 08.2015 &ndash; 06.2023</strong><br>GPA: 2.5 &middot; Relevant coursework: Programming in Python.</p>
                 </div>
-                <div class="experience-item visible">
-                    <h3>Skills &amp; Languages</h3>
-                    <p>German (native) &middot; English (business fluent)<br>Python &middot; R<br>Member: Berliner B&ouml;rsenkreis e.V.</p>
-                </div>
-                <div class="experience-item visible">
-                    <h3>Interests</h3>
-                    <p>Chess &middot; Volleyball &middot; Football</p>
-                </div>
             </div>
 
             <div class="section-divider"></div>
@@ -347,22 +371,20 @@
                 <div style="margin-top:3rem;">
                     <h3 style="color:var(--yellow);font-size:var(--size-md);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:1.2rem;">Tech Stack</h3>
                     <div class="pill-row">
-                        <span class="pill">HTML5 Canvas</span>
-                        <span class="pill">CSS Grid &amp; Flexbox</span>
-                        <span class="pill">Vanilla JavaScript</span>
-                        <span class="pill">DM Sans</span>
-                        <span class="pill">YouTube Embed API</span>
-                        <span class="pill">PHP 8</span>
+                        <span class="pill">HTML incl. Canvas</span>
+                        <span class="pill">CSS</span>
+                        <span class="pill">JavaScript</span>
+                        <span class="pill">YouTube API</span>
+                        <span class="pill">PHP</span>
                         <span class="pill">GitHub Pages</span>
-                        <span class="pill">Ionos Hosting</span>
-                        <span class="pill">JSON file storage</span>
-                        <span class="pill">CSS Custom Properties</span>
+                        <span class="pill">Ionos</span>
                     </div>
                     <div class="stack-bars" id="stackBars">
-                        <div class="sb-row"><span class="sb-label">HTML / CSS</span><div class="sb-track"><div class="sb-fill" style="background:#fcd202" data-w="42"></div></div><span class="sb-pct">42%</span></div>
-                        <div class="sb-row"><span class="sb-label">JavaScript</span><div class="sb-track"><div class="sb-fill" style="background:rgba(255,255,255,.6)" data-w="30"></div></div><span class="sb-pct">30%</span></div>
-                        <div class="sb-row"><span class="sb-label">PHP</span><div class="sb-track"><div class="sb-fill" style="background:#00576e" data-w="20"></div></div><span class="sb-pct">20%</span></div>
-                        <div class="sb-row"><span class="sb-label">Other</span><div class="sb-track"><div class="sb-fill" style="background:rgba(252,210,2,.35)" data-w="8"></div></div><span class="sb-pct">8%</span></div>
+                        <div class="sb-row"><span class="sb-label">HTML</span><div class="sb-track"><div class="sb-fill" style="background:linear-gradient(90deg,#fcd202,#ffe760)" data-w="60" data-glow="#fcd202"></div></div><span class="sb-pct">60%</span></div>
+                        <div class="sb-row"><span class="sb-label">CSS</span><div class="sb-track"><div class="sb-fill" style="background:linear-gradient(90deg,#00a8cc,#00d4ff)" data-w="20" data-glow="#00d4ff"></div></div><span class="sb-pct">20%</span></div>
+                        <div class="sb-row"><span class="sb-label">PHP</span><div class="sb-track"><div class="sb-fill" style="background:linear-gradient(90deg,#7b7fb5,#9a9fd4)" data-w="10" data-glow="#9a9fd4"></div></div><span class="sb-pct">10%</span></div>
+                        <div class="sb-row"><span class="sb-label">JavaScript</span><div class="sb-track"><div class="sb-fill" style="background:linear-gradient(90deg,#f0db4f,#ffe87a)" data-w="6" data-glow="#f0db4f"></div></div><span class="sb-pct">6%</span></div>
+                        <div class="sb-row"><span class="sb-label">Other</span><div class="sb-track"><div class="sb-fill" style="background:linear-gradient(90deg,rgba(255,255,255,.25),rgba(255,255,255,.4))" data-w="4" data-glow="rgba(255,255,255,.3)"></div></div><span class="sb-pct">4%</span></div>
                     </div>
                 </div>
             </div>
@@ -372,28 +394,17 @@
             <!-- DATA (before Q&A) -->
             <span id="data" class="section-anchor"></span>
             <div class="content-section data-bg">
-                <h2 class="section-title">Documents &amp; Data</h2>
-                <p class="section-text" style="margin-bottom:2rem;">Upload your CV, certificates and application documents. Files are stored on the server and can be downloaded by anyone reviewing your application.</p>
-                <div class="data-grid">
-                    <div class="data-panel" id="uploadPanel">
-                        <h3>Upload</h3>
-                        <p class="panel-sub">Add your documents</p>
-                        <div class="info-banner"><strong>Persistent storage.</strong> Files stay on the server until you delete them.</div>
-                        <div class="upload-zone" id="uploadZone">
-                            <input type="file" id="fileInput" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.png,.jpg,.jpeg,.txt,.zip">
-                            <div class="upload-icon">&#x2B06;</div>
-                            <p><span>Click to upload</span> or drag &amp; drop</p>
-                            <p class="file-types">PDF &middot; DOC &middot; DOCX &middot; XLSX &middot; PPTX &middot; PNG &middot; JPG &middot; ZIP</p>
-                        </div>
-                        <div class="upload-progress" id="uploadProgress"><div class="upload-progress-bar" id="progressBar"></div></div>
-                        <div class="upload-status" id="uploadStatus"></div>
+                <h2 class="section-title">Documents</h2>
+                <p class="section-text" style="margin-bottom:2.5rem;">All relevant application documents are available below. Download the package to get started.</p>
+                <div class="download-card" id="downloadCard">
+                    <div class="dl-card-icon">&#x1F4E6;</div>
+                    <div class="dl-card-info">
+                        <p class="dl-card-name">Application Package</p>
+                        <p class="dl-card-sub">CV &middot; Certificates &middot; References</p>
                     </div>
-                    <div class="data-panel" id="downloadPanel">
-                        <h3>Download</h3>
-                        <p class="panel-sub">Available documents</p>
-                        <div class="download-list" id="downloadList"><span class="loading-ring"></span></div>
-                    </div>
+                    <a href="bennett_portfolio.zip" download class="dl-card-btn">&#x2193; Download ZIP</a>
                 </div>
+                <div class="dl-extra" id="downloadList"></div>
             </div>
 
             <div class="section-divider"></div>
@@ -439,7 +450,7 @@
     <footer class="site-footer">
         <div class="footer-col">
             <h4>Contact</h4>
-            <a class="footer-link-row" href="mailto:bennett.bauermeister@gmail.com"><span class="flr-icon">&#x2709;</span> bennett.bauermeister@gmail.com</a>
+            <a class="footer-link-row" href="/cdn-cgi/l/email-protection#4527202b2b2031316b272430203728202c36312037052228242c296b262a28"><span class="flr-icon">&#x2709;</span> <span class="__cf_email__" data-cfemail="1b797e75757e6f6f35797a6e7e69767e72686f7e695b7c767a727735787476">[email&#160;protected]</span></a>
             <a class="footer-link-row" href="tel:+491767259235"><span class="flr-icon">&#x260E;</span> +49 176 7259 2355</a>
             <a class="footer-link-row" href="https://linkedin.com/in/bennett-bauermeister" target="_blank"><span class="flr-icon">in</span> linkedin.com/in/bennett-bauermeister</a>
             <a class="footer-link-row" href="#"><span class="flr-icon">&#x1F4CD;</span> Berlin, Germany</a>
@@ -461,7 +472,7 @@
 
     <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">&#x2191;</button>
 
-    <script src="script.js"></script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="script.js"></script>
     <script>
         function navTo(id) {
             var overlay = document.getElementById('menuOverlay');
@@ -489,89 +500,17 @@
         new IntersectionObserver(function(entries) {
             if (entries[0].isIntersecting && !barsAnimated) {
                 barsAnimated = true;
-                document.querySelectorAll('.sb-fill').forEach(function(b) {
-                    b.style.width = b.getAttribute('data-w') + '%';
+                document.querySelectorAll('.sb-fill').forEach(function(b, i) {
+                    setTimeout(function() {
+                        b.style.width = b.getAttribute('data-w') + '%';
+                        var glow = b.getAttribute('data-glow');
+                        if (glow) { b.style.setProperty('--glow', glow); b.classList.add('animated'); }
+                    }, i * 120);
                 });
             }
         }, { threshold: 0.3 }).observe(document.getElementById('stackBars'));
-
-        // data panel animations
-        document.querySelectorAll('.data-panel, .content-section.data-bg .section-title, .content-section.data-bg .section-text').forEach(function(el) {
-            new IntersectionObserver(function(entries) {
-                entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('visible'); });
             }, { threshold: 0.1 }).observe(el);
         });
-
-        // ── file upload / download ─────────────────────────────────────────
-        var fileInput    = document.getElementById('fileInput');
-        var uploadZone   = document.getElementById('uploadZone');
-        var downloadList = document.getElementById('downloadList');
-        var progressWrap = document.getElementById('uploadProgress');
-        var progressBar  = document.getElementById('progressBar');
-        var statusEl     = document.getElementById('uploadStatus');
-
-        function ico(n){return({pdf:'📄',doc:'📝',docx:'📝',png:'🖼',jpg:'🖼',jpeg:'🖼',xls:'📊',xlsx:'📊',ppt:'📑',pptx:'📑',zip:'🗜'})[n.split('.').pop().toLowerCase()]||'📎';}
-        function setStatus(m,t){statusEl.textContent=m;statusEl.className='upload-status '+(t||'');}
-
-        async function loadFiles() {
-            try {
-                var r = await fetch('list_files.php');
-                var d = await r.json();
-                renderDownloads(d.files || []);
-            } catch(e) {
-                downloadList.innerHTML = '<div class="empty-state">No files yet &mdash; or PHP not enabled on this server.</div>';
-            }
-        }
-        function renderDownloads(files) {
-            if (!files.length) { downloadList.innerHTML = '<div class="empty-state">No documents uploaded yet.</div>'; return; }
-            downloadList.innerHTML = files.map(function(f) {
-                var n = f.filename.length > 30 ? f.filename.slice(0,28) + '&hellip;' : f.filename;
-                return '<div class="download-entry"><div class="dl-name"><span>' + ico(f.filename) + '</span><span title="' + f.filename + '">' + n + '</span></div>'
-                     + '<div class="data-actions"><a href="download.php?file=' + encodeURIComponent(f.filename) + '" class="btn-download">&#x2193; Download</a>'
-                     + '<button class="btn-delete" onclick="deleteFile(\'' + f.filename.replace(/'/g,"\\'") + '\')">&#x2715;</button></div></div>';
-            }).join('');
-        }
-        function uploadFile(file) {
-            return new Promise(function(resolve) {
-                var fd = new FormData(); fd.append('file', file);
-                var xhr = new XMLHttpRequest(); xhr.open('POST','upload.php');
-                xhr.upload.onprogress = function(e) { if(e.lengthComputable){progressWrap.style.display='block';progressBar.style.width=(e.loaded/e.total*100)+'%';} };
-                xhr.onload  = function(){ try{resolve(JSON.parse(xhr.responseText));}catch(e){resolve({success:false,error:'Server error'});} };
-                xhr.onerror = function(){ resolve({success:false,error:'Network error'}); };
-                xhr.send(fd);
-            });
-        }
-        async function handleFiles(files) {
-            for (var i = 0; i < files.length; i++) {
-                var f = files[i];
-                setStatus('Uploading ' + f.name + '...');
-                progressWrap.style.display = 'block'; progressBar.style.width = '0%';
-                var r = await uploadFile(f);
-                if (r.success) {
-                    setStatus('✓ ' + r.filename + ' uploaded', 'success');
-                    progressBar.style.width = '100%';
-                    setTimeout(function(){progressWrap.style.display='none';progressBar.style.width='0%';setStatus('');}, 800);
-                    await loadFiles();
-                } else {
-                    setStatus('✗ ' + (r.error || 'Upload failed'), 'error');
-                    progressWrap.style.display = 'none';
-                }
-            }
-        }
-        async function deleteFile(filename) {
-            if (!confirm('Delete "' + filename + '"?')) return;
-            try {
-                var r = await fetch('delete.php', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({file:filename})});
-                var d = await r.json();
-                if (d.success) { setStatus('✓ Deleted','success'); setTimeout(function(){setStatus('');},2000); loadFiles(); }
-                else alert('Error: ' + (d.error||''));
-            } catch(e) { alert('Network error.'); }
-        }
-        fileInput.addEventListener('change', function(e){ handleFiles([].slice.call(e.target.files)); fileInput.value=''; });
-        uploadZone.addEventListener('dragover',  function(e){ e.preventDefault(); uploadZone.classList.add('dragover'); });
-        uploadZone.addEventListener('dragleave', function(){ uploadZone.classList.remove('dragover'); });
-        uploadZone.addEventListener('drop',      function(e){ e.preventDefault(); uploadZone.classList.remove('dragover'); handleFiles([].slice.call(e.dataTransfer.files)); });
-        loadFiles();
 
         // ── Q&A ────────────────────────────────────────────────────────────
         var API = 'qa.php', isOwner = false, questions = [];
@@ -643,12 +582,4 @@
             if (!confirm('Delete?')) return;
             var pass = document.getElementById('ownerKey').value;
             try {
-                var r = await fetch(API + '?action=delete', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:id,pass:pass})});
-                var d = await r.json();
-                if (d.ok) await loadQ(); else alert('Error: ' + (d.error||''));
-            } catch(e) { alert('Network error.'); }
-        }
-        loadQ();
-    </script>
-</body>
-</html>
+                var r = await fetch(API + '?action=delete', {method:'POST',headers:{'Content-Type':'application/json'},body:J
