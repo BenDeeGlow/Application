@@ -1,50 +1,174 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Motivation &#x2013; Bennett Bauermeister</title>
+    <title>Bennett Bauermeister</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        /* ── back to top ── */
+        .back-to-top {
+            position: fixed; bottom: 2rem; right: 2rem;
+            width: 50px; height: 50px;
+            background: var(--yellow); color: var(--navy);
+            border: none; font-size: 1.4rem; font-weight: 700;
+            display: flex; align-items: center; justify-content: center;
+            z-index: 600; opacity: 0; pointer-events: none;
+            transition: opacity .3s, transform .3s;
+            box-shadow: 0 4px 18px rgba(0,0,0,.22);
+            cursor: none;
+        }
+        .back-to-top.visible { opacity: 1; pointer-events: auto; }
+        .back-to-top:hover { transform: translateY(-4px); background: var(--yellow-muted); }
+
+        /* ── hero smaller so content below is visible ── */
+        .hero { height: 65vh; }
+
+        /* ── anchor offset for fixed header ── */
+        .section-anchor {
+            display: block; height: 82px; margin-top: -82px;
+            visibility: hidden; pointer-events: none;
+        }
+
+        /* ── website section ── */
+        .process-hero {
+            background: var(--navy); padding: 6rem 4rem 5rem;
+            color: var(--white); position: relative; overflow: hidden;
+        }
+        .process-hero::after {
+            content: ''; position: absolute; right: -100px; bottom: -100px;
+            width: 400px; height: 400px;
+            border: 60px solid rgba(252,210,2,.05); border-radius: 50%; pointer-events: none;
+        }
+        .process-hero h1 { font-size: var(--size-lg); font-weight: 700; color: var(--yellow); margin-bottom: 1rem; letter-spacing: -.5px; }
+        .process-hero p  { font-size: var(--size-md); color: rgba(255,255,255,.58); max-width: 640px; line-height: 1.9; font-weight: 300; }
+
+        .process-steps { padding: 5rem 4rem; max-width: 900px; margin: 0 auto; background: var(--off-white); }
+        .process-steps h2 { font-size: var(--size-lg); font-weight: 700; color: var(--navy); margin-bottom: 3rem; position: relative; padding-bottom: 1rem; }
+        .process-steps h2::after { content: ''; position: absolute; bottom: 0; left: 0; width: 60px; height: 3px; background: var(--yellow); }
+
+        .timeline { position: relative; padding-left: 2rem; }
+        .timeline::before { content: ''; position: absolute; left: 0; top: 8px; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--yellow), rgba(252,210,2,.1)); }
+        .timeline-item { position: relative; padding: 0 0 3rem 2rem; }
+        .timeline-item::before { content: ''; position: absolute; left: -5px; top: 8px; width: 12px; height: 12px; background: var(--yellow); border-radius: 50%; border: 2px solid var(--off-white); }
+        .tl-label { font-size: var(--size-sm); font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--yellow); margin-bottom: .4rem; }
+        .timeline-item h3 { font-size: var(--size-md); font-weight: 700; color: var(--navy); margin-bottom: .5rem; }
+        .timeline-item p  { font-size: var(--size-md); color: var(--text-mid); line-height: 1.8; font-weight: 300; }
+
+        .tech-stack { padding: 0 4rem 5rem; max-width: 900px; margin: 0 auto; background: var(--off-white); }
+        .tech-stack h2 { font-size: var(--size-lg); font-weight: 700; color: var(--navy); margin-bottom: 2rem; }
+        .pill-row { display: flex; flex-wrap: wrap; gap: .7rem; }
+        .pill { background: var(--white); border: 1px solid rgba(0,46,61,.1); color: var(--navy); padding: .5rem 1.1rem; font-size: var(--size-sm); font-weight: 600; letter-spacing: 1px; border-radius: 2px; transition: background .2s, border-color .2s; }
+        .pill:hover { background: var(--yellow); border-color: var(--yellow); }
+
+        /* ── Q&A ── */
+        .qa-section { background: var(--navy-deep); padding: 5rem 4rem; }
+        .qa-section > h2 { font-size: var(--size-lg); font-weight: 700; color: var(--white); margin-bottom: .5rem; }
+        .qa-sub { font-size: var(--size-sm); color: rgba(255,255,255,.28); margin-bottom: 3rem; letter-spacing: 1px; }
+        .qa-board { max-width: 760px; margin: 0 auto; }
+        .qa-ask-toggle { width: 100%; background: transparent; border: 1px solid rgba(252,210,2,.2); color: rgba(255,255,255,.6); padding: 1.1rem 1.5rem; font-family: 'DM Sans',sans-serif; font-size: var(--size-md); font-weight: 600; letter-spacing: .5px; text-align: left; display: flex; align-items: center; justify-content: space-between; cursor: none; transition: border-color .25s, color .25s, background .25s; }
+        .qa-ask-toggle:hover,.qa-ask-toggle.open { border-color: rgba(252,210,2,.5); color: var(--yellow); background: rgba(252,210,2,.04); }
+        .qa-toggle-arrow { font-size: 1.1rem; transition: transform .3s; display: inline-block; }
+        .qa-ask-toggle.open .qa-toggle-arrow { transform: rotate(180deg); }
+        .qa-form-panel { max-height: 0; overflow: hidden; transition: max-height .45s cubic-bezier(.4,0,.2,1); background: rgba(255,255,255,.03); border: 1px solid rgba(252,210,2,.1); border-top: none; }
+        .qa-form-panel.open { max-height: 400px; padding: 1.5rem; }
+        .qa-form-panel textarea { width: 100%; background: rgba(255,255,255,.05); border: 1px solid rgba(252,210,2,.12); border-radius: 3px; padding: .9rem 1rem; font-family: 'DM Sans',sans-serif; font-size: var(--size-md); color: var(--white); resize: vertical; min-height: 100px; outline: none; font-weight: 300; line-height: 1.6; }
+        .qa-form-panel textarea::placeholder { color: rgba(255,255,255,.2); }
+        .qa-form-footer { display: flex; align-items: center; justify-content: space-between; margin-top: .8rem; gap: 1rem; }
+        .qa-name-input { flex: 1; background: rgba(255,255,255,.05); border: 1px solid rgba(252,210,2,.12); border-radius: 3px; padding: .65rem 1rem; font-family: 'DM Sans',sans-serif; font-size: var(--size-sm); color: var(--white); outline: none; }
+        .qa-name-input::placeholder { color: rgba(255,255,255,.2); }
+        .qa-submit-btn { background: var(--yellow); color: var(--navy); border: none; padding: .7rem 1.8rem; font-family: 'DM Sans',sans-serif; font-size: var(--size-sm); font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; cursor: none; transition: background .2s; border-radius: 2px; white-space: nowrap; }
+        .qa-submit-btn:hover { background: var(--yellow-muted); }
+        .qa-sent-msg { display: none; color: rgba(255,255,255,.45); font-size: var(--size-sm); font-style: italic; padding: .8rem 0 .3rem; text-align: center; }
+        .qa-list { margin-top: 2rem; display: flex; flex-direction: column; gap: .8rem; }
+        .qa-loading { text-align: center; color: rgba(255,255,255,.2); font-style: italic; font-size: var(--size-sm); padding: 2rem; }
+        .qa-item { border: 1px solid rgba(252,210,2,.08); border-radius: 4px; overflow: hidden; }
+        .qa-item-header { width: 100%; background: rgba(255,255,255,.04); border: none; padding: 1rem 1.2rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; cursor: none; text-align: left; transition: background .2s; }
+        .qa-item-header:hover { background: rgba(255,255,255,.07); }
+        .qa-item-q { font-size: var(--size-md); color: rgba(255,255,255,.75); font-weight: 500; flex: 1; }
+        .qa-item-meta { font-size: var(--size-sm); color: rgba(255,255,255,.2); white-space: nowrap; display: flex; align-items: center; gap: .8rem; }
+        .qa-item-arrow { color: rgba(252,210,2,.5); font-size: .9rem; transition: transform .3s; display: inline-block; }
+        .qa-item.open .qa-item-arrow { transform: rotate(180deg); }
+        .qa-item-answer { max-height: 0; overflow: hidden; transition: max-height .4s cubic-bezier(.4,0,.2,1); background: rgba(0,0,0,.15); }
+        .qa-item.open .qa-item-answer { max-height: 500px; }
+        .qa-item-answer-inner { padding: 1rem 1.2rem 1.2rem; font-size: var(--size-md); color: rgba(255,255,255,.5); font-weight: 300; line-height: 1.7; border-top: 1px solid rgba(252,210,2,.06); }
+        .qa-item-answer-inner.pending { color: rgba(255,255,255,.22); font-style: italic; }
+        .qa-reply-area { padding: .8rem 1.2rem 1rem; background: rgba(0,0,0,.1); border-top: 1px dashed rgba(252,210,2,.1); display: none; }
+        .qa-reply-area.visible { display: block; }
+        .qa-reply-area textarea { width: 100%; background: rgba(255,255,255,.04); border: 1px solid rgba(252,210,2,.1); border-radius: 3px; padding: .7rem .9rem; font-family: 'DM Sans',sans-serif; font-size: var(--size-md); color: var(--white); resize: vertical; min-height: 70px; outline: none; font-weight: 300; }
+        .qa-reply-row { display: flex; gap: .5rem; margin-top: .5rem; align-items: center; }
+        .qa-reply-post { background: rgba(252,210,2,.12); border: 1px solid rgba(252,210,2,.25); color: var(--yellow); padding: .45rem 1.1rem; font-family: 'DM Sans',sans-serif; font-size: var(--size-sm); font-weight: 700; letter-spacing: 1px; text-transform: uppercase; cursor: none; transition: all .2s; }
+        .qa-reply-post:hover { background: var(--yellow); color: var(--navy); }
+        .qa-delete-btn { background: none; border: 1px solid rgba(255,80,80,.2); color: rgba(255,80,80,.4); padding: .45rem .8rem; font-family: 'DM Sans',sans-serif; font-size: var(--size-sm); cursor: none; transition: all .2s; }
+        .qa-delete-btn:hover { border-color: rgba(255,80,80,.6); color: rgba(255,80,80,.8); }
+        .qa-owner-section { margin-top: 2.5rem; border-top: 1px solid rgba(255,255,255,.05); padding-top: 1.5rem; }
+        .qa-owner-toggle { background: none; border: none; font-family: 'DM Sans',sans-serif; font-size: var(--size-sm); color: rgba(255,255,255,.18); letter-spacing: 1px; cursor: none; transition: color .2s; text-decoration: underline; text-underline-offset: 3px; }
+        .qa-owner-toggle:hover { color: rgba(255,255,255,.4); }
+        .qa-owner-panel { max-height: 0; overflow: hidden; transition: max-height .35s ease; }
+        .qa-owner-panel.open { max-height: 120px; }
+        .qa-owner-form { display: flex; gap: .7rem; align-items: center; padding-top: 1rem; flex-wrap: wrap; }
+        .qa-owner-form input { background: rgba(255,255,255,.05); border: 1px solid rgba(252,210,2,.1); border-radius: 3px; padding: .55rem .8rem; font-family: 'DM Sans',sans-serif; font-size: var(--size-sm); color: var(--white); outline: none; width: 180px; }
+        .qa-owner-form input::placeholder { color: rgba(255,255,255,.18); }
+        .qa-unlock-btn { background: transparent; border: 1px solid rgba(252,210,2,.2); color: rgba(255,255,255,.35); padding: .55rem 1.1rem; font-family: 'DM Sans',sans-serif; font-size: var(--size-sm); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; cursor: none; transition: all .2s; }
+        .qa-unlock-btn:hover { border-color: var(--yellow); color: var(--yellow); }
+        .qa-owner-status { font-size: var(--size-sm); color: rgba(255,255,255,.25); }
+        .qa-notice { margin-top: 1rem; font-size: var(--size-sm); color: rgba(255,255,255,.15); font-style: italic; text-align: center; }
+
+        /* ── data inline ── */
+        .data-actions { display: flex; gap: .5rem; align-items: center; }
+        .btn-delete { background: none; border: 1px solid rgba(255,255,255,.15); color: rgba(255,255,255,.45); font-size: .8rem; padding: .4rem .7rem; border-radius: 3px; transition: all .2s; }
+        .btn-delete:hover { border-color: #e74c3c; color: #e74c3c; }
+        .loading-ring { display: block; width: 22px; height: 22px; border: 2px solid rgba(0,46,61,.12); border-top-color: #fcd202; border-radius: 50%; animation: spin .7s linear infinite; margin: 1.5rem auto; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .info-banner { background: rgba(252,210,2,.07); border: 1px solid rgba(252,210,2,.18); border-radius: 6px; padding: .9rem 1.1rem; margin-bottom: 1.4rem; font-size: .8rem; color: var(--text-mid); line-height: 1.6; }
+        .info-banner strong { color: var(--navy); }
+
+        @media (max-width: 768px) {
+            .process-hero,.process-steps,.tech-stack,.qa-section { padding-left: 1.5rem; padding-right: 1.5rem; }
+        }
+    </style>
 </head>
 <body>
-        <div class="cursor"><img src="logo.png" alt=""></div>
+    <div class="cursor"><img src="logo.png" alt=""></div>
+
     <header>
-        <div class="logo">
-            <img src="logo.png" alt="Logo">
-            <span class="header-tagline">[ your tagline here ]</span>
-        </div>
+        <div class="logo"><img src="logo.png" alt="Logo"></div>
         <button class="menu-btn" onclick="toggleMenu()">Menu</button>
     </header>
-            <div class="menu-overlay" id="menuOverlay">
+
+    <div class="menu-overlay" id="menuOverlay">
         <button class="menu-close" onclick="toggleMenu()">&#x2715;</button>
         <ul class="menu-nav">
-            <li><a href="motivation.html" onclick="toggleMenu()"><span class="number">01</span> Motivation</a></li>
-            <li><a href="experience.html" onclick="toggleMenu()"><span class="number">02</span> Work</a></li>
-            <li><a href="academics.html"  onclick="toggleMenu()"><span class="number">03</span> Academics</a></li>
-            <li><a href="contact.html"    onclick="toggleMenu()"><span class="number">04</span> Contact</a></li>
-            <li><a href="website.html"    onclick="toggleMenu()"><span class="number">05</span> Website</a></li>
-            <li><a href="data.html"       onclick="toggleMenu()"><span class="number">06</span> Data</a></li>
+            <li><a href="#motivation" onclick="navTo('motivation')"><span class="number">01</span> Motivation</a></li>
+            <li><a href="#work"       onclick="navTo('work')"><span class="number">02</span> Work</a></li>
+            <li><a href="#academics"  onclick="navTo('academics')"><span class="number">03</span> Academics</a></li>
+            <li><a href="#website"    onclick="navTo('website')"><span class="number">04</span> Website</a></li>
+            <li><a href="#data"       onclick="navTo('data')"><span class="number">05</span> Data</a></li>
         </ul>
     </div>
+
+    <!-- HERO -->
+    <span id="motivation" class="section-anchor"></span>
     <section class="hero">
-        <video class="hero-video" autoplay muted loop playsinline>
+        <video class="hero-video" muted loop playsinline>
             <source src="https://assets.mixkit.co/videos/preview/mixkit-business-people-working-in-an-office-4-28808-large.mp4" type="video/mp4">
         </video>
         <div class="hero-overlay"></div>
         <div class="hero-content">
             <h1>Bennett <span>Bauermeister</span></h1>
-            <p class="hero-subtitle">Dual Student &middot; Private Banking &amp; Wealth Management &middot; Commerzbank AG</p>
-            <a href="contact.html" class="hero-cta">Get in Touch</a>
+            <p class="hero-subtitle">Dual Student &middot; Commerzbank AG</p>
+            <a href="#data" onclick="navTo('data')" class="hero-cta">Get all Documents</a>
         </div>
         <div class="scroll-indicator"><span>Scroll</span><div class="scroll-line"></div></div>
     </section>
 
+    <!-- MOTIVATION -->
     <section class="youtube-section">
         <div class="yt-embed">
             <div class="yt-frame-wrap">
                 <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?rel=0&amp;modestbranding=1&amp;mute=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
-                        <p class="yt-caption">Watch while you scroll &#x2193;</p>
+            <p class="yt-caption">Watch while you scroll &#x2193;</p>
             <div class="yt-timestamps">
                 <p class="ts-label">Chapters</p>
                 <div class="ts-item"><span class="ts-time">0:00</span><span class="ts-title">[ Placeholder ]</span></div>
@@ -68,28 +192,265 @@
             </div>
         </div>
     </section>
-        <footer class="site-footer">
+
+    <!-- WORK -->
+    <span id="work" class="section-anchor"></span>
+    <section class="youtube-section">
+        <div class="yt-embed">
+            <div class="yt-frame-wrap">
+                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?rel=0&amp;modestbranding=1&amp;mute=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <p class="yt-caption">Watch while you scroll &#x2193;</p>
+            <div class="yt-timestamps">
+                <p class="ts-label">Chapters</p>
+                <div class="ts-item"><span class="ts-time">0:00</span><span class="ts-title">[ Placeholder ]</span></div>
+                <div class="ts-item"><span class="ts-time">0:00</span><span class="ts-title">[ Placeholder ]</span></div>
+                <div class="ts-item"><span class="ts-time">0:00</span><span class="ts-title">[ Placeholder ]</span></div>
+            </div>
+        </div>
+        <div class="yt-content">
+            <h2 class="section-title visible">Work Experience</h2>
+            <div class="experience-item visible">
+                <h3>Dual Student &ndash; Private Banking &amp; Wealth Management</h3>
+                <p><strong>Commerzbank AG &middot; Berlin, Germany &middot; 08.2023 &ndash; 09.2026</strong><br>Working alongside relationship managers for high-net-worth private clients. Focus areas: investment advisory, mortgage financing, instalment loans.</p>
+            </div>
+            <div class="experience-item visible">
+                <h3>International Placement</h3>
+                <p><strong>Commerzbank AG Z&uuml;rich &middot; Zurich, Switzerland &middot; 05.2025 &ndash; 08.2025</strong><br>Rotations across Corporate Clients, Capital Markets and Risk.</p>
+            </div>
+            <div class="experience-item visible">
+                <h3>Internship &ndash; International Corporates Operating Office</h3>
+                <p><strong>Commerzbank AG &middot; Frankfurt, Germany &middot; 11.2025 &ndash; 12.2025</strong><br>Budget planning for international locations, planning of new branches, regulatory support for local units.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ACADEMICS -->
+    <span id="academics" class="section-anchor"></span>
+    <section class="youtube-section">
+        <div class="yt-embed">
+            <div class="yt-frame-wrap">
+                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?rel=0&amp;modestbranding=1&amp;mute=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <p class="yt-caption">Watch while you scroll &#x2193;</p>
+            <div class="yt-timestamps">
+                <p class="ts-label">Chapters</p>
+                <div class="ts-item"><span class="ts-time">0:00</span><span class="ts-title">[ Placeholder ]</span></div>
+                <div class="ts-item"><span class="ts-time">0:00</span><span class="ts-title">[ Placeholder ]</span></div>
+                <div class="ts-item"><span class="ts-time">0:00</span><span class="ts-title">[ Placeholder ]</span></div>
+            </div>
+        </div>
+        <div class="yt-content">
+            <h2 class="section-title visible">Academic Background</h2>
+            <div class="experience-item visible">
+                <h3>Master</h3>
+                <p><strong>[ University ] &middot; [ Year ]</strong><br>[ Placeholder &mdash; add your Master details here ]</p>
+            </div>
+            <div class="experience-item visible">
+                <h3>Bachelor of Arts &ndash; Business Administration, Focus Banking</h3>
+                <p><strong>Hochschule f&uuml;r Wirtschaft und Recht Berlin &middot; 08.2023 &ndash; 09.2026</strong><br>GPA: 2.2 &middot; Courses: Securities Trading, Risk Management, Lending, Accounting (HGB), Micro- &amp; Macroeconomics, Statistics.</p>
+            </div>
+            <div class="experience-item visible">
+                <h3>Abitur</h3>
+                <p><strong>K&auml;the-Kollwitz-Gymnasium Berlin &middot; 08.2015 &ndash; 06.2023</strong><br>GPA: 2.5 &middot; Relevant coursework: Programming in Python.</p>
+            </div>
+            <div class="experience-item visible">
+                <h3>Skills &amp; Languages</h3>
+                <p>German (native) &middot; English (business fluent)<br>Python &middot; R<br>Member: Berliner B&ouml;rsenkreis e.V.</p>
+            </div>
+            <div class="experience-item visible">
+                <h3>Interests</h3>
+                <p>Chess &middot; Volleyball &middot; Football</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- WEBSITE -->
+    <span id="website" class="section-anchor"></span>
+    <div style="background:var(--off-white)">
+        <div class="process-hero">
+            <h1>Behind the Website</h1>
+            <p>This portfolio wasn't bought off a template shelf. Every line of code, every design decision, every interaction was built from scratch. Here's how it came together.</p>
+        </div>
+        <div class="process-steps">
+            <h2>How It Was Built</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <p class="tl-label">Step 01</p><h3>The Idea</h3>
+                    <p>Rather than submit a standard PDF application, I decided to build a custom portfolio website specifically for this application to Commerzbank. The goal: demonstrate initiative, technical curiosity, and attention to brand detail &mdash; all qualities relevant to the role.</p>
+                </div>
+                <div class="timeline-item">
+                    <p class="tl-label">Step 02</p><h3>Design Philosophy</h3>
+                    <p>The entire visual identity is built around Commerzbank's brand colours &mdash; navy (#002e3d) and yellow (#fcd202) &mdash; with DM Sans as the single typeface. Three font sizes throughout. Clean, structured, deliberate.</p>
+                </div>
+                <div class="timeline-item">
+                    <p class="tl-label">Step 03</p><h3>The Scratch-to-Reveal Landing</h3>
+                    <p>The landing page uses a two-layer HTML5 canvas. A solid yellow layer sits below; the photo sits on top and gets erased on interaction, revealing yellow beneath. Once enough is cleared, the welcome screen fades in.</p>
+                </div>
+                <div class="timeline-item">
+                    <p class="tl-label">Step 04</p><h3>Single Long Page</h3>
+                    <p>All content lives on one scrollable page. The menu uses anchor links to jump to each section, keeping navigation fast and intuitive without any page reloads.</p>
+                </div>
+                <div class="timeline-item">
+                    <p class="tl-label">Step 05</p><h3>Backend &amp; Hosting</h3>
+                    <p>Deployed on GitHub Pages for static content. PHP endpoints on Ionos handle file upload, listing, download and deletion &mdash; enabling document sharing without any database.</p>
+                </div>
+                <div class="timeline-item">
+                    <p class="tl-label">Step 06</p><h3>Q&amp;A</h3>
+                    <p>Questions submitted here are saved server-side and persist across visits and devices.</p>
+                </div>
+            </div>
+        </div>
+        <div class="tech-stack">
+            <h2>Tech Stack</h2>
+            <div class="pill-row">
+                <span class="pill">HTML5 Canvas</span><span class="pill">CSS Grid &amp; Flexbox</span>
+                <span class="pill">Vanilla JavaScript</span><span class="pill">DM Sans</span>
+                <span class="pill">YouTube Embed API</span><span class="pill">PHP 8</span>
+                <span class="pill">GitHub Pages</span><span class="pill">Ionos Hosting</span>
+                <span class="pill">Git / VS Code</span><span class="pill">JSON file storage</span>
+                <span class="pill">IntersectionObserver</span><span class="pill">CSS Custom Properties</span>
+            </div>
+        </div>
+        <div class="qa-section">
+            <h2>Questions</h2>
+            <p class="qa-sub">Leave a question &mdash; it's saved on the server. I'll reply directly here, visible to everyone.</p>
+            <div class="qa-board">
+                <button class="qa-ask-toggle" id="askToggle" onclick="toggleAsk()">
+                    <span>Leave a question</span><span class="qa-toggle-arrow">&#x25BE;</span>
+                </button>
+                <div class="qa-form-panel" id="askPanel">
+                    <textarea id="qaText" placeholder="Your question or message&#x2026;" maxlength="500"></textarea>
+                    <div class="qa-form-footer">
+                        <input class="qa-name-input" id="qaName" type="text" placeholder="Your name (optional)" maxlength="60" autocomplete="off">
+                        <button class="qa-submit-btn" onclick="submitQ()">Submit</button>
+                    </div>
+                    <p class="qa-sent-msg" id="sentMsg">&#x2713; Submitted &mdash; thank you.</p>
+                </div>
+                <div class="qa-list" id="qaList"><div class="qa-loading">Loading questions&#x2026;</div></div>
+                <div class="qa-owner-section">
+                    <button class="qa-owner-toggle" onclick="toggleOwner()">Owner access</button>
+                    <div class="qa-owner-panel" id="ownerPanel">
+                        <div class="qa-owner-form">
+                            <input type="password" id="ownerKey" placeholder="Passphrase" autocomplete="off">
+                            <button class="qa-unlock-btn" onclick="unlock()">Unlock</button>
+                            <span class="qa-owner-status" id="ownerStatus"></span>
+                        </div>
+                    </div>
+                </div>
+                <p class="qa-notice">Questions are stored permanently on the server &mdash; visible to all visitors from any device.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- DATA -->
+    <span id="data" class="section-anchor"></span>
+    <main id="data-page">
+        <div class="data-header">
+            <h2 class="section-title">Documents &amp; Data</h2>
+            <p class="section-text">Upload your CV, certificates and application documents. Files are stored on the server and can be downloaded by anyone reviewing your application.</p>
+        </div>
+        <div class="data-grid">
+            <div class="data-panel" id="uploadPanel">
+                <h3>Upload</h3>
+                <p class="panel-sub">Add your documents</p>
+                <div class="info-banner"><strong>Persistent storage.</strong> Files stay on the server until you delete them.</div>
+                <div class="upload-zone" id="uploadZone">
+                    <input type="file" id="fileInput" multiple accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.png,.jpg,.jpeg,.txt,.zip">
+                    <div class="upload-icon">&#x2B06;</div>
+                    <p><span>Click to upload</span> or drag &amp; drop</p>
+                    <p class="file-types">PDF &middot; DOC &middot; DOCX &middot; XLSX &middot; PPTX &middot; PNG &middot; JPG &middot; ZIP</p>
+                </div>
+                <div class="upload-progress" id="uploadProgress"><div class="upload-progress-bar" id="progressBar"></div></div>
+                <div class="upload-status" id="uploadStatus"></div>
+            </div>
+            <div class="data-panel" id="downloadPanel">
+                <h3>Download</h3>
+                <p class="panel-sub">Available documents</p>
+                <div class="download-list" id="downloadList"><span class="loading-ring"></span></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
         <div class="footer-col">
             <h4>Contact</h4>
             <a class="footer-link-row" href="mailto:bennett.bauermeister@gmail.com"><span class="flr-icon">&#x2709;</span> bennett.bauermeister@gmail.com</a>
             <a class="footer-link-row" href="tel:+491767259235"><span class="flr-icon">&#x260E;</span> +49 176 7259 2355</a>
             <a class="footer-link-row" href="https://linkedin.com/in/bennett-bauermeister" target="_blank"><span class="flr-icon">in</span> linkedin.com/in/bennett-bauermeister</a>
-            <a class="footer-link-row" href="#"><span class="flr-icon">&#x1F4CD;</span> Frankfurt am Main, Germany</a>
+            <a class="footer-link-row" href="#"><span class="flr-icon">&#x1F4CD;</span> Berlin, Germany</a>
         </div>
-                        <div class="footer-col">
+        <div class="footer-col">
             <h4>Navigation</h4>
-            <a class="footer-link-row" href="motivation.html"><span class="flr-icon">&#x2192;</span> Motivation</a>
-            <a class="footer-link-row" href="experience.html"><span class="flr-icon">&#x2192;</span> Work</a>
-            <a class="footer-link-row" href="academics.html"><span class="flr-icon">&#x2192;</span> Academics</a>
-            <a class="footer-link-row" href="contact.html"><span class="flr-icon">&#x2192;</span> Contact</a>
-            <a class="footer-link-row" href="website.html"><span class="flr-icon">&#x2192;</span> Website</a>
-            <a class="footer-link-row" href="data.html"><span class="flr-icon">&#x2192;</span> Data</a>
+            <a class="footer-link-row" href="#motivation" onclick="navTo('motivation')"><span class="flr-icon">&#x2192;</span> Motivation</a>
+            <a class="footer-link-row" href="#work"       onclick="navTo('work')"><span class="flr-icon">&#x2192;</span> Work</a>
+            <a class="footer-link-row" href="#academics"  onclick="navTo('academics')"><span class="flr-icon">&#x2192;</span> Academics</a>
+            <a class="footer-link-row" href="#website"    onclick="navTo('website')"><span class="flr-icon">&#x2192;</span> Website</a>
+            <a class="footer-link-row" href="#data"       onclick="navTo('data')"><span class="flr-icon">&#x2192;</span> Data</a>
         </div>
     </footer>
     <div class="footer-bottom">
-        <span>Bennett Bauermeister &#xB7; Application Portfolio</span>
-        <span>Frankfurt am Main &#xB7; 2025</span>
+        <span>Bennett Bauermeister &middot; Application Portfolio</span>
+        <span>Frankfurt am Main &middot; 2025</span>
     </div>
-<script src="script.js"></script>
+
+    <!-- Back to top -->
+    <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">&#x2191;</button>
+
+    <script src="script.js"></script>
+    <script>
+        function navTo(id) {
+            toggleMenu();
+            setTimeout(function() {
+                var el = document.getElementById(id);
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+            }, 380);
+        }
+
+        // back to top
+        var btt = document.getElementById('backToTop');
+        window.addEventListener('scroll', function() {
+            btt.classList.toggle('visible', window.scrollY > 500);
+        });
+
+        // observe data cards + section headings
+        document.querySelectorAll('.data-panel, #data-page .section-title, #data-page .section-text').forEach(function(el) {
+            new IntersectionObserver(function(entries) {
+                entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('visible'); });
+            }, { threshold: 0.1 }).observe(el);
+        });
+
+        // file upload / download
+        var fileInput=document.getElementById('fileInput'),uploadZone=document.getElementById('uploadZone'),
+            downloadList=document.getElementById('downloadList'),progressWrap=document.getElementById('uploadProgress'),
+            progressBar=document.getElementById('progressBar'),statusEl=document.getElementById('uploadStatus');
+        var fmt=function(b){return b<1024?b+' B':b<1048576?(b/1024).toFixed(1)+' KB':(b/1048576).toFixed(1)+' MB';};
+        var ico=function(n){return ({pdf:'📄',doc:'📝',docx:'📝',png:'🖼',jpg:'🖼',jpeg:'🖼',xls:'📊',xlsx:'📊',ppt:'📑',pptx:'📑',zip:'🗜'})[n.split('.').pop().toLowerCase()]||'📎';};
+        function setStatus(m,t){statusEl.textContent=m;statusEl.className='upload-status '+(t||'');}
+        async function loadFiles(){try{var r=await fetch('list_files.php');var d=await r.json();renderDownloads(d.files||[]);}catch(e){downloadList.innerHTML='<div class="empty-state">No files yet — or PHP not enabled on this server.</div>';}}
+        function renderDownloads(files){if(!files.length){downloadList.innerHTML='<div class="empty-state">No documents uploaded yet.</div>';return;}downloadList.innerHTML=files.map(function(f){var n=f.filename.length>30?f.filename.slice(0,28)+'…':f.filename;return '<div class="download-entry"><div class="dl-name"><span>'+ico(f.filename)+'</span><span title="'+f.filename+'">'+n+'</span></div><div class="data-actions"><a href="download.php?file='+encodeURIComponent(f.filename)+'" class="btn-download">&#x2193; Download</a><button class="btn-delete" onclick="deleteFile(\''+f.filename.replace(/'/g,"\\'")+'\')">&#x2715;</button></div></div>';}).join('');}
+        function uploadFile(file){return new Promise(function(resolve){var fd=new FormData();fd.append('file',file);var xhr=new XMLHttpRequest();xhr.open('POST','upload.php');xhr.upload.onprogress=function(e){if(e.lengthComputable){progressWrap.style.display='block';progressBar.style.width=(e.loaded/e.total*100)+'%';}};xhr.onload=function(){try{resolve(JSON.parse(xhr.responseText));}catch(e){resolve({success:false,error:'Server error'});}};xhr.onerror=function(){resolve({success:false,error:'Network error'});};xhr.send(fd);});}
+        async function handleFiles(files){for(var i=0;i<files.length;i++){var f=files[i];setStatus('Uploading '+f.name+'...');progressWrap.style.display='block';progressBar.style.width='0%';var r=await uploadFile(f);if(r.success){setStatus('✓ '+r.filename+' uploaded','success');progressBar.style.width='100%';setTimeout(function(){progressWrap.style.display='none';progressBar.style.width='0%';setStatus('');},800);await loadFiles();}else{setStatus('✗ '+(r.error||'Upload failed'),'error');progressWrap.style.display='none';}}}
+        async function deleteFile(filename){if(!confirm('Delete "'+filename+'"?'))return;try{var r=await fetch('delete.php',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({file:filename})});var d=await r.json();if(d.success){setStatus('✓ Deleted','success');setTimeout(function(){setStatus('');},2000);loadFiles();}else alert('Error: '+(d.error||''));}catch(e){alert('Network error.');}}
+        fileInput.addEventListener('change',function(e){handleFiles([].slice.call(e.target.files));fileInput.value='';});
+        uploadZone.addEventListener('dragover',function(e){e.preventDefault();uploadZone.classList.add('dragover');});
+        uploadZone.addEventListener('dragleave',function(){uploadZone.classList.remove('dragover');});
+        uploadZone.addEventListener('drop',function(e){e.preventDefault();uploadZone.classList.remove('dragover');handleFiles([].slice.call(e.dataTransfer.files));});
+        loadFiles();
+
+        // Q&A
+        var API='qa.php',isOwner=false,questions=[];
+        async function loadQ(){try{var r=await fetch(API+'?action=list');var d=await r.json();if(d.ok){questions=d.questions;render();}else throw 0;}catch(e){document.getElementById('qaList').innerHTML='<div class="qa-loading">Could not load questions.<br><small>Requires PHP on Ionos.</small></div>';}}
+        function render(){var list=document.getElementById('qaList');if(!questions.length){list.innerHTML='<div class="qa-loading">No questions yet &mdash; be the first.</div>';return;}list.innerHTML='';questions.forEach(function(q,i){var div=document.createElement('div');div.className='qa-item';div.id='qi-'+i;div.innerHTML='<button class="qa-item-header" onclick="toggle('+i+')"><span class="qa-item-q">'+q.text+'</span><span class="qa-item-meta">'+(q.name?q.name+' &middot; ':'')+q.time+'<span class="qa-item-arrow">&#x25BE;</span></span></button><div class="qa-item-answer"><div class="qa-item-answer-inner '+(q.reply?'':'pending')+'">'+(q.reply||'No reply yet.')+'</div>'+(isOwner?'<div class="qa-reply-area visible"><textarea id="rt-'+i+'">'+(q.reply||'')+'</textarea><div class="qa-reply-row"><button class="qa-reply-post" onclick="postReply(\''+q.id+'\','+i+')">Save Reply</button><button class="qa-delete-btn" onclick="deleteQ(\''+q.id+'\')">Delete</button></div></div>':'')+'</div>';list.appendChild(div);});}
+        function toggle(i){document.getElementById('qi-'+i).classList.toggle('open');}
+        function toggleAsk(){document.getElementById('askToggle').classList.toggle('open');document.getElementById('askPanel').classList.toggle('open');}
+        async function submitQ(){var text=document.getElementById('qaText').value.trim();if(!text)return;var name=document.getElementById('qaName').value.trim();try{var r=await fetch(API+'?action=submit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:text,name:name})});var d=await r.json();if(d.ok){document.getElementById('qaText').value='';document.getElementById('qaName').value='';var msg=document.getElementById('sentMsg');msg.style.display='block';setTimeout(function(){msg.style.display='none';document.getElementById('askToggle').classList.remove('open');document.getElementById('askPanel').classList.remove('open');},2000);await loadQ();}}catch(e){alert('Could not submit.');}}
+        function toggleOwner(){document.getElementById('ownerPanel').classList.toggle('open');}
+        function unlock(){var k=document.getElementById('ownerKey').value;var s=document.getElementById('ownerStatus');if(k==='commerzbank2025'){isOwner=true;s.textContent='✓ Unlocked';s.style.color='#fcd202';render();}else{s.textContent='✗ Wrong passphrase';s.style.color='#e74c3c';}}
+        async function postReply(id,i){var reply=document.getElementById('rt-'+i).value.trim();var pass=document.getElementById('ownerKey').value;try{var r=await fetch(API+'?action=reply',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:id,reply:reply,pass:pass})});var d=await r.json();if(d.ok){await loadQ();setTimeout(function(){document.getElementById('qi-'+i).classList.add('open');},50);}else alert('Error: '+(d.error||''));}catch(e){alert('Network error.');}}
+        async function deleteQ(id){if(!confirm('Delete?'))return;var pass=document.getElementById('ownerKey').value;try{var r=await fetch(API+'?action=delete',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:id,pass:pass})});var d=await r.json();if(d.ok)await loadQ();else alert('Error: '+(d.error||''));}catch(e){alert('Network error.');}}
+        loadQ();
+    </script>
 </body>
 </html>
