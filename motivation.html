@@ -6,7 +6,10 @@
     <title>Bennett Bauermeister</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        /* ── back to top ── */
+        /* hero height */
+        .hero { height: calc(65vh + 100px); }
+
+        /* back to top */
         .back-to-top {
             position: fixed; bottom: 2rem; right: 2rem;
             width: 50px; height: 50px;
@@ -15,38 +18,94 @@
             display: flex; align-items: center; justify-content: center;
             z-index: 600; opacity: 0; pointer-events: none;
             transition: opacity .3s, transform .3s;
-            box-shadow: 0 4px 18px rgba(0,0,0,.22);
-            cursor: none;
+            box-shadow: 0 4px 18px rgba(0,0,0,.22); cursor: none;
         }
         .back-to-top.visible { opacity: 1; pointer-events: auto; }
         .back-to-top:hover { transform: translateY(-4px); background: var(--yellow-muted); }
 
-        /* ── hero smaller so content below is visible ── */
-        .hero { height: calc(65vh + 200px); }
-
-        /* ── anchor offset for fixed header ── */
+        /* anchor offset */
         .section-anchor {
             display: block; height: 82px; margin-top: -82px;
             visibility: hidden; pointer-events: none;
         }
 
-        /* ── website section ── */
-        .process-hero {
-            background: var(--navy); padding: 3rem 4rem 3rem;
-            color: var(--white); position: relative; overflow: hidden;
+        /* IDDP text beside logo */
+        .logo-iddp {
+            font-size: var(--size-sm);
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            color: rgba(255,255,255,.45);
+            margin-left: 1rem;
+            white-space: nowrap;
         }
-        .process-hero::after {
-            content: ''; position: absolute; right: -100px; bottom: -100px;
-            width: 400px; height: 400px;
-            border: 60px solid rgba(252,210,2,.05); border-radius: 50%; pointer-events: none;
-        }
-        .process-hero h1 { font-size: var(--size-lg); font-weight: 700; color: var(--yellow); margin-bottom: 1rem; letter-spacing: -.5px; }
-        .process-hero p  { font-size: var(--size-md); color: rgba(255,255,255,.58); max-width: 640px; line-height: 1.9; font-weight: 300; }
 
-        .process-steps { padding: 5rem 4rem; max-width: 900px; margin: 0 auto; background: var(--off-white); }
-        .process-steps h2 { font-size: var(--size-lg); font-weight: 700; color: var(--navy); margin-bottom: 3rem; position: relative; padding-bottom: 1rem; }
+        /* ── youtube split layout (shared for all 4 content sections) ── */
+        /* The yt-embed is sticky so the video stays fixed while right side scrolls */
+        .youtube-section {
+            display: flex;
+            align-items: stretch;
+            background: var(--navy-deep);
+        }
+        .yt-embed {
+            flex: 0 0 40%;
+            position: sticky;
+            top: 82px;
+            height: calc(100vh - 82px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 3rem;
+            background: var(--navy-deep);
+            align-self: flex-start;
+        }
+        .yt-frame-wrap {
+            position: relative; padding-bottom: 56.25%;
+            height: 0; overflow: hidden;
+            border: 1px solid rgba(252,210,2,.15);
+        }
+        .yt-frame-wrap iframe {
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%; border: none;
+        }
+        .yt-caption {
+            margin-top: 1rem;
+            font-size: var(--size-sm);
+            letter-spacing: 2px; text-transform: uppercase;
+            color: rgba(255,255,255,.25); font-weight: 500;
+        }
+        .yt-timestamps { margin-top: 1.4rem; border-top: 1px solid rgba(252,210,2,.1); padding-top: 1rem; }
+        .ts-label { font-size: var(--size-sm); font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,.2); margin-bottom: .6rem; }
+        .ts-item { display: flex; gap: .8rem; padding: .3rem 0; border-bottom: 1px solid rgba(255,255,255,.04); align-items: center; }
+        .ts-item:last-child { border-bottom: none; }
+        .ts-time { font-size: var(--size-sm); color: var(--yellow); font-weight: 600; min-width: 36px; opacity: .7; }
+        .ts-title { font-size: var(--size-sm); color: rgba(255,255,255,.35); font-style: italic; }
+
+        .yt-content {
+            flex: 1;
+            padding: 5rem 4rem;
+            overflow-y: auto;
+            color: var(--white);
+            background: var(--navy);
+            border-left: 1px solid rgba(252,210,2,.08);
+            min-height: 100vh;
+        }
+        .yt-content .section-title { color: var(--white); }
+        .yt-content .section-title::after { background: var(--yellow); }
+        .yt-content .section-text { color: rgba(255,255,255,.55); }
+        .yt-content::-webkit-scrollbar { width: 3px; }
+        .yt-content::-webkit-scrollbar-thumb { background: rgba(252,210,2,.25); border-radius: 3px; }
+
+        /* ── website / tech / qa section (light bg, full width) ── */
+        .process-steps {
+            padding: 5rem 4rem;
+            max-width: 900px; margin: 0 auto;
+            background: var(--off-white);
+        }
+        .process-steps h2 {
+            font-size: var(--size-lg); font-weight: 700; color: var(--navy);
+            margin-bottom: 3rem; position: relative; padding-bottom: 1rem;
+        }
         .process-steps h2::after { content: ''; position: absolute; bottom: 0; left: 0; width: 60px; height: 3px; background: var(--yellow); }
-
         .timeline { position: relative; padding-left: 2rem; }
         .timeline::before { content: ''; position: absolute; left: 0; top: 8px; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--yellow), rgba(252,210,2,.1)); }
         .timeline-item { position: relative; padding: 0 0 3rem 2rem; }
@@ -55,33 +114,41 @@
         .timeline-item h3 { font-size: var(--size-md); font-weight: 700; color: var(--navy); margin-bottom: .5rem; }
         .timeline-item p  { font-size: var(--size-md); color: var(--text-mid); line-height: 1.8; font-weight: 300; }
 
-        .tech-stack { padding: 0 4rem 5rem; max-width: 900px; margin: 0 auto; background: var(--off-white); }
-        .tech-stack h2 { font-size: var(--size-lg); font-weight: 700; color: var(--navy); margin-bottom: 2rem; }
-        .pill-row { display: flex; flex-wrap: wrap; gap: .7rem; }
+        .tech-stack { padding: 0 4rem 4rem; max-width: 900px; margin: 0 auto; background: var(--off-white); }
+        .tech-stack h2 { font-size: var(--size-lg); font-weight: 700; color: var(--navy); margin-bottom: 1.5rem; }
+        .pill-row { display: flex; flex-wrap: wrap; gap: .7rem; margin-bottom: 2.5rem; }
         .pill { background: var(--white); border: 1px solid rgba(0,46,61,.1); color: var(--navy); padding: .5rem 1.1rem; font-size: var(--size-sm); font-weight: 600; letter-spacing: 1px; border-radius: 2px; transition: background .2s, border-color .2s; }
         .pill:hover { background: var(--yellow); border-color: var(--yellow); }
 
-        /* ── Q&A ── */
+        /* bar chart */
+        .stack-bars { display: flex; flex-direction: column; gap: .9rem; }
+        .sb-row { display: flex; align-items: center; gap: 1rem; }
+        .sb-label { font-size: var(--size-sm); font-weight: 600; color: var(--text-mid); width: 120px; flex-shrink: 0; text-align: right; }
+        .sb-track { flex: 1; background: rgba(0,46,61,.07); border-radius: 3px; overflow: hidden; height: 22px; }
+        .sb-fill { height: 100%; border-radius: 3px; transition: width 1s cubic-bezier(.4,0,.2,1); }
+        .sb-pct { font-size: var(--size-sm); font-weight: 700; color: var(--text-mid); width: 36px; }
+
+        /* Q&A */
         .qa-section { background: var(--navy-deep); padding: 5rem 4rem; }
         .qa-section > h2 { font-size: clamp(2rem,5vw,3.5rem); font-weight: 700; color: var(--white); margin-bottom: .6rem; }
-        .qa-sub { font-size: clamp(.95rem,1.5vw,1.15rem); color: rgba(255,255,255,.5); margin-bottom: 3rem; letter-spacing: .5px; font-weight: 300; }
+        .qa-sub { font-size: clamp(.95rem,1.5vw,1.15rem); color: rgba(255,255,255,.5); margin-bottom: 3rem; letter-spacing: .3px; font-weight: 300; }
         .qa-board { max-width: 760px; margin: 0 auto; }
         .qa-ask-toggle { width: 100%; background: rgba(252,210,2,.06); border: 2px solid rgba(252,210,2,.35); color: rgba(255,255,255,.8); padding: 1.4rem 1.8rem; font-family: 'DM Sans',sans-serif; font-size: clamp(1rem,1.8vw,1.2rem); font-weight: 600; letter-spacing: .5px; text-align: left; display: flex; align-items: center; justify-content: space-between; cursor: none; transition: border-color .25s, color .25s, background .25s; }
-        .qa-ask-toggle:hover,.qa-ask-toggle.open { border-color: rgba(252,210,2,.5); color: var(--yellow); background: rgba(252,210,2,.04); }
+        .qa-ask-toggle:hover,.qa-ask-toggle.open { border-color: rgba(252,210,2,.6); color: var(--yellow); background: rgba(252,210,2,.08); }
         .qa-toggle-arrow { font-size: 1.1rem; transition: transform .3s; display: inline-block; }
         .qa-ask-toggle.open .qa-toggle-arrow { transform: rotate(180deg); }
-        .qa-form-panel { max-height: 0; overflow: hidden; transition: max-height .45s cubic-bezier(.4,0,.2,1); background: rgba(255,255,255,.03); border: 1px solid rgba(252,210,2,.1); border-top: none; }
+        .qa-form-panel { max-height: 0; overflow: hidden; transition: max-height .45s cubic-bezier(.4,0,.2,1); background: rgba(255,255,255,.03); border: 2px solid rgba(252,210,2,.2); border-top: none; }
         .qa-form-panel.open { max-height: 400px; padding: 1.5rem; }
-        .qa-form-panel textarea { width: 100%; background: rgba(255,255,255,.05); border: 1px solid rgba(252,210,2,.12); border-radius: 3px; padding: .9rem 1rem; font-family: 'DM Sans',sans-serif; font-size: var(--size-md); color: var(--white); resize: vertical; min-height: 100px; outline: none; font-weight: 300; line-height: 1.6; }
-        .qa-form-panel textarea::placeholder { color: rgba(255,255,255,.2); }
+        .qa-form-panel textarea { width: 100%; background: rgba(255,255,255,.07); border: 1px solid rgba(252,210,2,.15); border-radius: 3px; padding: .9rem 1rem; font-family: 'DM Sans',sans-serif; font-size: var(--size-md); color: var(--white); resize: vertical; min-height: 100px; outline: none; font-weight: 300; line-height: 1.6; }
+        .qa-form-panel textarea::placeholder { color: rgba(255,255,255,.3); }
         .qa-form-footer { display: flex; align-items: center; justify-content: space-between; margin-top: .8rem; gap: 1rem; }
-        .qa-name-input { flex: 1; background: rgba(255,255,255,.05); border: 1px solid rgba(252,210,2,.12); border-radius: 3px; padding: .65rem 1rem; font-family: 'DM Sans',sans-serif; font-size: var(--size-sm); color: var(--white); outline: none; }
-        .qa-name-input::placeholder { color: rgba(255,255,255,.2); }
+        .qa-name-input { flex: 1; background: rgba(255,255,255,.07); border: 1px solid rgba(252,210,2,.15); border-radius: 3px; padding: .65rem 1rem; font-family: 'DM Sans',sans-serif; font-size: var(--size-sm); color: var(--white); outline: none; }
+        .qa-name-input::placeholder { color: rgba(255,255,255,.3); }
         .qa-submit-btn { background: var(--yellow); color: var(--navy); border: none; padding: .7rem 1.8rem; font-family: 'DM Sans',sans-serif; font-size: var(--size-sm); font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; cursor: none; transition: background .2s; border-radius: 2px; white-space: nowrap; }
         .qa-submit-btn:hover { background: var(--yellow-muted); }
-        .qa-sent-msg { display: none; color: rgba(255,255,255,.45); font-size: var(--size-sm); font-style: italic; padding: .8rem 0 .3rem; text-align: center; }
+        .qa-sent-msg { display: none; color: rgba(255,255,255,.5); font-size: var(--size-sm); font-style: italic; padding: .8rem 0 .3rem; text-align: center; }
         .qa-list { margin-top: 2rem; display: flex; flex-direction: column; gap: .8rem; }
-        .qa-loading { text-align: center; color: rgba(255,255,255,.2); font-style: italic; font-size: var(--size-sm); padding: 2rem; }
+        .qa-loading { text-align: center; color: rgba(255,255,255,.3); font-style: italic; font-size: var(--size-sm); padding: 2rem; }
         .qa-item { border: 1px solid rgba(252,210,2,.08); border-radius: 4px; overflow: hidden; }
         .qa-item-header { width: 100%; background: rgba(255,255,255,.04); border: none; padding: 1rem 1.2rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; cursor: none; text-align: left; transition: background .2s; }
         .qa-item-header:hover { background: rgba(255,255,255,.07); }
@@ -114,7 +181,7 @@
         .qa-owner-status { font-size: var(--size-sm); color: rgba(255,255,255,.25); }
         .qa-notice { margin-top: 1rem; font-size: var(--size-sm); color: rgba(255,255,255,.15); font-style: italic; text-align: center; }
 
-        /* ── data inline ── */
+        /* data */
         .data-actions { display: flex; gap: .5rem; align-items: center; }
         .btn-delete { background: none; border: 1px solid rgba(255,255,255,.15); color: rgba(255,255,255,.45); font-size: .8rem; padding: .4rem .7rem; border-radius: 3px; transition: all .2s; }
         .btn-delete:hover { border-color: #e74c3c; color: #e74c3c; }
@@ -123,46 +190,14 @@
         .info-banner { background: rgba(252,210,2,.07); border: 1px solid rgba(252,210,2,.18); border-radius: 6px; padding: .9rem 1.1rem; margin-bottom: 1.4rem; font-size: .8rem; color: var(--text-mid); line-height: 1.6; }
         .info-banner strong { color: var(--navy); }
 
-
-        /* ── date badge top-right of logo ── */
-        .header-date-badge {
-            position: absolute;
-            top: 50%; right: 4rem;
-            transform: translateY(-50%);
-            font-size: var(--size-sm);
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--yellow);
-            opacity: .7;
-            pointer-events: none;
+        @media (max-width: 1024px) {
+            .youtube-section { flex-direction: column; }
+            .yt-embed { position: relative; top: 0; height: auto; flex: none; }
         }
-        header { position: relative; }
-
-        /* ── plain scrollable sections (no video split) ── */
-        .plain-section {
-            background: var(--off-white);
-            padding: 5rem 4rem;
-            max-width: 100%;
-        }
-        .plain-section .section-title {
-            max-width: 800px; margin-bottom: 2.5rem;
-        }
-        .plain-section .experience-item {
-            max-width: 800px;
-        }
-
-        /* ── stack chart ── */
-        .stack-chart-wrap {
-            padding: 0 4rem 3rem;
-            max-width: 900px;
-            margin: 0 auto;
-            background: var(--off-white);
-        }
-        #stackChart { width: 100%; height: auto; }
-
         @media (max-width: 768px) {
-            .process-hero,.process-steps,.tech-stack,.qa-section { padding-left: 1.5rem; padding-right: 1.5rem; }
+            .process-steps,.tech-stack,.qa-section { padding-left: 1.5rem; padding-right: 1.5rem; }
+            .yt-embed { padding: 1.5rem; }
+            .yt-content { padding: 2rem 1.5rem; }
         }
     </style>
 </head>
@@ -170,8 +205,10 @@
     <div class="cursor"><img src="logo.png" alt=""></div>
 
     <header>
-        <div class="logo"><img src="logo.png" alt="Logo"></div>
-        <div class="header-date-badge">IDDP 11, 2026</div>
+        <div class="logo">
+            <img src="logo.png" alt="Logo">
+            <span class="logo-iddp">IDDP 11, 2026</span>
+        </div>
         <button class="menu-btn" onclick="toggleMenu()">Menu</button>
     </header>
 
@@ -186,7 +223,7 @@
         </ul>
     </div>
 
-    <!-- HERO -->
+    <!-- ══ HERO ══ -->
     <span id="motivation" class="section-anchor"></span>
     <section class="hero">
         <video class="hero-video" muted loop playsinline>
@@ -201,11 +238,11 @@
         <div class="scroll-indicator"><span>Scroll</span><div class="scroll-line"></div></div>
     </section>
 
-    <!-- MOTIVATION -->
+    <!-- ══ MOTIVATION (sticky video left, scrollable content right) ══ -->
     <section class="youtube-section">
         <div class="yt-embed">
             <div class="yt-frame-wrap">
-                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?rel=0&amp;modestbranding=1&amp;mute=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?rel=0&modestbranding=1&mute=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
             <p class="yt-caption">Watch while you scroll &#x2193;</p>
             <div class="yt-timestamps">
@@ -232,120 +269,160 @@
         </div>
     </section>
 
-    <!-- WORK -->
+    <!-- ══ WORK (same sticky-video layout, same video keeps playing) ══ -->
     <span id="work" class="section-anchor"></span>
-    <section class="plain-section">
-        <h2 class="section-title">Work Experience</h2>
-        <div class="experience-item">
-            <h3>Dual Student &ndash; Private Banking &amp; Wealth Management</h3>
-            <p><strong>Commerzbank AG &middot; Berlin, Germany &middot; 08.2023 &ndash; 09.2026</strong><br>Working alongside relationship managers for high-net-worth private clients. Focus areas: investment advisory, mortgage financing, instalment loans.</p>
+    <section class="youtube-section">
+        <div class="yt-embed">
+            <div class="yt-frame-wrap">
+                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?rel=0&modestbranding=1&mute=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <p class="yt-caption">Watch while you scroll &#x2193;</p>
+            <div class="yt-timestamps">
+                <p class="ts-label">Chapters</p>
+                <div class="ts-item"><span class="ts-time">0:00</span><span class="ts-title">[ Placeholder ]</span></div>
+                <div class="ts-item"><span class="ts-time">0:00</span><span class="ts-title">[ Placeholder ]</span></div>
+                <div class="ts-item"><span class="ts-time">0:00</span><span class="ts-title">[ Placeholder ]</span></div>
+            </div>
         </div>
-        <div class="experience-item">
-            <h3>International Placement</h3>
-            <p><strong>Commerzbank AG Z&uuml;rich &middot; Zurich, Switzerland &middot; 05.2025 &ndash; 08.2025</strong><br>Rotations across Corporate Clients, Capital Markets and Risk.</p>
-        </div>
-        <div class="experience-item">
-            <h3>Internship &ndash; International Corporates Operating Office</h3>
-            <p><strong>Commerzbank AG &middot; Frankfurt, Germany &middot; 11.2025 &ndash; 12.2025</strong><br>Budget planning for international locations, planning of new branches, regulatory support for local units.</p>
+        <div class="yt-content">
+            <h2 class="section-title visible">Work Experience</h2>
+            <div class="experience-item visible">
+                <h3>Dual Student &ndash; Private Banking &amp; Wealth Management</h3>
+                <p><strong>Commerzbank AG &middot; Berlin, Germany &middot; 08.2023 &ndash; 09.2026</strong><br>Working alongside relationship managers for high-net-worth private clients. Focus areas: investment advisory, mortgage financing, instalment loans.</p>
+            </div>
+            <div class="experience-item visible">
+                <h3>International Placement</h3>
+                <p><strong>Commerzbank AG Z&uuml;rich &middot; Zurich, Switzerland &middot; 05.2025 &ndash; 08.2025</strong><br>Rotations across Corporate Clients, Capital Markets and Risk.</p>
+            </div>
+            <div class="experience-item visible">
+                <h3>Internship &ndash; International Corporates Operating Office</h3>
+                <p><strong>Commerzbank AG &middot; Frankfurt, Germany &middot; 11.2025 &ndash; 12.2025</strong><br>Budget planning for international locations, planning of new branches, regulatory support for local units.</p>
+            </div>
         </div>
     </section>
 
-    <!-- ACADEMICS -->
+    <!-- ══ ACADEMICS (same layout) ══ -->
     <span id="academics" class="section-anchor"></span>
-    <section class="plain-section">
-        <h2 class="section-title">Academic Background</h2>
-        <div class="experience-item">
-            <h3>Master</h3>
-            <p><strong>[ University ] &middot; [ Year ]</strong><br>[ Placeholder &mdash; add your Master details here ]</p>
+    <section class="youtube-section">
+        <div class="yt-embed">
+            <div class="yt-frame-wrap">
+                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?rel=0&modestbranding=1&mute=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <p class="yt-caption">Watch while you scroll &#x2193;</p>
+            <div class="yt-timestamps">
+                <p class="ts-label">Chapters</p>
+                <div class="ts-item"><span class="ts-time">0:00</span><span class="ts-title">[ Placeholder ]</span></div>
+                <div class="ts-item"><span class="ts-time">0:00</span><span class="ts-title">[ Placeholder ]</span></div>
+                <div class="ts-item"><span class="ts-time">0:00</span><span class="ts-title">[ Placeholder ]</span></div>
+            </div>
         </div>
-        <div class="experience-item">
-            <h3>Bachelor of Arts &ndash; Business Administration, Focus Banking</h3>
-            <p><strong>Hochschule f&uuml;r Wirtschaft und Recht Berlin &middot; 08.2023 &ndash; 09.2026</strong><br>GPA: 2.2 &middot; Courses: Securities Trading, Risk Management, Lending, Accounting (HGB), Micro- &amp; Macroeconomics, Statistics.</p>
-        </div>
-        <div class="experience-item">
-            <h3>Abitur</h3>
-            <p><strong>K&auml;the-Kollwitz-Gymnasium Berlin &middot; 08.2015 &ndash; 06.2023</strong><br>GPA: 2.5 &middot; Relevant coursework: Programming in Python.</p>
-        </div>
-        <div class="experience-item">
-            <h3>Skills &amp; Languages</h3>
-            <p>German (native) &middot; English (business fluent)<br>Python &middot; R<br>Member: Berliner B&ouml;rsenkreis e.V.</p>
-        </div>
-        <div class="experience-item">
-            <h3>Interests</h3>
-            <p>Chess &middot; Volleyball &middot; Football</p>
+        <div class="yt-content">
+            <h2 class="section-title visible">Academic Background</h2>
+            <div class="experience-item visible">
+                <h3>Master</h3>
+                <p><strong>[ University ] &middot; [ Year ]</strong><br>[ Placeholder &mdash; add your Master details here ]</p>
+            </div>
+            <div class="experience-item visible">
+                <h3>Bachelor of Arts &ndash; Business Administration, Focus Banking</h3>
+                <p><strong>Hochschule f&uuml;r Wirtschaft und Recht Berlin &middot; 08.2023 &ndash; 09.2026</strong><br>GPA: 2.2 &middot; Courses: Securities Trading, Risk Management, Lending, Accounting (HGB), Micro- &amp; Macroeconomics, Statistics.</p>
+            </div>
+            <div class="experience-item visible">
+                <h3>Abitur</h3>
+                <p><strong>K&auml;the-Kollwitz-Gymnasium Berlin &middot; 08.2015 &ndash; 06.2023</strong><br>GPA: 2.5 &middot; Relevant coursework: Programming in Python.</p>
+            </div>
+            <div class="experience-item visible">
+                <h3>Skills &amp; Languages</h3>
+                <p>German (native) &middot; English (business fluent)<br>Python &middot; R<br>Member: Berliner B&ouml;rsenkreis e.V.</p>
+            </div>
+            <div class="experience-item visible">
+                <h3>Interests</h3>
+                <p>Chess &middot; Volleyball &middot; Football</p>
+            </div>
         </div>
     </section>
 
-    <!-- WEBSITE -->
+    <!-- ══ WEBSITE (same layout) ══ -->
     <span id="website" class="section-anchor"></span>
-    <div style="background:var(--off-white)">
-        <div class="process-hero">
-            <h1 style="font-size:clamp(1.2rem,2.5vw,1.8rem);margin-bottom:.5rem;">Behind the Website</h1>
-            <p>This portfolio wasn't bought off a template shelf. Every line of code, every design decision, every interaction was built from scratch. Here's how it came together.</p>
+    <section class="youtube-section">
+        <div class="yt-embed">
+            <div class="yt-frame-wrap">
+                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?rel=0&modestbranding=1&mute=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <p class="yt-caption">Watch while you scroll &#x2193;</p>
         </div>
-        <div class="process-steps">
-            <h2>The Website</h2>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <p class="tl-label">Step 01</p><h3>The Idea</h3>
-                    <p>Rather than submit a standard PDF application, I built a custom portfolio website for this application to Commerzbank &mdash; to demonstrate initiative, technical curiosity, and attention to brand detail.</p>
+        <div class="yt-content">
+            <h2 class="section-title visible">The Website</h2>
+            <div class="experience-item visible">
+                <h3>Step 01 &mdash; The Idea</h3>
+                <p>Rather than submit a standard PDF application, I built a custom portfolio website for this application to Commerzbank &mdash; to demonstrate initiative, technical curiosity, and attention to brand detail.</p>
+            </div>
+            <div class="experience-item visible">
+                <h3>Step 02 &mdash; Design &amp; Build</h3>
+                <p>Built in HTML, CSS and vanilla JavaScript. Visual identity uses Commerzbank&apos;s navy and yellow throughout. The landing page features a two-layer canvas scratch-to-reveal interaction.</p>
+            </div>
+            <div class="experience-item visible">
+                <h3>Step 03 &mdash; Hosting &amp; Backend</h3>
+                <p>Static content on GitHub Pages. PHP endpoints on Ionos handle document upload, download and deletion &mdash; and persist the Q&amp;A board across devices.</p>
+            </div>
+
+            <!-- Tech stack inside the scrollable right panel -->
+            <div style="margin-top:3rem;">
+                <h3 style="color:var(--yellow);font-size:var(--size-md);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:1.2rem;">Tech Stack</h3>
+                <div class="pill-row">
+                    <span class="pill">HTML5 Canvas</span>
+                    <span class="pill">CSS Grid &amp; Flexbox</span>
+                    <span class="pill">Vanilla JavaScript</span>
+                    <span class="pill">DM Sans</span>
+                    <span class="pill">YouTube Embed API</span>
+                    <span class="pill">PHP 8</span>
+                    <span class="pill">GitHub Pages</span>
+                    <span class="pill">Ionos Hosting</span>
+                    <span class="pill">JSON file storage</span>
+                    <span class="pill">CSS Custom Properties</span>
                 </div>
-                <div class="timeline-item">
-                    <p class="tl-label">Step 02</p><h3>Design &amp; Build</h3>
-                    <p>Built entirely in HTML, CSS and vanilla JavaScript. Visual identity uses Commerzbank's navy and yellow with DM Sans. The landing page features a two-layer canvas scratch-to-reveal interaction.</p>
-                </div>
-                <div class="timeline-item">
-                    <p class="tl-label">Step 03</p><h3>Hosting &amp; Backend</h3>
-                    <p>Static content on GitHub Pages. PHP endpoints on Ionos handle document upload, download and deletion &mdash; and persist the Q&amp;A board across devices.</p>
+                <div class="stack-bars" id="stackBars">
+                    <div class="sb-row"><span class="sb-label">HTML / CSS</span><div class="sb-track"><div class="sb-fill" style="width:0%;background:#fcd202" data-w="40"></div></div><span class="sb-pct">40%</span></div>
+                    <div class="sb-row"><span class="sb-label">JavaScript</span><div class="sb-track"><div class="sb-fill" style="width:0%;background:rgba(255,255,255,.55)" data-w="28"></div></div><span class="sb-pct">28%</span></div>
+                    <div class="sb-row"><span class="sb-label">PHP</span><div class="sb-track"><div class="sb-fill" style="width:0%;background:#00576e" data-w="18"></div></div><span class="sb-pct">18%</span></div>
+                    <div class="sb-row"><span class="sb-label">Canvas API</span><div class="sb-track"><div class="sb-fill" style="width:0%;background:rgba(252,210,2,.45)" data-w="10"></div></div><span class="sb-pct">10%</span></div>
+                    <div class="sb-row"><span class="sb-label">Other</span><div class="sb-track"><div class="sb-fill" style="width:0%;background:rgba(255,255,255,.2)" data-w="4"></div></div><span class="sb-pct">4%</span></div>
                 </div>
             </div>
         </div>
-        <div class="tech-stack">
-            <h2>Tech Stack</h2>
-            <div class="pill-row">
-                <span class="pill">HTML5 Canvas</span><span class="pill">CSS Grid &amp; Flexbox</span>
-                <span class="pill">Vanilla JavaScript</span><span class="pill">DM Sans</span>
-                <span class="pill">YouTube Embed API</span><span class="pill">PHP 8</span>
-                <span class="pill">GitHub Pages</span><span class="pill">Ionos Hosting</span>
-                <span class="pill">Git / VS Code</span><span class="pill">JSON file storage</span>
-                <span class="pill">IntersectionObserver</span><span class="pill">CSS Custom Properties</span>
+    </section>
+
+    <!-- ══ Q&A ══ -->
+    <div class="qa-section">
+        <h2>Questions</h2>
+        <p class="qa-sub">Leave a question &mdash; it&apos;s saved on the website and visible to everyone.</p>
+        <div class="qa-board">
+            <button class="qa-ask-toggle" id="askToggle" onclick="toggleAsk()">
+                <span>Leave a question</span><span class="qa-toggle-arrow">&#x25BE;</span>
+            </button>
+            <div class="qa-form-panel" id="askPanel">
+                <textarea id="qaText" placeholder="Your question or message&#x2026;" maxlength="500"></textarea>
+                <div class="qa-form-footer">
+                    <input class="qa-name-input" id="qaName" type="text" placeholder="Your name (optional)" maxlength="60" autocomplete="off">
+                    <button class="qa-submit-btn" onclick="submitQ()">Submit</button>
+                </div>
+                <p class="qa-sent-msg" id="sentMsg">&#x2713; Submitted &mdash; thank you.</p>
             </div>
-        </div>
-        <div class="stack-chart-wrap">
-            <canvas id="stackChart" width="700" height="220"></canvas>
-        </div>
-        <div class="qa-section">
-            <h2>Questions</h2>
-            <p class="qa-sub">Leave a question &mdash; it's saved on the website and visible to everyone.</p>
-            <div class="qa-board">
-                <button class="qa-ask-toggle" id="askToggle" onclick="toggleAsk()">
-                    <span>Leave a question</span><span class="qa-toggle-arrow">&#x25BE;</span>
-                </button>
-                <div class="qa-form-panel" id="askPanel">
-                    <textarea id="qaText" placeholder="Your question or message&#x2026;" maxlength="500"></textarea>
-                    <div class="qa-form-footer">
-                        <input class="qa-name-input" id="qaName" type="text" placeholder="Your name (optional)" maxlength="60" autocomplete="off">
-                        <button class="qa-submit-btn" onclick="submitQ()">Submit</button>
+            <div class="qa-list" id="qaList"><div class="qa-loading">No questions yet &mdash; be the first.</div></div>
+            <div class="qa-owner-section">
+                <button class="qa-owner-toggle" onclick="toggleOwner()">Owner access</button>
+                <div class="qa-owner-panel" id="ownerPanel">
+                    <div class="qa-owner-form">
+                        <input type="password" id="ownerKey" placeholder="Passphrase" autocomplete="off">
+                        <button class="qa-unlock-btn" onclick="unlock()">Unlock</button>
+                        <span class="qa-owner-status" id="ownerStatus"></span>
                     </div>
-                    <p class="qa-sent-msg" id="sentMsg">&#x2713; Submitted &mdash; thank you.</p>
                 </div>
-                <div class="qa-list" id="qaList"><div class="qa-loading">Loading questions&#x2026;</div></div>
-                <div class="qa-owner-section">
-                    <button class="qa-owner-toggle" onclick="toggleOwner()">Owner access</button>
-                    <div class="qa-owner-panel" id="ownerPanel">
-                        <div class="qa-owner-form">
-                            <input type="password" id="ownerKey" placeholder="Passphrase" autocomplete="off">
-                            <button class="qa-unlock-btn" onclick="unlock()">Unlock</button>
-                            <span class="qa-owner-status" id="ownerStatus"></span>
-                        </div>
-                    </div>
-                </div>
-                <p class="qa-notice">Questions are stored permanently on the server &mdash; visible to all visitors from any device.</p>
             </div>
+            <p class="qa-notice">Questions are stored permanently on the server &mdash; visible to all visitors from any device.</p>
         </div>
     </div>
 
-    <!-- DATA -->
+    <!-- ══ DATA ══ -->
     <span id="data" class="section-anchor"></span>
     <main id="data-page">
         <div class="data-header">
@@ -374,11 +451,11 @@
         </div>
     </main>
 
-    <!-- FOOTER -->
+    <!-- ══ FOOTER ══ -->
     <footer class="site-footer">
         <div class="footer-col">
             <h4>Contact</h4>
-            <a class="footer-link-row" href="/cdn-cgi/l/email-protection#f89a9d96969d8c8cd69a998d9d8a959d918b8c9d8ab89f95999194d69b9795"><span class="flr-icon">&#x2709;</span> <span class="__cf_email__" data-cfemail="1c7e797272796868327e7d69796e7179756f68796e5c7b717d7570327f7371">[email&#160;protected]</span></a>
+            <a class="footer-link-row" href="mailto:bennett.bauermeister@gmail.com"><span class="flr-icon">&#x2709;</span> bennett.bauermeister@gmail.com</a>
             <a class="footer-link-row" href="tel:+491767259235"><span class="flr-icon">&#x260E;</span> +49 176 7259 2355</a>
             <a class="footer-link-row" href="https://linkedin.com/in/bennett-bauermeister" target="_blank"><span class="flr-icon">in</span> linkedin.com/in/bennett-bauermeister</a>
             <a class="footer-link-row" href="#"><span class="flr-icon">&#x1F4CD;</span> Berlin, Germany</a>
@@ -397,101 +474,203 @@
         <span>Frankfurt am Main &middot; 2025</span>
     </div>
 
-    <!-- Back to top -->
     <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">&#x2191;</button>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="script.js"></script>
+    <script src="script.js"></script>
     <script>
-
-        // tech stack chart
-        (function() {
-            var canvas = document.getElementById('stackChart');
-            if (!canvas) return;
-            var ctx = canvas.getContext('2d');
-            var items = [
-                { label: 'HTML / CSS', pct: 40, color: '#fcd202' },
-                { label: 'JavaScript', pct: 28, color: '#002e3d' },
-                { label: 'PHP',        pct: 14, color: '#00576e' },
-                { label: 'Canvas API', pct: 10, color: '#e8c800' },
-                { label: 'Other',      pct:  8, color: '#8a9bb0' },
-            ];
-            var W = canvas.width, H = canvas.height;
-            var barH = 28, gap = 18, startY = 20, labelW = 130;
-
-            items.forEach(function(item, i) {
-                var y = startY + i * (barH + gap);
-                var maxW = W - labelW - 60;
-                var barW = maxW * (item.pct / 100);
-
-                // label
-                ctx.fillStyle = '#3a4a5c';
-                ctx.font = '600 13px DM Sans, sans-serif';
-                ctx.textAlign = 'right';
-                ctx.fillText(item.label, labelW - 10, y + barH * .68);
-
-                // bar background
-                ctx.fillStyle = 'rgba(0,46,61,.06)';
-                ctx.fillRect(labelW, y, maxW, barH);
-
-                // bar fill
-                ctx.fillStyle = item.color;
-                ctx.fillRect(labelW, y, barW, barH);
-
-                // percentage label
-                ctx.fillStyle = '#3a4a5c';
-                ctx.font = '700 12px DM Sans, sans-serif';
-                ctx.textAlign = 'left';
-                ctx.fillText(item.pct + '%', labelW + barW + 8, y + barH * .68);
-            });
-        })();
-
+        // ── nav: close menu first, then smooth scroll ─────────────────────────
         function navTo(id) {
-            toggleMenu();
-            setTimeout(function() {
+            var overlay = document.getElementById('menuOverlay');
+            if (overlay.classList.contains('active')) {
+                toggleMenu();
+                setTimeout(function() {
+                    var el = document.getElementById(id);
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }, 380);
+            } else {
                 var el = document.getElementById(id);
                 if (el) el.scrollIntoView({ behavior: 'smooth' });
-            }, 380);
+            }
+            return false;
         }
 
-        // back to top
+        // ── back to top ───────────────────────────────────────────────────────
         var btt = document.getElementById('backToTop');
         window.addEventListener('scroll', function() {
             btt.classList.toggle('visible', window.scrollY > 500);
         });
 
-        // observe data cards + section headings
+        // ── animate stack bars when section scrolls into view ─────────────────
+        var barsAnimated = false;
+        var barsObs = new IntersectionObserver(function(entries) {
+            if (entries[0].isIntersecting && !barsAnimated) {
+                barsAnimated = true;
+                document.querySelectorAll('.sb-fill').forEach(function(bar) {
+                    bar.style.width = bar.getAttribute('data-w') + '%';
+                });
+            }
+        }, { threshold: 0.3 });
+        var stackEl = document.getElementById('stackBars');
+        if (stackEl) barsObs.observe(stackEl);
+
+        // ── data section card animations ──────────────────────────────────────
         document.querySelectorAll('.data-panel, #data-page .section-title, #data-page .section-text').forEach(function(el) {
             new IntersectionObserver(function(entries) {
                 entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('visible'); });
             }, { threshold: 0.1 }).observe(el);
         });
 
-        // file upload / download
-        var fileInput=document.getElementById('fileInput'),uploadZone=document.getElementById('uploadZone'),
-            downloadList=document.getElementById('downloadList'),progressWrap=document.getElementById('uploadProgress'),
-            progressBar=document.getElementById('progressBar'),statusEl=document.getElementById('uploadStatus');
-        var fmt=function(b){return b<1024?b+' B':b<1048576?(b/1024).toFixed(1)+' KB':(b/1048576).toFixed(1)+' MB';};
-        var ico=function(n){return ({pdf:'📄',doc:'📝',docx:'📝',png:'🖼',jpg:'🖼',jpeg:'🖼',xls:'📊',xlsx:'📊',ppt:'📑',pptx:'📑',zip:'🗜'})[n.split('.').pop().toLowerCase()]||'📎';};
+        // ── file upload / download ────────────────────────────────────────────
+        var fileInput    = document.getElementById('fileInput');
+        var uploadZone   = document.getElementById('uploadZone');
+        var downloadList = document.getElementById('downloadList');
+        var progressWrap = document.getElementById('uploadProgress');
+        var progressBar  = document.getElementById('progressBar');
+        var statusEl     = document.getElementById('uploadStatus');
+
+        function ico(n){return({pdf:'📄',doc:'📝',docx:'📝',png:'🖼',jpg:'🖼',jpeg:'🖼',xls:'📊',xlsx:'📊',ppt:'📑',pptx:'📑',zip:'🗜'})[n.split('.').pop().toLowerCase()]||'📎';}
         function setStatus(m,t){statusEl.textContent=m;statusEl.className='upload-status '+(t||'');}
-        async function loadFiles(){try{var r=await fetch('list_files.php');var d=await r.json();renderDownloads(d.files||[]);}catch(e){downloadList.innerHTML='<div class="empty-state">No files yet — or PHP not enabled on this server.</div>';}}
-        function renderDownloads(files){if(!files.length){downloadList.innerHTML='<div class="empty-state">No documents uploaded yet.</div>';return;}downloadList.innerHTML=files.map(function(f){var n=f.filename.length>30?f.filename.slice(0,28)+'…':f.filename;return '<div class="download-entry"><div class="dl-name"><span>'+ico(f.filename)+'</span><span title="'+f.filename+'">'+n+'</span></div><div class="data-actions"><a href="download.php?file='+encodeURIComponent(f.filename)+'" class="btn-download">&#x2193; Download</a><button class="btn-delete" onclick="deleteFile(\''+f.filename.replace(/'/g,"\\'")+'\')">&#x2715;</button></div></div>';}).join('');}
-        function uploadFile(file){return new Promise(function(resolve){var fd=new FormData();fd.append('file',file);var xhr=new XMLHttpRequest();xhr.open('POST','upload.php');xhr.upload.onprogress=function(e){if(e.lengthComputable){progressWrap.style.display='block';progressBar.style.width=(e.loaded/e.total*100)+'%';}};xhr.onload=function(){try{resolve(JSON.parse(xhr.responseText));}catch(e){resolve({success:false,error:'Server error'});}};xhr.onerror=function(){resolve({success:false,error:'Network error'});};xhr.send(fd);});}
-        async function handleFiles(files){for(var i=0;i<files.length;i++){var f=files[i];setStatus('Uploading '+f.name+'...');progressWrap.style.display='block';progressBar.style.width='0%';var r=await uploadFile(f);if(r.success){setStatus('✓ '+r.filename+' uploaded','success');progressBar.style.width='100%';setTimeout(function(){progressWrap.style.display='none';progressBar.style.width='0%';setStatus('');},800);await loadFiles();}else{setStatus('✗ '+(r.error||'Upload failed'),'error');progressWrap.style.display='none';}}}
-        async function deleteFile(filename){if(!confirm('Delete "'+filename+'"?'))return;try{var r=await fetch('delete.php',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({file:filename})});var d=await r.json();if(d.success){setStatus('✓ Deleted','success');setTimeout(function(){setStatus('');},2000);loadFiles();}else alert('Error: '+(d.error||''));}catch(e){alert('Network error.');}}
-        fileInput.addEventListener('change',function(e){handleFiles([].slice.call(e.target.files));fileInput.value='';});
-        uploadZone.addEventListener('dragover',function(e){e.preventDefault();uploadZone.classList.add('dragover');});
-        uploadZone.addEventListener('dragleave',function(){uploadZone.classList.remove('dragover');});
-        uploadZone.addEventListener('drop',function(e){e.preventDefault();uploadZone.classList.remove('dragover');handleFiles([].slice.call(e.dataTransfer.files));});
+
+        async function loadFiles() {
+            try {
+                var r = await fetch('list_files.php');
+                var d = await r.json();
+                renderDownloads(d.files || []);
+            } catch(e) {
+                downloadList.innerHTML = '<div class="empty-state">No files yet &mdash; or PHP not enabled on this server.</div>';
+            }
+        }
+        function renderDownloads(files) {
+            if (!files.length) { downloadList.innerHTML = '<div class="empty-state">No documents uploaded yet.</div>'; return; }
+            downloadList.innerHTML = files.map(function(f) {
+                var n = f.filename.length > 30 ? f.filename.slice(0,28) + '&hellip;' : f.filename;
+                return '<div class="download-entry"><div class="dl-name"><span>' + ico(f.filename) + '</span><span title="' + f.filename + '">' + n + '</span></div>'
+                     + '<div class="data-actions"><a href="download.php?file=' + encodeURIComponent(f.filename) + '" class="btn-download">&#x2193; Download</a>'
+                     + '<button class="btn-delete" onclick="deleteFile(\'' + f.filename.replace(/'/g,"\\'") + '\')">&#x2715;</button></div></div>';
+            }).join('');
+        }
+        function uploadFile(file) {
+            return new Promise(function(resolve) {
+                var fd = new FormData(); fd.append('file', file);
+                var xhr = new XMLHttpRequest(); xhr.open('POST','upload.php');
+                xhr.upload.onprogress = function(e) { if(e.lengthComputable){progressWrap.style.display='block';progressBar.style.width=(e.loaded/e.total*100)+'%';} };
+                xhr.onload  = function(){ try{resolve(JSON.parse(xhr.responseText));}catch(e){resolve({success:false,error:'Server error'});} };
+                xhr.onerror = function(){ resolve({success:false,error:'Network error'}); };
+                xhr.send(fd);
+            });
+        }
+        async function handleFiles(files) {
+            for (var i = 0; i < files.length; i++) {
+                var f = files[i];
+                setStatus('Uploading ' + f.name + '...');
+                progressWrap.style.display = 'block'; progressBar.style.width = '0%';
+                var r = await uploadFile(f);
+                if (r.success) {
+                    setStatus('✓ ' + r.filename + ' uploaded', 'success');
+                    progressBar.style.width = '100%';
+                    setTimeout(function(){progressWrap.style.display='none';progressBar.style.width='0%';setStatus('');}, 800);
+                    await loadFiles();
+                } else {
+                    setStatus('✗ ' + (r.error || 'Upload failed'), 'error');
+                    progressWrap.style.display = 'none';
+                }
+            }
+        }
+        async function deleteFile(filename) {
+            if (!confirm('Delete "' + filename + '"?')) return;
+            try {
+                var r = await fetch('delete.php', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({file:filename})});
+                var d = await r.json();
+                if (d.success) { setStatus('✓ Deleted','success'); setTimeout(function(){setStatus('');},2000); loadFiles(); }
+                else alert('Error: ' + (d.error || ''));
+            } catch(e) { alert('Network error.'); }
+        }
+        fileInput.addEventListener('change', function(e){ handleFiles([].slice.call(e.target.files)); fileInput.value=''; });
+        uploadZone.addEventListener('dragover',  function(e){ e.preventDefault(); uploadZone.classList.add('dragover'); });
+        uploadZone.addEventListener('dragleave', function(){ uploadZone.classList.remove('dragover'); });
+        uploadZone.addEventListener('drop',      function(e){ e.preventDefault(); uploadZone.classList.remove('dragover'); handleFiles([].slice.call(e.dataTransfer.files)); });
         loadFiles();
 
-        // Q&A
-        var API='qa.php',isOwner=false,questions=[];
-        async function loadQ(){try{var r=await fetch(API+'?action=list');var d=await r.json();if(d.ok){questions=d.questions;render();}else throw 0;}catch(e){document.getElementById('qaList').innerHTML='<div class="qa-loading">Could not load questions.<br><small>Requires PHP on Ionos.</small></div>';}}
-        function render(){var list=document.getElementById('qaList');if(!questions.length){list.innerHTML='<div class="qa-loading">No questions yet &mdash; be the first.</div>';return;}list.innerHTML='';questions.forEach(function(q,i){var div=document.createElement('div');div.className='qa-item';div.id='qi-'+i;div.innerHTML='<button class="qa-item-header" onclick="toggle('+i+')"><span class="qa-item-q">'+q.text+'</span><span class="qa-item-meta">'+(q.name?q.name+' &middot; ':'')+q.time+'<span class="qa-item-arrow">&#x25BE;</span></span></button><div class="qa-item-answer"><div class="qa-item-answer-inner '+(q.reply?'':'pending')+'">'+(q.reply||'No reply yet.')+'</div>'+(isOwner?'<div class="qa-reply-area visible"><textarea id="rt-'+i+'">'+(q.reply||'')+'</textarea><div class="qa-reply-row"><button class="qa-reply-post" onclick="postReply(\''+q.id+'\','+i+')">Save Reply</button><button class="qa-delete-btn" onclick="deleteQ(\''+q.id+'\')">Delete</button></div></div>':'')+'</div>';list.appendChild(div);});}
-        function toggle(i){document.getElementById('qi-'+i).classList.toggle('open');}
-        function toggleAsk(){document.getElementById('askToggle').classList.toggle('open');document.getElementById('askPanel').classList.toggle('open');}
-        async function submitQ(){var text=document.getElementById('qaText').value.trim();if(!text)return;var name=document.getElementById('qaName').value.trim();try{var r=await fetch(API+'?action=submit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:text,name:name})});var d=await r.json();if(d.ok){document.getElementById('qaText').value='';document.getElementById('qaName').value='';var msg=document.getElementById('sentMsg');msg.style.display='block';setTimeout(function(){msg.style.display='none';document.getElementById('askToggle').classList.remove('open');document.getElementById('askPanel').classList.remove('open');},2000);await loadQ();}}catch(e){alert('Could not submit.');}}
-        function toggleOwner(){document.getElementById('ownerPanel').classList.toggle('open');}
-        function unlock(){var k=document.getElementById('ownerKey').value;var s=document.getElementById('ownerStatus');if(k==='commerzbank2025'){isOwner=true;s.textContent='✓ Unlocked';s.style.color='#fcd202';render();}else{s.textContent='✗ Wrong passphrase';s.style.color='#e74c3c';}}
-        async function postReply(id,i){var reply=document.getElementById('rt-'+i).value.trim();var pass=document.getElementById('ownerKey').value;try{var r=await fetch(API+'?action=reply',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:id,reply:reply,pass:pass})});var d=await r.json();if(d.ok){await loadQ();setTimeout(function(){document.getElementById('qi-'+i).classList.add('open');},50);}else alert('Error: '+(d.error||''));}catch(e){alert('Network error.');}}
-        async function deleteQ(id){if(!confirm('Delete?'))return;var pass=document.getElementById('ownerKey').value;try{var r=await fetch(API+'?action=delete
+        // ── Q&A ───────────────────────────────────────────────────────────────
+        var API = 'qa.php';
+        var isOwner = false;
+        var questions = [];
+
+        async function loadQ() {
+            try {
+                var r = await fetch(API + '?action=list');
+                var d = await r.json();
+                if (d.ok) { questions = d.questions; render(); }
+                else throw 0;
+            } catch(e) {
+                document.getElementById('qaList').innerHTML = '<div class="qa-loading">No questions yet &mdash; or PHP backend not connected.</div>';
+            }
+        }
+        function render() {
+            var list = document.getElementById('qaList');
+            if (!questions.length) { list.innerHTML = '<div class="qa-loading">No questions yet &mdash; be the first.</div>'; return; }
+            list.innerHTML = '';
+            questions.forEach(function(q, i) {
+                var div = document.createElement('div'); div.className = 'qa-item'; div.id = 'qi-' + i;
+                div.innerHTML = '<button class="qa-item-header" onclick="toggle(' + i + ')">'
+                    + '<span class="qa-item-q">' + q.text + '</span>'
+                    + '<span class="qa-item-meta">' + (q.name ? q.name + ' &middot; ' : '') + q.time
+                    + '<span class="qa-item-arrow">&#x25BE;</span></span></button>'
+                    + '<div class="qa-item-answer"><div class="qa-item-answer-inner ' + (q.reply ? '' : 'pending') + '">' + (q.reply || 'No reply yet.') + '</div>'
+                    + (isOwner ? '<div class="qa-reply-area visible"><textarea id="rt-' + i + '">' + (q.reply||'') + '</textarea>'
+                    + '<div class="qa-reply-row"><button class="qa-reply-post" onclick="postReply(\'' + q.id + '\',' + i + ')">Save Reply</button>'
+                    + '<button class="qa-delete-btn" onclick="deleteQ(\'' + q.id + '\')">Delete</button></div></div>' : '')
+                    + '</div>';
+                list.appendChild(div);
+            });
+        }
+        function toggle(i) { document.getElementById('qi-' + i).classList.toggle('open'); }
+        function toggleAsk() {
+            document.getElementById('askToggle').classList.toggle('open');
+            document.getElementById('askPanel').classList.toggle('open');
+        }
+        async function submitQ() {
+            var text = document.getElementById('qaText').value.trim(); if (!text) return;
+            var name = document.getElementById('qaName').value.trim();
+            try {
+                var r = await fetch(API + '?action=submit', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({text:text, name:name})});
+                var d = await r.json();
+                if (d.ok) {
+                    document.getElementById('qaText').value = '';
+                    document.getElementById('qaName').value = '';
+                    var msg = document.getElementById('sentMsg'); msg.style.display = 'block';
+                    setTimeout(function(){ msg.style.display='none'; document.getElementById('askToggle').classList.remove('open'); document.getElementById('askPanel').classList.remove('open'); }, 2000);
+                    await loadQ();
+                }
+            } catch(e) { alert('Could not submit.'); }
+        }
+        function toggleOwner() { document.getElementById('ownerPanel').classList.toggle('open'); }
+        function unlock() {
+            var k = document.getElementById('ownerKey').value;
+            var s = document.getElementById('ownerStatus');
+            if (k === 'commerzbank2025') { isOwner=true; s.textContent='✓ Unlocked'; s.style.color='#fcd202'; render(); }
+            else { s.textContent='✗ Wrong passphrase'; s.style.color='#e74c3c'; }
+        }
+        async function postReply(id, i) {
+            var reply = document.getElementById('rt-' + i).value.trim();
+            var pass  = document.getElementById('ownerKey').value;
+            try {
+                var r = await fetch(API + '?action=reply', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({id:id, reply:reply, pass:pass})});
+                var d = await r.json();
+                if (d.ok) { await loadQ(); setTimeout(function(){ document.getElementById('qi-'+i).classList.add('open'); }, 50); }
+                else alert('Error: ' + (d.error || ''));
+            } catch(e) { alert('Network error.'); }
+        }
+        async function deleteQ(id) {
+            if (!confirm('Delete?')) return;
+            var pass = document.getElementById('ownerKey').value;
+            try {
+                var r = await fetch(API + '?action=delete', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({id:id, pass:pass})});
+                var d = await r.json();
+                if (d.ok) await loadQ(); else alert('Error: ' + (d.error || ''));
+            } catch(e) { alert('Network error.'); }
+        }
+        loadQ();
+    </script>
+</body>
+</html>
