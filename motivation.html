@@ -22,7 +22,7 @@
         .back-to-top:hover { transform: translateY(-4px); background: var(--yellow-muted); }
 
         /* ── hero smaller so content below is visible ── */
-        .hero { height: 65vh; }
+        .hero { height: calc(65vh + 200px); }
 
         /* ── anchor offset for fixed header ── */
         .section-anchor {
@@ -32,7 +32,7 @@
 
         /* ── website section ── */
         .process-hero {
-            background: var(--navy); padding: 6rem 4rem 5rem;
+            background: var(--navy); padding: 3rem 4rem 3rem;
             color: var(--white); position: relative; overflow: hidden;
         }
         .process-hero::after {
@@ -63,10 +63,10 @@
 
         /* ── Q&A ── */
         .qa-section { background: var(--navy-deep); padding: 5rem 4rem; }
-        .qa-section > h2 { font-size: var(--size-lg); font-weight: 700; color: var(--white); margin-bottom: .5rem; }
-        .qa-sub { font-size: var(--size-sm); color: rgba(255,255,255,.28); margin-bottom: 3rem; letter-spacing: 1px; }
+        .qa-section > h2 { font-size: clamp(2rem,5vw,3.5rem); font-weight: 700; color: var(--white); margin-bottom: .6rem; }
+        .qa-sub { font-size: clamp(.95rem,1.5vw,1.15rem); color: rgba(255,255,255,.5); margin-bottom: 3rem; letter-spacing: .5px; font-weight: 300; }
         .qa-board { max-width: 760px; margin: 0 auto; }
-        .qa-ask-toggle { width: 100%; background: transparent; border: 1px solid rgba(252,210,2,.2); color: rgba(255,255,255,.6); padding: 1.1rem 1.5rem; font-family: 'DM Sans',sans-serif; font-size: var(--size-md); font-weight: 600; letter-spacing: .5px; text-align: left; display: flex; align-items: center; justify-content: space-between; cursor: none; transition: border-color .25s, color .25s, background .25s; }
+        .qa-ask-toggle { width: 100%; background: rgba(252,210,2,.06); border: 2px solid rgba(252,210,2,.35); color: rgba(255,255,255,.8); padding: 1.4rem 1.8rem; font-family: 'DM Sans',sans-serif; font-size: clamp(1rem,1.8vw,1.2rem); font-weight: 600; letter-spacing: .5px; text-align: left; display: flex; align-items: center; justify-content: space-between; cursor: none; transition: border-color .25s, color .25s, background .25s; }
         .qa-ask-toggle:hover,.qa-ask-toggle.open { border-color: rgba(252,210,2,.5); color: var(--yellow); background: rgba(252,210,2,.04); }
         .qa-toggle-arrow { font-size: 1.1rem; transition: transform .3s; display: inline-block; }
         .qa-ask-toggle.open .qa-toggle-arrow { transform: rotate(180deg); }
@@ -123,6 +123,44 @@
         .info-banner { background: rgba(252,210,2,.07); border: 1px solid rgba(252,210,2,.18); border-radius: 6px; padding: .9rem 1.1rem; margin-bottom: 1.4rem; font-size: .8rem; color: var(--text-mid); line-height: 1.6; }
         .info-banner strong { color: var(--navy); }
 
+
+        /* ── date badge top-right of logo ── */
+        .header-date-badge {
+            position: absolute;
+            top: 50%; right: 4rem;
+            transform: translateY(-50%);
+            font-size: var(--size-sm);
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--yellow);
+            opacity: .7;
+            pointer-events: none;
+        }
+        header { position: relative; }
+
+        /* ── plain scrollable sections (no video split) ── */
+        .plain-section {
+            background: var(--off-white);
+            padding: 5rem 4rem;
+            max-width: 100%;
+        }
+        .plain-section .section-title {
+            max-width: 800px; margin-bottom: 2.5rem;
+        }
+        .plain-section .experience-item {
+            max-width: 800px;
+        }
+
+        /* ── stack chart ── */
+        .stack-chart-wrap {
+            padding: 0 4rem 3rem;
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--off-white);
+        }
+        #stackChart { width: 100%; height: auto; }
+
         @media (max-width: 768px) {
             .process-hero,.process-steps,.tech-stack,.qa-section { padding-left: 1.5rem; padding-right: 1.5rem; }
         }
@@ -133,6 +171,7 @@
 
     <header>
         <div class="logo"><img src="logo.png" alt="Logo"></div>
+        <div class="header-date-badge">IDDP 11, 2026</div>
         <button class="menu-btn" onclick="toggleMenu()">Menu</button>
     </header>
 
@@ -157,7 +196,7 @@
         <div class="hero-content">
             <h1>Bennett <span>Bauermeister</span></h1>
             <p class="hero-subtitle">Dual Student &middot; Commerzbank AG</p>
-            <a href="#data" onclick="navTo('data')" class="hero-cta">Get all Documents</a>
+            <a href="#data" onclick="event.preventDefault();document.getElementById('data').scrollIntoView({behavior:'smooth'})" class="hero-cta">Get all Documents</a>
         </div>
         <div class="scroll-indicator"><span>Scroll</span><div class="scroll-line"></div></div>
     </section>
@@ -195,73 +234,45 @@
 
     <!-- WORK -->
     <span id="work" class="section-anchor"></span>
-    <section class="youtube-section">
-        <div class="yt-embed">
-            <div class="yt-frame-wrap">
-                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?rel=0&amp;modestbranding=1&amp;mute=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-            <p class="yt-caption">Watch while you scroll &#x2193;</p>
-            <div class="yt-timestamps">
-                <p class="ts-label">Chapters</p>
-                <div class="ts-item"><span class="ts-time">0:00</span><span class="ts-title">[ Placeholder ]</span></div>
-                <div class="ts-item"><span class="ts-time">0:00</span><span class="ts-title">[ Placeholder ]</span></div>
-                <div class="ts-item"><span class="ts-time">0:00</span><span class="ts-title">[ Placeholder ]</span></div>
-            </div>
+    <section class="plain-section">
+        <h2 class="section-title">Work Experience</h2>
+        <div class="experience-item">
+            <h3>Dual Student &ndash; Private Banking &amp; Wealth Management</h3>
+            <p><strong>Commerzbank AG &middot; Berlin, Germany &middot; 08.2023 &ndash; 09.2026</strong><br>Working alongside relationship managers for high-net-worth private clients. Focus areas: investment advisory, mortgage financing, instalment loans.</p>
         </div>
-        <div class="yt-content">
-            <h2 class="section-title visible">Work Experience</h2>
-            <div class="experience-item visible">
-                <h3>Dual Student &ndash; Private Banking &amp; Wealth Management</h3>
-                <p><strong>Commerzbank AG &middot; Berlin, Germany &middot; 08.2023 &ndash; 09.2026</strong><br>Working alongside relationship managers for high-net-worth private clients. Focus areas: investment advisory, mortgage financing, instalment loans.</p>
-            </div>
-            <div class="experience-item visible">
-                <h3>International Placement</h3>
-                <p><strong>Commerzbank AG Z&uuml;rich &middot; Zurich, Switzerland &middot; 05.2025 &ndash; 08.2025</strong><br>Rotations across Corporate Clients, Capital Markets and Risk.</p>
-            </div>
-            <div class="experience-item visible">
-                <h3>Internship &ndash; International Corporates Operating Office</h3>
-                <p><strong>Commerzbank AG &middot; Frankfurt, Germany &middot; 11.2025 &ndash; 12.2025</strong><br>Budget planning for international locations, planning of new branches, regulatory support for local units.</p>
-            </div>
+        <div class="experience-item">
+            <h3>International Placement</h3>
+            <p><strong>Commerzbank AG Z&uuml;rich &middot; Zurich, Switzerland &middot; 05.2025 &ndash; 08.2025</strong><br>Rotations across Corporate Clients, Capital Markets and Risk.</p>
+        </div>
+        <div class="experience-item">
+            <h3>Internship &ndash; International Corporates Operating Office</h3>
+            <p><strong>Commerzbank AG &middot; Frankfurt, Germany &middot; 11.2025 &ndash; 12.2025</strong><br>Budget planning for international locations, planning of new branches, regulatory support for local units.</p>
         </div>
     </section>
 
     <!-- ACADEMICS -->
     <span id="academics" class="section-anchor"></span>
-    <section class="youtube-section">
-        <div class="yt-embed">
-            <div class="yt-frame-wrap">
-                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?rel=0&amp;modestbranding=1&amp;mute=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-            <p class="yt-caption">Watch while you scroll &#x2193;</p>
-            <div class="yt-timestamps">
-                <p class="ts-label">Chapters</p>
-                <div class="ts-item"><span class="ts-time">0:00</span><span class="ts-title">[ Placeholder ]</span></div>
-                <div class="ts-item"><span class="ts-time">0:00</span><span class="ts-title">[ Placeholder ]</span></div>
-                <div class="ts-item"><span class="ts-time">0:00</span><span class="ts-title">[ Placeholder ]</span></div>
-            </div>
+    <section class="plain-section">
+        <h2 class="section-title">Academic Background</h2>
+        <div class="experience-item">
+            <h3>Master</h3>
+            <p><strong>[ University ] &middot; [ Year ]</strong><br>[ Placeholder &mdash; add your Master details here ]</p>
         </div>
-        <div class="yt-content">
-            <h2 class="section-title visible">Academic Background</h2>
-            <div class="experience-item visible">
-                <h3>Master</h3>
-                <p><strong>[ University ] &middot; [ Year ]</strong><br>[ Placeholder &mdash; add your Master details here ]</p>
-            </div>
-            <div class="experience-item visible">
-                <h3>Bachelor of Arts &ndash; Business Administration, Focus Banking</h3>
-                <p><strong>Hochschule f&uuml;r Wirtschaft und Recht Berlin &middot; 08.2023 &ndash; 09.2026</strong><br>GPA: 2.2 &middot; Courses: Securities Trading, Risk Management, Lending, Accounting (HGB), Micro- &amp; Macroeconomics, Statistics.</p>
-            </div>
-            <div class="experience-item visible">
-                <h3>Abitur</h3>
-                <p><strong>K&auml;the-Kollwitz-Gymnasium Berlin &middot; 08.2015 &ndash; 06.2023</strong><br>GPA: 2.5 &middot; Relevant coursework: Programming in Python.</p>
-            </div>
-            <div class="experience-item visible">
-                <h3>Skills &amp; Languages</h3>
-                <p>German (native) &middot; English (business fluent)<br>Python &middot; R<br>Member: Berliner B&ouml;rsenkreis e.V.</p>
-            </div>
-            <div class="experience-item visible">
-                <h3>Interests</h3>
-                <p>Chess &middot; Volleyball &middot; Football</p>
-            </div>
+        <div class="experience-item">
+            <h3>Bachelor of Arts &ndash; Business Administration, Focus Banking</h3>
+            <p><strong>Hochschule f&uuml;r Wirtschaft und Recht Berlin &middot; 08.2023 &ndash; 09.2026</strong><br>GPA: 2.2 &middot; Courses: Securities Trading, Risk Management, Lending, Accounting (HGB), Micro- &amp; Macroeconomics, Statistics.</p>
+        </div>
+        <div class="experience-item">
+            <h3>Abitur</h3>
+            <p><strong>K&auml;the-Kollwitz-Gymnasium Berlin &middot; 08.2015 &ndash; 06.2023</strong><br>GPA: 2.5 &middot; Relevant coursework: Programming in Python.</p>
+        </div>
+        <div class="experience-item">
+            <h3>Skills &amp; Languages</h3>
+            <p>German (native) &middot; English (business fluent)<br>Python &middot; R<br>Member: Berliner B&ouml;rsenkreis e.V.</p>
+        </div>
+        <div class="experience-item">
+            <h3>Interests</h3>
+            <p>Chess &middot; Volleyball &middot; Football</p>
         </div>
     </section>
 
@@ -269,35 +280,23 @@
     <span id="website" class="section-anchor"></span>
     <div style="background:var(--off-white)">
         <div class="process-hero">
-            <h1>Behind the Website</h1>
+            <h1 style="font-size:clamp(1.2rem,2.5vw,1.8rem);margin-bottom:.5rem;">Behind the Website</h1>
             <p>This portfolio wasn't bought off a template shelf. Every line of code, every design decision, every interaction was built from scratch. Here's how it came together.</p>
         </div>
         <div class="process-steps">
-            <h2>How It Was Built</h2>
+            <h2>The Website</h2>
             <div class="timeline">
                 <div class="timeline-item">
                     <p class="tl-label">Step 01</p><h3>The Idea</h3>
-                    <p>Rather than submit a standard PDF application, I decided to build a custom portfolio website specifically for this application to Commerzbank. The goal: demonstrate initiative, technical curiosity, and attention to brand detail &mdash; all qualities relevant to the role.</p>
+                    <p>Rather than submit a standard PDF application, I built a custom portfolio website for this application to Commerzbank &mdash; to demonstrate initiative, technical curiosity, and attention to brand detail.</p>
                 </div>
                 <div class="timeline-item">
-                    <p class="tl-label">Step 02</p><h3>Design Philosophy</h3>
-                    <p>The entire visual identity is built around Commerzbank's brand colours &mdash; navy (#002e3d) and yellow (#fcd202) &mdash; with DM Sans as the single typeface. Three font sizes throughout. Clean, structured, deliberate.</p>
+                    <p class="tl-label">Step 02</p><h3>Design &amp; Build</h3>
+                    <p>Built entirely in HTML, CSS and vanilla JavaScript. Visual identity uses Commerzbank's navy and yellow with DM Sans. The landing page features a two-layer canvas scratch-to-reveal interaction.</p>
                 </div>
                 <div class="timeline-item">
-                    <p class="tl-label">Step 03</p><h3>The Scratch-to-Reveal Landing</h3>
-                    <p>The landing page uses a two-layer HTML5 canvas. A solid yellow layer sits below; the photo sits on top and gets erased on interaction, revealing yellow beneath. Once enough is cleared, the welcome screen fades in.</p>
-                </div>
-                <div class="timeline-item">
-                    <p class="tl-label">Step 04</p><h3>Single Long Page</h3>
-                    <p>All content lives on one scrollable page. The menu uses anchor links to jump to each section, keeping navigation fast and intuitive without any page reloads.</p>
-                </div>
-                <div class="timeline-item">
-                    <p class="tl-label">Step 05</p><h3>Backend &amp; Hosting</h3>
-                    <p>Deployed on GitHub Pages for static content. PHP endpoints on Ionos handle file upload, listing, download and deletion &mdash; enabling document sharing without any database.</p>
-                </div>
-                <div class="timeline-item">
-                    <p class="tl-label">Step 06</p><h3>Q&amp;A</h3>
-                    <p>Questions submitted here are saved server-side and persist across visits and devices.</p>
+                    <p class="tl-label">Step 03</p><h3>Hosting &amp; Backend</h3>
+                    <p>Static content on GitHub Pages. PHP endpoints on Ionos handle document upload, download and deletion &mdash; and persist the Q&amp;A board across devices.</p>
                 </div>
             </div>
         </div>
@@ -312,9 +311,12 @@
                 <span class="pill">IntersectionObserver</span><span class="pill">CSS Custom Properties</span>
             </div>
         </div>
+        <div class="stack-chart-wrap">
+            <canvas id="stackChart" width="700" height="220"></canvas>
+        </div>
         <div class="qa-section">
             <h2>Questions</h2>
-            <p class="qa-sub">Leave a question &mdash; it's saved on the server. I'll reply directly here, visible to everyone.</p>
+            <p class="qa-sub">Leave a question &mdash; it's saved on the website and visible to everyone.</p>
             <div class="qa-board">
                 <button class="qa-ask-toggle" id="askToggle" onclick="toggleAsk()">
                     <span>Leave a question</span><span class="qa-toggle-arrow">&#x25BE;</span>
@@ -376,7 +378,7 @@
     <footer class="site-footer">
         <div class="footer-col">
             <h4>Contact</h4>
-            <a class="footer-link-row" href="mailto:bennett.bauermeister@gmail.com"><span class="flr-icon">&#x2709;</span> bennett.bauermeister@gmail.com</a>
+            <a class="footer-link-row" href="/cdn-cgi/l/email-protection#f89a9d96969d8c8cd69a998d9d8a959d918b8c9d8ab89f95999194d69b9795"><span class="flr-icon">&#x2709;</span> <span class="__cf_email__" data-cfemail="1c7e797272796868327e7d69796e7179756f68796e5c7b717d7570327f7371">[email&#160;protected]</span></a>
             <a class="footer-link-row" href="tel:+491767259235"><span class="flr-icon">&#x260E;</span> +49 176 7259 2355</a>
             <a class="footer-link-row" href="https://linkedin.com/in/bennett-bauermeister" target="_blank"><span class="flr-icon">in</span> linkedin.com/in/bennett-bauermeister</a>
             <a class="footer-link-row" href="#"><span class="flr-icon">&#x1F4CD;</span> Berlin, Germany</a>
@@ -398,8 +400,51 @@
     <!-- Back to top -->
     <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">&#x2191;</button>
 
-    <script src="script.js"></script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="script.js"></script>
     <script>
+
+        // tech stack chart
+        (function() {
+            var canvas = document.getElementById('stackChart');
+            if (!canvas) return;
+            var ctx = canvas.getContext('2d');
+            var items = [
+                { label: 'HTML / CSS', pct: 40, color: '#fcd202' },
+                { label: 'JavaScript', pct: 28, color: '#002e3d' },
+                { label: 'PHP',        pct: 14, color: '#00576e' },
+                { label: 'Canvas API', pct: 10, color: '#e8c800' },
+                { label: 'Other',      pct:  8, color: '#8a9bb0' },
+            ];
+            var W = canvas.width, H = canvas.height;
+            var barH = 28, gap = 18, startY = 20, labelW = 130;
+
+            items.forEach(function(item, i) {
+                var y = startY + i * (barH + gap);
+                var maxW = W - labelW - 60;
+                var barW = maxW * (item.pct / 100);
+
+                // label
+                ctx.fillStyle = '#3a4a5c';
+                ctx.font = '600 13px DM Sans, sans-serif';
+                ctx.textAlign = 'right';
+                ctx.fillText(item.label, labelW - 10, y + barH * .68);
+
+                // bar background
+                ctx.fillStyle = 'rgba(0,46,61,.06)';
+                ctx.fillRect(labelW, y, maxW, barH);
+
+                // bar fill
+                ctx.fillStyle = item.color;
+                ctx.fillRect(labelW, y, barW, barH);
+
+                // percentage label
+                ctx.fillStyle = '#3a4a5c';
+                ctx.font = '700 12px DM Sans, sans-serif';
+                ctx.textAlign = 'left';
+                ctx.fillText(item.pct + '%', labelW + barW + 8, y + barH * .68);
+            });
+        })();
+
         function navTo(id) {
             toggleMenu();
             setTimeout(function() {
@@ -449,8 +494,4 @@
         function toggleOwner(){document.getElementById('ownerPanel').classList.toggle('open');}
         function unlock(){var k=document.getElementById('ownerKey').value;var s=document.getElementById('ownerStatus');if(k==='commerzbank2025'){isOwner=true;s.textContent='✓ Unlocked';s.style.color='#fcd202';render();}else{s.textContent='✗ Wrong passphrase';s.style.color='#e74c3c';}}
         async function postReply(id,i){var reply=document.getElementById('rt-'+i).value.trim();var pass=document.getElementById('ownerKey').value;try{var r=await fetch(API+'?action=reply',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:id,reply:reply,pass:pass})});var d=await r.json();if(d.ok){await loadQ();setTimeout(function(){document.getElementById('qi-'+i).classList.add('open');},50);}else alert('Error: '+(d.error||''));}catch(e){alert('Network error.');}}
-        async function deleteQ(id){if(!confirm('Delete?'))return;var pass=document.getElementById('ownerKey').value;try{var r=await fetch(API+'?action=delete',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:id,pass:pass})});var d=await r.json();if(d.ok)await loadQ();else alert('Error: '+(d.error||''));}catch(e){alert('Network error.');}}
-        loadQ();
-    </script>
-</body>
-</html>
+        async function deleteQ(id){if(!confirm('Delete?'))return;var pass=document.getElementById('ownerKey').value;try{var r=await fetch(API+'?action=delete
