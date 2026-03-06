@@ -56,6 +56,8 @@
             justify-content: center;
             padding: 3rem;
             background: var(--navy-deep);
+            will-change: transform;
+            transform: translateZ(0);
         }
         .yt-frame-wrap {
             position: relative; padding-bottom: 56.25%;
@@ -84,6 +86,7 @@
             border-left: 1px solid rgba(252,210,2,.08);
             display: flex;
             flex-direction: column;
+            transform: translateZ(0);
         }
 
         /* Each content section inside scroll-right */
@@ -119,24 +122,32 @@
             margin: 0;
         }
 
+        /* stack bars */
+        .stack-bars { display: flex; flex-direction: column; gap: 1.1rem; margin-top: 1.5rem; }
+        .sb-row { display: flex; align-items: center; gap: 1rem; }
+        .sb-label { font-size: .78rem; font-weight: 700; color: rgba(255,255,255,.65); width: 90px; flex-shrink: 0; text-align: right; letter-spacing: .5px; text-transform: uppercase; }
+        .sb-track { flex: 1; background: rgba(255,255,255,.07); border-radius: 3px; height: 24px; position: relative; overflow: visible; }
+        .sb-track-bg { position: absolute; inset: 0; background: rgba(255,255,255,.07); border-radius: 3px; }
+        .sb-fill { height: 100%; border-radius: 3px; width: 0%; position: relative; z-index: 1;
+            transition: width 1.4s cubic-bezier(.22,1,.36,1); }
+        .sb-fill.glow-yellow  { background: linear-gradient(90deg,#e6b800,#fcd202,#ffe760); box-shadow: 0 0 0 transparent; }
+        .sb-fill.glow-blue    { background: linear-gradient(90deg,#007a99,#00a8cc,#00d4ff); box-shadow: 0 0 0 transparent; }
+        .sb-fill.glow-purple  { background: linear-gradient(90deg,#5c6199,#7b7fb5,#9a9fd4); box-shadow: 0 0 0 transparent; }
+        .sb-fill.glow-js      { background: linear-gradient(90deg,#c9b800,#f0db4f,#ffe87a); box-shadow: 0 0 0 transparent; }
+        .sb-fill.glow-white   { background: linear-gradient(90deg,rgba(255,255,255,.15),rgba(255,255,255,.35)); box-shadow: 0 0 0 transparent; }
+        .sb-fill.animated.glow-yellow { box-shadow: 0 0 10px rgba(252,210,2,.55), 0 0 22px rgba(252,210,2,.25); }
+        .sb-fill.animated.glow-blue   { box-shadow: 0 0 10px rgba(0,212,255,.45), 0 0 22px rgba(0,212,255,.2); }
+        .sb-fill.animated.glow-purple { box-shadow: 0 0 10px rgba(154,159,212,.45), 0 0 22px rgba(154,159,212,.2); }
+        .sb-fill.animated.glow-js     { box-shadow: 0 0 10px rgba(240,219,79,.45), 0 0 22px rgba(240,219,79,.2); }
+        .sb-fill.animated.glow-white  { box-shadow: 0 0 8px rgba(255,255,255,.2); }
+        .sb-pct { font-size: .78rem; font-weight: 800; color: rgba(255,255,255,.7); width: 40px; flex-shrink: 0; }
+
         /* pill styles */
         .pill-row { display: flex; flex-wrap: wrap; gap: .7rem; margin-bottom: 2.5rem; }
         .pill { background: rgba(255,255,255,.08); border: 1px solid rgba(252,210,2,.15); color: rgba(255,255,255,.7); padding: .5rem 1.1rem; font-size: var(--size-sm); font-weight: 600; letter-spacing: 1px; border-radius: 2px; transition: background .2s, border-color .2s; }
         .pill:hover { background: var(--yellow); border-color: var(--yellow); color: var(--navy); }
 
         /* stack bars */
-        .stack-bars { display: flex; flex-direction: column; gap: .9rem; margin-top: 1.5rem; }
-        .sb-row { display: flex; align-items: center; gap: 1rem; }
-        .sb-label { font-size: var(--size-sm); font-weight: 600; color: rgba(255,255,255,.5); width: 120px; flex-shrink: 0; text-align: right; }
-        .sb-track { flex: 1; background: rgba(255,255,255,.07); border-radius: 3px; overflow: hidden; height: 22px; }
-        .sb-fill { height: 100%; border-radius: 3px; transition: width 1.2s cubic-bezier(.4,0,.2,1), box-shadow 1.2s ease; width: 0%; }
-        .sb-fill.animated { box-shadow: 0 0 12px var(--glow, transparent), 0 0 24px var(--glow, transparent); }
-        .sb-track { position: relative; }
-        .sb-track::after { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(180deg, rgba(255,255,255,.08) 0%, transparent 60%); border-radius: 3px; pointer-events: none; }
-        .sb-row { align-items: center; }
-        .sb-label { font-size: var(--size-sm); font-weight: 700; color: rgba(255,255,255,.6); width: 90px; flex-shrink: 0; text-align: right; letter-spacing: .5px; }
-        .sb-pct { font-size: var(--size-sm); font-weight: 800; color: rgba(255,255,255,.7); width: 40px; }
-        .sb-pct { font-size: var(--size-sm); font-weight: 700; color: rgba(255,255,255,.5); width: 36px; }
 
         /* Q&A */
         .qa-section-inner > h2 { font-size: clamp(2rem,5vw,3.5rem); font-weight: 700; color: var(--white); margin-bottom: .6rem; }
@@ -279,7 +290,7 @@
         <!-- Single sticky video column -->
         <div class="sticky-video">
             <div class="yt-frame-wrap">
-                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?rel=0&modestbranding=1&mute=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?rel=0&modestbranding=1&mute=1&enablejsapi=1" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
             <p class="yt-caption">Watch while you scroll &#x2193;</p>
             <div class="yt-timestamps">
@@ -380,11 +391,11 @@
                         <span class="pill">Ionos</span>
                     </div>
                     <div class="stack-bars" id="stackBars">
-                        <div class="sb-row"><span class="sb-label">HTML</span><div class="sb-track"><div class="sb-fill" style="background:linear-gradient(90deg,#fcd202,#ffe760)" data-w="60" data-glow="#fcd202"></div></div><span class="sb-pct">60%</span></div>
-                        <div class="sb-row"><span class="sb-label">CSS</span><div class="sb-track"><div class="sb-fill" style="background:linear-gradient(90deg,#00a8cc,#00d4ff)" data-w="20" data-glow="#00d4ff"></div></div><span class="sb-pct">20%</span></div>
-                        <div class="sb-row"><span class="sb-label">PHP</span><div class="sb-track"><div class="sb-fill" style="background:linear-gradient(90deg,#7b7fb5,#9a9fd4)" data-w="10" data-glow="#9a9fd4"></div></div><span class="sb-pct">10%</span></div>
-                        <div class="sb-row"><span class="sb-label">JavaScript</span><div class="sb-track"><div class="sb-fill" style="background:linear-gradient(90deg,#f0db4f,#ffe87a)" data-w="6" data-glow="#f0db4f"></div></div><span class="sb-pct">6%</span></div>
-                        <div class="sb-row"><span class="sb-label">Other</span><div class="sb-track"><div class="sb-fill" style="background:linear-gradient(90deg,rgba(255,255,255,.25),rgba(255,255,255,.4))" data-w="4" data-glow="rgba(255,255,255,.3)"></div></div><span class="sb-pct">4%</span></div>
+                        <div class="sb-row"><span class="sb-label">HTML</span><div class="sb-track"><div class="sb-fill glow-yellow" data-w="60"></div></div><span class="sb-pct">60%</span></div>
+                        <div class="sb-row"><span class="sb-label">CSS</span><div class="sb-track"><div class="sb-fill glow-blue" data-w="20"></div></div><span class="sb-pct">20%</span></div>
+                        <div class="sb-row"><span class="sb-label">PHP</span><div class="sb-track"><div class="sb-fill glow-purple" data-w="10"></div></div><span class="sb-pct">10%</span></div>
+                        <div class="sb-row"><span class="sb-label">JavaScript</span><div class="sb-track"><div class="sb-fill glow-js" data-w="6"></div></div><span class="sb-pct">6%</span></div>
+                        <div class="sb-row"><span class="sb-label">Other</span><div class="sb-track"><div class="sb-fill glow-white" data-w="4"></div></div><span class="sb-pct">4%</span></div>
                     </div>
                 </div>
             </div>
@@ -402,7 +413,7 @@
                         <p class="dl-card-name">Application Package</p>
                         <p class="dl-card-sub">CV &middot; Certificates &middot; References</p>
                     </div>
-                    <a href="bennett_portfolio.zip" download class="dl-card-btn">&#x2193; Download ZIP</a>
+                    <a href="Bennett_IDDP.zip" download class="dl-card-btn">&#x2193; Download ZIP</a>
                 </div>
                 <div class="dl-extra" id="downloadList"></div>
             </div>
@@ -497,18 +508,23 @@
 
         // animate stack bars on scroll into view
         var barsAnimated = false;
-        new IntersectionObserver(function(entries) {
-            if (entries[0].isIntersecting && !barsAnimated) {
-                barsAnimated = true;
-                document.querySelectorAll('.sb-fill').forEach(function(b, i) {
-                    setTimeout(function() {
-                        b.style.width = b.getAttribute('data-w') + '%';
-                        var glow = b.getAttribute('data-glow');
-                        if (glow) { b.style.setProperty('--glow', glow); b.classList.add('animated'); }
-                    }, i * 120);
-                });
-            }
-        }, { threshold: 0.3 }).observe(document.getElementById('stackBars'));
+        var stackEl = document.getElementById('stackBars');
+        if (stackEl) {
+            new IntersectionObserver(function(entries) {
+                if (entries[0].isIntersecting && !barsAnimated) {
+                    barsAnimated = true;
+                    var bars = document.querySelectorAll('.sb-fill');
+                    bars.forEach(function(b, i) {
+                        setTimeout(function() {
+                            requestAnimationFrame(function() {
+                                b.style.width = b.getAttribute('data-w') + '%';
+                                b.classList.add('animated');
+                            });
+                        }, i * 150);
+                    });
+                }
+            }, { threshold: 0.2 }).observe(stackEl);
+        }
             }, { threshold: 0.1 }).observe(el);
         });
 
