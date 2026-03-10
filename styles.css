@@ -38,10 +38,11 @@ a, button, input, textarea, select { cursor: none !important; }
 .cursor {
     width: 46px; height: 46px;
     position: fixed;
+    top: 0; left: 0;
     pointer-events: none;
     z-index: 99999;
-    transform: translate(-50%,-50%);
-    transition: width .22s ease, height .22s ease, opacity .2s ease;
+    will-change: transform;
+    transition: width .18s ease, height .18s ease, opacity .2s ease;
 }
 .cursor img {
     width: 100%; height: 100%;

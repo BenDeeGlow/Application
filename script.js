@@ -1,9 +1,12 @@
-// ─── Custom Cursor ──────────────────────────────────────────
+// ─── Custom Cursor (no lag: transform instead of left/top) ───
 const cursor = document.querySelector('.cursor');
 if (cursor) {
+    let raf;
     document.addEventListener('mousemove', e => {
-        cursor.style.left = e.clientX + 'px';
-        cursor.style.top  = e.clientY + 'px';
+        if (raf) cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(() => {
+            cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`;
+        });
     });
     document.querySelectorAll('a, button, .experience-item, .academic-item, .contact-item, .download-entry')
         .forEach(el => {
