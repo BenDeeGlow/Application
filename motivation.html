@@ -208,7 +208,7 @@
         <!-- Sticky video left -->
         <div class="sticky-video">
             <div class="yt-frame-wrap">
-                <iframe src="https://www.youtube.com/embed/Plqh7zUApJw?rel=0&modestbranding=1&mute=1&enablejsapi=1" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <div id="ytPlayer"></div>
             </div>
             <p class="yt-caption">Watch while you scroll &#x2193;</p>
             <div class="yt-timestamps">
@@ -431,6 +431,36 @@
 
     <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">↑</button>
 
+    <!-- YouTube IFrame API -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script>
+        var ytPlayer;
+        function onYouTubeIframeAPIReady() {
+            ytPlayer = new YT.Player('ytPlayer', {
+                videoId: 'dQw4w9WgXcQ', // ← replace with your actual video ID
+                playerVars: {
+                    rel: 0,
+                    modestbranding: 1,
+                    enablejsapi: 1,
+                    playsinline: 1
+                },
+                events: {
+                    onReady: function(e) {
+                        // Set highest available quality
+                        e.target.setPlaybackQuality('hd1080');
+                        // Note: sound requires user interaction first — browser policy
+                        // Player is ready; user clicks play to start with sound
+                    },
+                    onStateChange: function(e) {
+                        // When playing, re-assert highest quality in case it was downgraded
+                        if (e.data === YT.PlayerState.PLAYING) {
+                            e.target.setPlaybackQuality('hd1080');
+                        }
+                    }
+                }
+            });
+        }
+    </script>
     <script src="script.js"></script>
     <script>
         // ── Navigation ──────────────────────────────────────────────────────
